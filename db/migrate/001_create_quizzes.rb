@@ -2,6 +2,12 @@ class CreateQuizzes < ActiveRecord::Migration[6.1]
   def change
     create_table :quizzes do |t|
 
+      t.belongs_to :user
+
+      t.string :variables, array: true, default: []
+      t.string :name
+      t.text :description
+
       t.timestamps
     end
   end
