@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'homepage/index'
+  root 'homepage#index'
   devise_for :users
   get 'pages/main'
   get 'pages/about'
