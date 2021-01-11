@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 4) do
     t.string "text"
     t.hstore "variable_mods"
     t.integer "next_question_order"
+    t.integer "next_question_ID"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 4) do
 
   create_table "quizzes", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.string "organisation", default: "", null: false
     t.string "variables", default: [], array: true
     t.integer "variable_initial_values", default: [], array: true
     t.string "name"

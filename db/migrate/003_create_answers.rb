@@ -7,6 +7,7 @@ class CreateAnswers < ActiveRecord::Migration[6.1]
       t.string :text
       t.hstore :variable_mods
       t.integer :next_question_order
+      t.integer :next_question_ID
 
       t.timestamps
     end

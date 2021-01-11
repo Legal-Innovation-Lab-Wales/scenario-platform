@@ -65,8 +65,10 @@ Quiz.create!(
   variables: ['health', 'stamina', 'experience', 'coin'],
   variable_initial_values: [100, 100, 0, 10],
   name: 'First test adventure quiz',
-  description: 'This is the first adventure quiz, it probably won\'t make a huge amount of sense but should have clickable options'
+  description: 'This is the first adventure quiz, it probably won\'t make a huge amount of sense but should have clickable options',
+  organisation: 'One'
 )
+
 
 # ID 1
 Question.create!(
@@ -164,7 +166,8 @@ Answer.create!(
   question_id: 1,
   text: 'North',
   variable_mods: { health: 0, stamina: 0, experience: 0, coin: 0 },
-  next_question_order: 1
+  next_question_order: 1,
+  next_question_ID: Question.find(1).quiz.questions.find_by(order: 1).id
 )
 
 Answer.create!(
@@ -172,7 +175,8 @@ Answer.create!(
   question_id: 1,
   text: 'East',
   variable_mods: { health: 0, stamina: 0, experience: 0, coin: 0 },
-  next_question_order: 2
+  next_question_order: 2,
+  next_question_ID: Question.find(1).quiz.questions.find_by(order: 2).id
 )
 
 Answer.create!(
@@ -180,7 +184,8 @@ Answer.create!(
   question_id: 1,
   text: 'West',
   variable_mods: { health: 0, stamina: 0, experience: 0, coin: 0 },
-  next_question_order: 3
+  next_question_order: 3,
+  next_question_ID: Question.find(1).quiz.questions.find_by(order: 3).id
 )
 
 # Question 2 Answers
@@ -189,7 +194,8 @@ Answer.create!(
   question_id: 2,
   text: 'Fight the bear',
   variable_mods: { health: -100, stamina: -100, experience: 0, coin: 0 },
-  next_question_order: 4
+  next_question_order: 4,
+  next_question_ID: Question.find(2).quiz.questions.find_by(order: 4).id
 )
 
 Answer.create!(
@@ -197,7 +203,8 @@ Answer.create!(
   question_id: 2,
   text: 'Run away from the bear',
   variable_mods: { health: 0, stamina: -100, experience: 10, coin: 0 },
-  next_question_order: 5
+  next_question_order: 5,
+  next_question_ID: Question.find(2).quiz.questions.find_by(order: 5).id
 )
 
 Answer.create!(
@@ -205,7 +212,8 @@ Answer.create!(
   question_id: 2,
   text: 'Befriend the bear',
   variable_mods: { health: 0, stamina: 0, experience: 50, coin: 0 },
-  next_question_order: 5
+  next_question_order: 6,
+  next_question_ID: Question.find(2).quiz.questions.find_by(order: 6).id
 )
 
 # Question 3 Answers
@@ -214,7 +222,8 @@ Answer.create!(
   question_id: 3,
   text: 'Talk loudly and slowly in English',
   variable_mods: { health: -100, stamina: 0, experience: 0, coin: -10 },
-  next_question_order: 7
+  next_question_order: 7,
+  next_question_ID: Question.find(3).quiz.questions.find_by(order: 7).id
 )
 
 Answer.create!(
@@ -222,7 +231,8 @@ Answer.create!(
   question_id: 3,
   text: 'Barter',
   variable_mods: { health: 0, stamina: 0, experience: 100, coin: 100000000 },
-  next_question_order: 8
+  next_question_order: 8,
+  next_question_ID: Question.find(3).quiz.questions.find_by(order: 8).id
 )
 
 Answer.create!(
@@ -230,7 +240,8 @@ Answer.create!(
   question_id: 3,
   text: 'Surrender',
   variable_mods: { health: 0, stamina: 0, experience: 50, coin: 0 },
-  next_question_order: 9
+  next_question_order: 9,
+  next_question_ID: Question.find(3).quiz.questions.find_by(order: 9).id
 )
 
 # Question 4 Answers
@@ -239,7 +250,8 @@ Answer.create!(
   question_id: 4,
   text: 'The wind dies down. The horizon is flat. You can\'t go anywhere. You slowly run out of resources. ',
   variable_mods: { health: -100, stamina: 0, experience: 0, coin: 0 },
-  next_question_order: 4
+  next_question_order: 4,
+  next_question_ID: Question.find(4).quiz.questions.find_by(order: 4).id
 )
 
 # Question 5 Answers
@@ -257,7 +269,8 @@ Answer.create!(
   question_id: 6,
   text: 'The bear mauls you.',
   variable_mods: { health: -100, stamina: 0, experience: 0, coin: 0 },
-  next_question_order: 4
+  next_question_order: 4,
+  next_question_ID: Question.find(6).quiz.questions.find_by(order: 4).id
 )
 
 # Question 7 Answers
@@ -307,7 +320,8 @@ Quiz.create!(
   variables: ['Knowledge', 'helpfulness', 'Compassion', 'Detail'],
   variable_initial_values: [0, 0, 0, 0],
   name: 'Quiz on retail secret shoppers',
-  description: 'This is the quiz to test employees through online secret shoppers'
+  description: 'This is the quiz to test employees through online secret shoppers',
+  organisation: 'One'
 )
 #ID 11
 Question.create!(
@@ -387,84 +401,96 @@ Answer.create!(
   question_id: 11,
   text: 'Wait patiently until they approach',
   variable_mods: { Knowledge: 0, helpfulness: 0, Compassion: 0, Detail: 0 },
-  next_question_order: 2
+  next_question_order: 2,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 2).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'finish your current task and ignore the customer',
   variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: -1, Detail: 0 },
-  next_question_order: 3
+  next_question_order: 3,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 3).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'Approach the customer with a compliment and a hello',
   variable_mods: { Knowledge: 0, helpfulness: 0, Compassion: 2, Detail: 0 },
-  next_question_order: 1
+  next_question_order: 1,
+  next_question_ID: Question.find(3).quiz.questions.find_by(order: 7).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You know it isn\'t in stock so you reply "sorry, we don\'t stock that item"',
   variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: 0, Detail: 0 },
-  next_question_order: 4
+  next_question_order: 4,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 4).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You know it isn\'t in stock but you offer some stores nearby',
   variable_mods: { Knowledge: 0, helpfulness: 1, Compassion: -1, Detail: 0 },
-  next_question_order: 6
+  next_question_order: 6,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 6).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You know it isn\'t in stock but you offer a apologise, and an offer to call when it next comes in stock',
   variable_mods: { Knowledge: 0, helpfulness: 0, Compassion: 2, Detail: 0 },
-  next_question_order: 5
+  next_question_order: 5,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 5).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: '"sorry, but that\'s not much I can do"',
   variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: -1, Detail: 0 },
-  next_question_order: 7
+  next_question_order: 7,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 7).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You offer some apologies and offer some similar products in stock',
   variable_mods: { Knowledge: 2, helpfulness: 1, Compassion: 0, Detail: 0 },
-  next_question_order: 6
+  next_question_order: 6,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 6).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You shrug your shoulders and reply "Not much I can do if it isn\'t here"',
   variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: -2, Detail: 0 },
-  next_question_order: 7
+  next_question_order: 7,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 7).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You refuse to give it "I don\'t have to do that"',
   variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: -2, Detail: 0 },
-  next_question_order: 8
+  next_question_order: 8,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 8).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You apologise and offer some resolution of similar products and some details of when next stock comes in"',
   variable_mods: { Knowledge: 1, helpfulness: 1, Compassion: 1, Detail: 0 },
-  next_question_order: 8
+  next_question_order: 8,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 8).id
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
-  text: 'You offer your name"',
+  text: 'You offer your name',
   variable_mods: { Knowledge: 0, helpfulness: 0, Compassion: 0, Detail: 0 },
-  next_question_order: 8
+  next_question_order: 8,
+  next_question_ID: Question.find(11).quiz.questions.find_by(order: 8).id
 )
 
 
