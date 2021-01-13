@@ -17,7 +17,7 @@ user = User.new(
   email: 'philr@purpleriver.dev',
   bio: 'Hello World',
   organisation: 'One',
-  admin: TRUE,
+  admin: false,
   password: 'test1234'
 )
 user.skip_confirmation!
@@ -29,7 +29,7 @@ user = User.new(
   email: 'awing@purpleriver.dev',
   bio: 'Hello World',
   organisation: 'One',
-  admin: TRUE,
+  admin: true,
   password: 'test1234'
 )
 user.skip_confirmation!
@@ -66,7 +66,7 @@ Quiz.create!(
   variable_initial_values: [100, 100, 0, 10],
   name: 'First test adventure quiz',
   description: 'This is the first adventure quiz, it probably won\'t make a huge amount of sense but should have clickable options',
-  available: TRUE,
+  available: false,
   organisation: 'One'
 )
 
@@ -306,7 +306,7 @@ Quiz.create!(
   variable_initial_values: [0, 0, 0, 0],
   name: 'Quiz on retail secret shoppers',
   description: 'This is the quiz to test employees through online secret shoppers',
-  available: TRUE,
+  available: true,
   organisation: 'One'
 )
 # ID 11
