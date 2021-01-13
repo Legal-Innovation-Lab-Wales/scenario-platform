@@ -66,6 +66,7 @@ Quiz.create!(
   variable_initial_values: [100, 100, 0, 10],
   name: 'First test adventure quiz',
   description: 'This is the first adventure quiz, it probably won\'t make a huge amount of sense but should have clickable options',
+  available: TRUE,
   organisation: 'One'
 )
 
@@ -310,6 +311,7 @@ Quiz.create!(
   variable_initial_values: [0, 0, 0, 0],
   name: 'Quiz on retail secret shoppers',
   description: 'This is the quiz to test employees through online secret shoppers',
+  available: TRUE,
   organisation: 'One'
 )
 #ID 11
