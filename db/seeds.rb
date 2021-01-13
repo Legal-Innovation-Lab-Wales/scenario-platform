@@ -17,7 +17,7 @@ user = User.new(
   email: 'philr@purpleriver.dev',
   bio: 'Hello World',
   organisation: 'One',
-  admin: false,
+  admin: true,
   password: 'test1234'
 )
 user.skip_confirmation!
