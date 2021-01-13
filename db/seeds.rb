@@ -161,7 +161,7 @@ Question.create!(
   text: 'View your Scores.'
 )
 
-#Question 1 Answers
+# Question 1 Answers
 Answer.create!(
   user_id: 1,
   question_id: 1,
@@ -299,12 +299,7 @@ Answer.create!(
   next_question_order: -1
 )
 
-
-## Quiz 2
-#
-
-## Create example quizzes
-# First Quiz
+# Second Quiz
 Quiz.create!(
   user_id: 1,
   variables: ['Knowledge', 'helpfulness', 'Compassion', 'Detail'],
@@ -314,7 +309,7 @@ Quiz.create!(
   available: TRUE,
   organisation: 'One'
 )
-#ID 11
+# ID 11
 Question.create!(
   user_id: 1,
   quiz_id: 2,
@@ -322,7 +317,7 @@ Question.create!(
   description: 'The customer walks into the store and browses around the counters, what do you do?',
   text: 'What do you do?'
 )
-#ID 12
+# ID 12
 Question.create!(
   user_id: 1,
   quiz_id: 2,
@@ -330,7 +325,7 @@ Question.create!(
   description: 'The customer speaks up and says "Why thank you, I\'m looking for this specific series item, do you keep it in stock?',
   text: 'What do you do?'
 )
-#ID 13
+# ID 13
 Question.create!(
   user_id: 1,
   quiz_id: 2,
@@ -338,7 +333,7 @@ Question.create!(
   description: 'The customer speaks up and says "uh.. hello?, I\'m looking for this specific series item, do you keep it in stock?',
   text: 'What do you do?'
 )
-#ID 14
+# ID 14
 Question.create!(
   user_id: 1,
   quiz_id: 2,
@@ -346,7 +341,7 @@ Question.create!(
   description: 'The customer lets out an annoyed sigh and tries to wave for your attention "Hello, I\'m looking for a series item, do you have it?"',
   text: 'What do you do?'
 )
-#ID 15
+# ID 15
 Question.create!(
   user_id: 1,
   quiz_id: 2,
@@ -354,7 +349,7 @@ Question.create!(
   description: 'The customer shakes their head "Is this all you can do?"',
   text: 'what do you do?'
 )
-#ID 16
+# ID 16
 Question.create!(
   user_id: 1,
   quiz_id: 2,
@@ -362,7 +357,7 @@ Question.create!(
   description: 'The customer smiles back and seems pleased with your reply, taking down their email and walks out satisfied',
   text: 'view your score'
 )
-#ID 17
+# ID 17
 Question.create!(
   user_id: 1,
   quiz_id: 2,
@@ -370,7 +365,7 @@ Question.create!(
   description: 'The customer smiles back but lets out a little annoyed sign as they leave, that could have been a sale',
   text: 'view your score'
 )
-#ID 18
+# ID 18
 Question.create!(
   user_id: 1,
   quiz_id: 2,
@@ -378,7 +373,7 @@ Question.create!(
   description: 'The customer demands your name',
   text: 'what do you do?'
 )
-#ID 19
+# ID 19
 Question.create!(
   user_id: 1,
   quiz_id: 2,
