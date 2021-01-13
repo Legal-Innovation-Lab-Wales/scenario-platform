@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 4) do
     t.string "variables", default: [], array: true
     t.integer "variable_initial_values", default: [], array: true
     t.string "name"
+    t.boolean "available", default: false
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
