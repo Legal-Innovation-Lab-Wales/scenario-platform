@@ -1,13 +1,8 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:main, :about]
-  before_action :set_user, only: :user_profile
+  skip_before_action :authenticate_user!, only: [:main]
 
   def main
+    render template: "pages/main"
   end
 
-  def about
-  end
-
-  def user_profile
-  end
 end
