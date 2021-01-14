@@ -9,5 +9,8 @@ class CreateQuestions < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    # ensure that two questions in the same quiz can't have the same position in the order
+    add_index :questions, [:quiz_id, :order], unique: true
   end
 end

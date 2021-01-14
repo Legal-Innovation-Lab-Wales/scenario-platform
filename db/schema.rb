@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 4) do
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
-    t.bigint "question_id", null: false
     t.bigint "user_id", null: false
+    t.bigint "question_id", null: false
     t.string "text"
     t.hstore "variable_mods"
     t.integer "next_question_order"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 4) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["quiz_id", "order"], name: "index_questions_on_quiz_id_and_order", unique: true
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
@@ -55,8 +56,11 @@ ActiveRecord::Schema.define(version: 4) do
 
   create_table "quizzes", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.string "organisation", default: "", null: false
     t.string "variables", default: [], array: true
+    t.integer "variable_initial_values", default: [], array: true
     t.string "name"
+    t.boolean "available", default: false
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
