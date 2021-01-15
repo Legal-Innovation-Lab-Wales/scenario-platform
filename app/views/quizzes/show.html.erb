@@ -1,0 +1,11 @@
+<h1>Quiz</h1>
+<h2> <%= @quiz.name %> </h2>
+<p> <%= @quiz.description %> </p>
+
+<% @quiz.questions.each do |question| %>
+  <h3><%= question.description %></h3>
+  <h4><%= question.text %></h4>
+  <% question.answers.each do |answer| %>
+    <li><%= answer.text %></li>
+  <% end %>
+<% end %>

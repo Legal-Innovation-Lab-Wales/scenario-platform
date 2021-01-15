@@ -8,7 +8,7 @@ class CreateQuizzes < ActiveRecord::Migration[6.1]
       t.string :variables, array: true, default: []
       t.integer :variable_initial_values, array: true, default: []
       t.string :name
-      t.boolean :available, default: FALSE
+      t.boolean :available, default: false
       t.text :description
 
       t.timestamps
