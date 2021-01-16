@@ -2,6 +2,8 @@
 <h2> <%= @quiz.name %> </h2>
 <p> <%= @quiz.description %> </p>
 
+<h3><%= link_to "Start Quiz", question_path(@quiz.questions.find_by(order: 0)) %></h3>
+
 <% @quiz.questions.each do |question| %>
   <h3><%= question.description %></h3>
   <h4><%= question.text %></h4>
