@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   root 'pages#main'
   get '/app', to: 'pages#app', as: 'app'
+  get '/edit', to: 'registrations#edit', as: 'edit'
   
   resources :quizzes
   #get '/quizzes', to: 'quizzes#index'
