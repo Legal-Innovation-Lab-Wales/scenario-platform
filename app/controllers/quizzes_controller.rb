@@ -1,7 +1,9 @@
+# app/controllers/quizzes_controller.rb
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: [:show]
+  before_action :set_quiz, only: [:show, :update]
   before_action :require_admin, only: [:new, :create, :edit, :update]
 
+  # GET /quizzes
   def index
     @quizzes = if current_user.admin?
                  Quiz.where(organisation: current_user.organisation)
@@ -15,9 +17,9 @@ class QuizzesController < ApplicationController
     end
   end
 
+  # GET /quizzes/:id
   def show
     @quiz
-
     respond_to do |format|
       format.html
       # TODO Improve this query
@@ -26,28 +28,36 @@ class QuizzesController < ApplicationController
     end
   end
 
+  # GET /quizzes/new
   def new
     @quiz = Quiz.new
   end
 
+  # POST /quizzes
   def create
     if (@quiz = current_user.quizzes.create!(quiz_params))
       respond_to do |format|
         format.html redirect_to(@quiz)
         format.json { render json: @quiz.as_json }
       end
+    else
+      render @quiz.errors, status: :unprocessable_entity
     end
   end
 
+  # GET /quizzes/:id/edit
   def edit
     @quiz = Quiz.find(params[:id])
   end
 
+  # PUT /quizzes/:id
   def update
-
+    if @quiz.update(quiz_params)
+      render json: @quiz
+    else
+      render @quiz.errors, status: :unprocessable_entity
+    end
   end
-
-
 
   private
 
@@ -64,8 +74,7 @@ class QuizzesController < ApplicationController
   end
 
   def quiz_params
-    #whitelist params
+    # whitelist params
     params.require(:quiz).permit(:variables, :variable_initial_values, :name, :available, :description)
   end
-
 end
