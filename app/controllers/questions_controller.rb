@@ -1,7 +1,7 @@
 # app/controllers/questions_controller.rb
 class QuestionsController < ApplicationController
   before_action :set_quiz
-  before_action :set_question
+  before_action :set_question, except: [:new, :create]
   before_action :require_admin, only: [:new, :create, :edit, :update]
 
   # GET /quizzes/:quiz_id/questions/:id
@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
 
   # GET /quizzes/:quiz_id/questions/new
   def new
-    @quiz = Quiz.new
+    @question = Question.new
   end
 
   # POST /quizzes/:quiz_id/questions
