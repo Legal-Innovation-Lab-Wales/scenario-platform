@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 4) do
     t.string "text"
     t.hstore "variable_mods"
     t.integer "next_question_order"
-    t.integer "next_question_ID"
+    t.integer "next_question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_answers_on_question_id"

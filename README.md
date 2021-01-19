@@ -1,24 +1,39 @@
-# README
+# Legal Innovation Lab Wales
+### Lab Quiz Platform
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repository holds the online quiz platform for unitlisation in projects.
 
-Things you may want to cover:
+The core technologies used for this project are:
+* Ruby. With Rails webpacker 4.3.0, 
 
-* Ruby version
+* React. 17.0.1, React router & Bootstrap for styling the front end components
 
-* System dependencies
+* HTML, CSS + JS. All HTML, CSS and JS
 
-* Configuration
 
-* Database creation
+---
 
-* Database initialization
+### Running Application
 
-* How to run the test suite
+Check the package.json for dependencies
 
-* Services (job queues, cache servers, search engines, etc.)
+Build the application from the project root folder
 
-* Deployment instructions
+``bundle install``
 
+Run the application
+
+``rails -s``
+
+You might have to 
+
+``but you might have to run:
+rails db:drop
+rails db:create
+rails db:migrate
+rails db:seed``
+
+You should now be able view the main web page at 
+
+``http://localhost:3000``
 * ...
