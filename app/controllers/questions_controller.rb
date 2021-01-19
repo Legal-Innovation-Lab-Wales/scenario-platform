@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   before_action :set_question
   before_action :require_admin, only: [:new, :create, :edit, :update]
 
-  # GET /quizzes/:id/questions/:id
+  # GET /quizzes/:quiz_id/questions/:id
   def show
     @question
 
@@ -15,12 +15,12 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # GET /quizzes/:id/questions/new
+  # GET /quizzes/:quiz_id/questions/new
   def new
     @quiz = Quiz.new
   end
 
-  # POST /quizzes/:id/questions
+  # POST /quizzes/:quiz_id/questions
   def create
     if (@question = current_user.questions.create!(question_params))
       respond_to do |format|
@@ -28,16 +28,16 @@ class QuestionsController < ApplicationController
         format.json { json_response(@question, :created) }
       end
     else
-      render @quiz.errors, status: :unprocessable_entity
+      render @question.errors, status: :unprocessable_entity
     end
   end
 
-  # GET /quizzes/:id/questions/:id/edit
+  # GET /quizzes/:quiz_id/questions/:id/edit
   def edit
     @question
   end
 
-  # PUT /quizzes/:id/questions/:id
+  # PUT /quizzes/:quiz_id/questions/:id
   def update
     if @question.update(question_params)
       respond_to do |format|
@@ -49,7 +49,7 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # DELETE /quizzes/:id/questions/:id
+  # DELETE /quizzes/:quiz_id/questions/:id
   def destroy
     @question.destroy
   end
@@ -58,9 +58,9 @@ class QuestionsController < ApplicationController
 
   def set_quiz
     @quiz = if current_user.admin?
-              Quiz.where(organisation: current_user.organisation).find(params[:id])
+              Quiz.where(organisation: current_user.organisation).find(params[:quiz_id])
             else
-              Quiz.where(organisation: current_user.organisation).where(available: true).find(params[:id])
+              Quiz.where(organisation: current_user.organisation).where(available: true).find(params[:quiz_id])
             end
   end
 
