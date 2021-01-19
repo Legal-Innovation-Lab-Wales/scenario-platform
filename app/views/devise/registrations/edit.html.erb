@@ -27,14 +27,10 @@
           <%= f.label :organisation %><br/>
           <%= f.text_field :organisation, autofocus: true, autocomplete: "organisation" %>
         </div>
-
-
         <div class="field">
           <%= f.label :email %><br/>
           <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
         </div>
-
-
 
         <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
