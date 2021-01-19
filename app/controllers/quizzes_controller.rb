@@ -38,7 +38,7 @@ class QuizzesController < ApplicationController
     if (@quiz = current_user.quizzes.create!(quiz_params))
       respond_to do |format|
         format.html redirect_to(@quiz)
-        format.json { render json: @quiz.as_json }
+        format.json { json_response(@quiz, :created) }
       end
     else
       render @quiz.errors, status: :unprocessable_entity
