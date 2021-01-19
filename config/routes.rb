@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   resources :quizzes
   #get '/quizzes', to: 'quizzes#index'
 
+  namespace :admin do
+  resources :users
+end
+
 end
