@@ -1,4 +1,9 @@
-<h2>Resend unlock instructions</h2>
+<section id="cover" class="min-vh-100">
+  <div class="vs-form">
+    <div class="row text-white">
+      <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
+        <h1>Resend unlock instructions</h1>
+      </div>
 
 <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -14,3 +19,4 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+</section>

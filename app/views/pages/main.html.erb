@@ -1,6 +1,12 @@
-<h1>The landing page</h1>
-<p>Find me in app/views/pages/main.html.erb</p>
-<nav style="text-align: right">
+<section id="cover" class="min-vh-100">
+	<div class="vs-form">
+		<div class="row text-white">
+      <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
+        <h1>Quiz Tool</h1>
+      </div>
+
+<p>An Application written by the legal innovation lab for developing custom quizzes</p>
+<nav style="text-align: center;">
 <% if user_signed_in? %>
     <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
     <%= link_to('Edit Profile', edit_user_registration_path) %>
@@ -10,4 +16,5 @@
   <% end %>
 </nav>
 <p>If you're logged in, check out <%= link_to "the app", app_path %>!</p>
-<p> You can also <%= link_to "edit your profile", app_path %>!</p>
+</div>
+</section>
