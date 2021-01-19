@@ -1,0 +1,15 @@
+<h1> Question </h1>
+
+<h2> <%= @question.description %> </h2>
+<h2> <%= @question.text %> </h2>
+
+<div>
+  <% @question.answers.each do |answer| %>
+  <a href="<%= question_path(answer.next_question_id) if answer.next_question_id.present? %>">
+    <div>
+      <p> <%= answer.text %> </p>
+    </div>
+  </a>
+  <% end %>
+
+</div>

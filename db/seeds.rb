@@ -248,7 +248,7 @@ Answer.create!(
 # Question 5 Answers
 Answer.create!(
   user_id: 1,
-  question_id: 6,
+  question_id: 5,
   text: 'How did I do?',
   variable_mods: { health: 0, stamina: 0, experience: 0, coin: 0 },
   next_question_order: -1

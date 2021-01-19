@@ -1,6 +1,6 @@
 class Quiz < ApplicationRecord
   belongs_to :user
-  has_many :questions
+  has_many :questions, dependent: :destroy, foreign_key: :quiz_id
 
   before_create :add_org_to_quiz
 

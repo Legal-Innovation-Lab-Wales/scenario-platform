@@ -5,6 +5,6 @@ FactoryBot.define do
     text { "MyString" }
     variable_mods { "" }
     next_question_order { 1 }
-    next_question_ID { 1 }
+    next_question_id { 1 }
   end
 end
