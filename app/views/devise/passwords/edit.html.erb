@@ -1,4 +1,9 @@
-<h2>Change your password</h2>
+<section id="cover" class="min-vh-100">
+  <div class="vs-form">
+    <div class="row text-white">
+      <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
+        <h1>Change your password</h1>
+      </div>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
@@ -21,5 +26,8 @@
     <%= f.submit "Change my password" %>
   </div>
 <% end %>
+</div>
+</div>
+</section>
 
 <%= render "devise/shared/links" %>
