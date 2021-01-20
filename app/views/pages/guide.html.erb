@@ -1,13 +1,10 @@
 <section id="cover" class="min-vh-100">
-	<div class=<"scenario-guide">
+	<div class="scenario-guide">
     <div class="row text-white">
       <div class="col-xl-75 col-lg-78 col-md-86 col-sm-45 mx-auto text-center form p-14">
         <h1>Scenario Guide</h1>
       </div>
 
- <h4>A walkthrough for constructing scenarios that will make use of the capabilities of the in-development Quiz Tool. </h4>
-<p>For a more technical understanding of the planned database structure please see this entity relationship diagram. As this project is at a very early stage in development, everything is still subject to change, however the core of the content is likely to remain the same and we will make efforts to ensure compatibility. </p>
-<h4>Quiz </h4>
 <p>The Quiz is the overall parent structure for the scenario, it will need a name and a description. This description should be used to talk about the scenario and provide an introduction. <p> 
 <p>The quiz will also need a set of global variables which will be influenced by the participants chosen answers, there is no limit to how many there can be, but generally it's better to try and keep things as simple as possible. For example, these could contain values to represent how a character is feeling such as anger, fear, happiness, trust, and patience. All of these could be influenced in different ways by a participant’s chosen answers. Another example could be to represent stats relating to the participant such as health, strength, stamina, hunger, thirst and so on. </p>
 <h4>Question </h4>
@@ -16,33 +13,24 @@
 Each question will also hold a reference number. This is used to uniquely identify questions within the flow of the scenario. Based on the participants previous answer, there will be a corresponding follow up question reference number to link to. This enables branching off and a more interactive experience where participants are lead them down different paths so the order of which they encounter the questions will likely be different for each user. </p>
 <p>Depending on the scenario you are building, there could be one or many final questions which act as the outcome of the scenario. These will be displayed with the final variable scores. Please give the order number for this as “End” </p>
 <h4>Answer </h4>
-Each question can have as many answer choices as required.  
+<p>Each question can have as many answer choices as required.  
 Each answer needs three things: 
 some text to describe the choice,  
 the changes to any variables as a consequence of selecting the answer, 
 what the next question in the order will be. 
 Reference number of next question 
-The variable changes and the next question in the order will not be visible to the participant 
+The variable changes and the next question in the order will not be visible to the participant </p>
  
  
-Example 
+<p>Example:
  
 You have a 10.00 am appointment. At 10.00 am, there is a knock at the door while you are working on a different case file. You respond by: 
  
 Ignoring the person at the door until you have finished the work you are doing (No change to any of the barometers) [Question 1a] 
 Answering the door, explaining that you are finishing up another case, and telling them that you will be with them at 10.15 am (No change to any of the barometers) [Question 2] 
 Calling out to come in (Fear rises by 1 point) [Question 2] 
-Answering the door and asking them to come in (No change to any of the barometers) [Question 2] 
- 
-1a. After 3 minutes there is a stronger knock at the door. You still haven’t finished the work that you were previously doing. You respond by: 
-Answering the door, apologising for not answering the first time, and telling them that you will be with them at 10.15 am (Trust decreases by 2 points, understanding decreases by 1 point. Anger rises by 1 point.)[Question 2] 
-Answering the door, apologising for not answering the first time, and asking them to come in. (Trust and Understanding decrease by 1 point. Anger rises by 1 point) [Question 2] 
-Ignoring the person at the door until you have finished the work you are doing (No change to any of the barometers)[Question 1ac] 
-Calling out that you are busy and will be with them at 10.15 am (No change to any of the barometers)[Question 1ac] 
- 
-1(a)(c). You finish up your work by 10.10am. You go out into your office and see the client is putting their coat on.  
-“Where are you going. We have an appointment.” (Anger increases by 10 points- Client storms out)[Question end] 
-“I’m sorry I was late. Please come in so that we can talk about how we can help you today. (No change to any of the barometers)[Question 1acd] 
+Answering the door and asking them to come in (No change to any of the barometers)</p>
+
 </p>
 </p>
 </div>
