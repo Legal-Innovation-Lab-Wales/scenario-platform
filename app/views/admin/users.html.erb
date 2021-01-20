@@ -3,7 +3,7 @@
     <div class="row text-white">
       <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
         <h1>Quiz Tool</h1>
-        <h2> Admin Page </h2>
+        <h4> Admin Page </h4>
       </div>
 
       <p>An Application written by the legal innovation lab for developing custom quizzes</p>
@@ -17,7 +17,29 @@
         <% end %>
       </nav>
       <p>If you're logged in, check out <%= link_to "the app", app_path %>!</p>
-      <p>You can also edit users here </p>
+
+
+      <h4>User Table</h4>
+  <table>
+  <tr>
+  <td width="80%"><p align="center"><i><b>First Names</b></i></td> 
+   <td width="25%"><p align="center"><i><b>Last Names</b></i></td>
+    <td width="20%"><p align="center"><i><b>Organisation</b></i></td>
+      <td width="20%"><p align="center"><i><b>Email</b></i></td>
+  </tr>
+
+   
+  <% @users.each do |user| %>
+  <tr>
+  <td><%=  user.first_name %></td>
+  <td><%=  user.last_name %></td>
+  <td><%=  user.organisation %></td>
+  <td><%=  user.email %></td>
+  </tr>
+  <% end %> 
+  </table>
+ </body> 
+</html>
     </div>
   </div>
 </section>

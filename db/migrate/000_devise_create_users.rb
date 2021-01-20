@@ -55,4 +55,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
     add_index :users, :bio,                  unique: false
     # add_index :users, :unlock_token,         unique: true
   end
+
+  def list 
+    @users = users.all 
+end
 end
