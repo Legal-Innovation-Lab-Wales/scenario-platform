@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  get 'homepage/index'
-  root 'homepage#index'
-  devise_for :users
-  get 'pages/main'
-  get 'pages/about'
-  get 'pages/user_profile'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  root 'pages#main'
+  get '/app', to: 'pages#app', as: 'app'
+
+  devise_for :users
+
+  namespace :admin do
+    resources :users
+  end
 
   resources :quizzes do
     resources :questions do
