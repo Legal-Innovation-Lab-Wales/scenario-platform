@@ -1,9 +1,10 @@
+# spec/factories/questions.rb
 FactoryBot.define do
   factory :question do
-    quiz { 1 }
-    user { 1 }
+    quiz { create(:quiz) }
+    user { create(:user) }
     order { 1 }
-    text { "MyString" }
-    description { "MyString" }
+    text { 'MyString' }
+    description { 'MyString' }
   end
 end

@@ -1,11 +1,11 @@
 # spec/factories/users.rb
 FactoryBot.define do
   factory :user do
-    email { 'test@test.com' }
+    email { Faker::Internet.email }
     password { 'test1234' }
     organisation { 'One' }
-    first_name { 'Test' }
-    last_name { 'Test' }
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
 
     trait :admin do
       admin { true }
