@@ -3,7 +3,7 @@ FactoryBot.define do
   factory :question do
     quiz { create(:quiz) }
     user { create(:user) }
-    order { 1 }
+    sequence(:order)
     text { 'MyString' }
     description { 'MyString' }
   end

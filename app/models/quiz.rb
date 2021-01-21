@@ -12,6 +12,6 @@ class Quiz < ApplicationRecord
   end
 
   # validations
-  validates_presence_of :user_id, :organisation, :variables, :variable_initial_values, :name, :description, :available
+  validates_presence_of :user_id, :organisation, :variables, :variable_initial_values, :name, :description
 
 end

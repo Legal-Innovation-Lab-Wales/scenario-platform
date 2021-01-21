@@ -2,6 +2,10 @@
 require 'spec_helper'
 
 ENV['RAILS_ENV'] ||= 'test'
+
+# require database cleaner at the top level
+require 'database_cleaner'
+
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
@@ -79,6 +83,22 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   # For Devise > 4.1.1
-  config.include Devise::Test::ControllerHelpers, :type => :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :request
 
+  # start by truncating all the tables but then use the faster transaction strategy the rest of the time.
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  # start the transaction strategy as examples are run
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+
+  # include JSON helper
+  config.include RequestSpecHelper, type: :request
 end

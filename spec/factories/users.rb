@@ -3,9 +3,11 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     password { 'test1234' }
+    password_confirmation { 'test1234' }
     organisation { 'One' }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
+    confirmed_at { Date.today }
 
     trait :admin do
       admin { true }
