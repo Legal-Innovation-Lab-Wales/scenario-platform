@@ -15,7 +15,6 @@ RSpec.describe Answer, type: :model do
     let(:answer) { create(:answer) }
 
     it 'updates the next question id' do
-      puts(answer.next_question_id)
       expect answer.next_question_id.present?
     end
   end

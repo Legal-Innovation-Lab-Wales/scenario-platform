@@ -1,3 +1,4 @@
+# spec/requests/pages_request_spec.rb
 require 'rails_helper'
 
 RSpec.describe "Pages", type: :request do
@@ -9,16 +10,9 @@ RSpec.describe "Pages", type: :request do
     end
   end
 
-  describe "GET /about" do
+  describe "GET /guide" do
     it "returns http success" do
-      get "/pages/about"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET /user_profile" do
-    it "returns http success" do
-      get "/pages/user_profile"
+      get "/pages/guide"
       expect(response).to have_http_status(:success)
     end
   end
