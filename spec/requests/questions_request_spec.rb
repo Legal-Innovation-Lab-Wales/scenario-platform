@@ -26,7 +26,6 @@ RSpec.describe 'Questions', type: :request do
         expect(json).not_to be_empty
         expect(json.size).to eq(10)
       end
-
     end
 
     context 'GET /quizzes/:quiz_id/questions/:id' do
@@ -57,11 +56,6 @@ RSpec.describe 'Questions', type: :request do
         # end
       end
 
-
-
     end
-
   end
-
-
 end

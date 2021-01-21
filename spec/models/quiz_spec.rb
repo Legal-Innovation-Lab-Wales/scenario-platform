@@ -18,7 +18,6 @@ RSpec.describe Quiz, type: :model do
   it { should validate_presence_of(:variable_initial_values) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
-  it { should validate_presence_of(:available) }
 
   context 'when creating a quiz' do
     let(:quiz) { create(:quiz) }

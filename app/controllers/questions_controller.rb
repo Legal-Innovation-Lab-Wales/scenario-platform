@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
     @questions = Question.all.where(quiz_id: @quiz.id)
     respond_to do |format|
       format.html
-      # TODO Improve this query
+      # TODO: Improve this query
       format.json { render json: @questions.as_json(include: :answers), status: :ok }
     end
   end
@@ -20,8 +20,8 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       format.html
-      # TODO Improve this query
-      format.json { render json: @question.as_json( include: :answers ), status: :ok }
+      # TODO: Improve this query
+      format.json { render json: @question.as_json(include: :answers), status: :ok }
     end
   end
 
