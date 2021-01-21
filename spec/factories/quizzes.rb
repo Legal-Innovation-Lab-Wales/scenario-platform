@@ -1,7 +1,12 @@
+# spec/factories/quizzes.rb
 FactoryBot.define do
   factory :quiz do
-    variables { "MyString" }
-    name { "MyString" }
-    description { "MyText" }
+    user { 1 }
+    name { 'MyString' }
+    description { 'MyText' }
+    variables { ['health', 'stamina', 'experience', 'coin'] }
+    variable_initial_values { [100, 100, 0, 10] }
+    available { true }
+    organisation { 'One' }
   end
 end
