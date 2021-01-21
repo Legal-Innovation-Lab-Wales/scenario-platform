@@ -1,3 +1,4 @@
+# db/migrate/001_create_quizzes.rb
 class CreateQuizzes < ActiveRecord::Migration[6.1]
   def change
     create_table :quizzes do |t|
