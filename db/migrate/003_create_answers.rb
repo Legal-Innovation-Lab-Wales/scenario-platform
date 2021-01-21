@@ -1,3 +1,4 @@
+# db/migrate/003_create_answers.rb
 class CreateAnswers < ActiveRecord::Migration[6.1]
   def change
     enable_extension 'hstore' unless extension_enabled?('hstore')

@@ -1,3 +1,4 @@
+# app/controllers/answers_controller.rb
 class AnswersController < ApplicationController
   before_action :set_question
   before_action :set_answer, only: [:edit, :update, :destroy]
