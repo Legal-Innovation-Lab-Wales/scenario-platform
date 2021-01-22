@@ -7,16 +7,14 @@ module ExceptionHandler
     rescue_from ActiveRecord::RecordNotFound do |e|
       respond_to do |format|
         format.html
-        # TODO Improve this query
-        format.json { render json: e.message, status: :not_found }
+        format.json { json_response({ message: e.message }, :not_found) }
       end
     end
 
     rescue_from ActiveRecord::RecordInvalid do |e|
       respond_to do |format|
         format.html
-        # TODO Improve this query
-        format.json { render json: e.message, status: :unprocessable_entity }
+        format.json { json_response({ message: e.message }, :unprocessable_entity) }
       end
     end
   end

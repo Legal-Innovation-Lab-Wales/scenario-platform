@@ -1,8 +1,8 @@
 # app/controllers/questions_controller.rb
 class QuestionsController < ApplicationController
   before_action :set_quiz
-  before_action :set_question, except: [:new, :create, :index]
-  before_action :require_admin, only: [:new, :create, :edit, :update]
+  before_action :set_question, except: %i[new create index]
+  before_action :require_admin, only: %i[new create edit update delete]
 
   # GET /quizzes/:quiz_id/questions
   def index
@@ -10,18 +10,16 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       format.html
       # TODO: Improve this query
-      format.json { render json: @questions.as_json(include: :answers), status: :ok }
+      format.json { json_response(@questions.as_json(include: :answers)) }
     end
   end
 
   # GET /quizzes/:quiz_id/questions/:id
   def show
-    @question
-
     respond_to do |format|
       format.html
       # TODO: Improve this query
-      format.json { render json: @question.as_json(include: :answers), status: :ok }
+      format.json { json_response(@question.as_json(include: :answers)) }
     end
   end
 
@@ -52,7 +50,7 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       respond_to do |format|
         format.html redirect_to(@question)
-        format.json { render json: @question, status: :updated }
+        format.json { json_response(@question, status: :updated) }
       end
     else
       render @question.errors, status: :unprocessable_entity

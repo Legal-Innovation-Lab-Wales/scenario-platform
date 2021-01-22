@@ -1,7 +1,7 @@
 # app/controllers/quizzes_controller.rb
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: [:show, :update]
-  before_action :require_admin, only: [:new, :create, :edit, :update]
+  before_action :set_quiz, only: %i[show update]
+  before_action :require_admin, only: %i[new create edit update delete]
 
   # GET /quizzes
   def index
@@ -13,18 +13,17 @@ class QuizzesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @quizzes.as_json }
+      format.json { json_response(@quizzes) }
     end
   end
 
   # GET /quizzes/:id
   def show
-    @quiz
     respond_to do |format|
       format.html
       # TODO Improve this query
       # format.json { render json: @quiz.as_json }
-      format.json { render json: @quiz.as_json(include: { questions: { include: :answers } }), status: :ok }
+      format.json { json_response(@quiz.as_json(include: { questions: { include: :answers } })) }
     end
   end
 
@@ -53,10 +52,18 @@ class QuizzesController < ApplicationController
   # PUT /quizzes/:id
   def update
     if @quiz.update(quiz_params)
-      render json: @quiz
+      respond_to do |format|
+        format.html redirect_to(@quiz)
+        format.json { json_response(@quiz, status: :updated) }
+      end
     else
       render @quiz.errors, status: :unprocessable_entity
     end
+  end
+
+  # DELETE /quizzes/:quiz_id
+  def destroy
+    @quiz.destroy
   end
 
   private
