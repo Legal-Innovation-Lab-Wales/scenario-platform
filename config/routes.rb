@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   root 'pages#main'
   get '/app', to: 'pages#app', as: 'app'
+  get '/guide', to: 'pages#guide', as: 'guide'
 
   devise_for :users
 
