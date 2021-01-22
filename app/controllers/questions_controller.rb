@@ -30,13 +30,17 @@ class QuestionsController < ApplicationController
 
   # POST /quizzes/:quiz_id/questions
   def create
-    if (@question = current_user.questions.create!(question_params))
+    if (@question = current_user.questions.create!(question_params.merge(quiz_id: @quiz.id)))
       respond_to do |format|
-        format.html redirect_to(@quiz)
-        format.json { json_response(@question, :created) }
+        format.html { redirect_to(@quiz) }
+        format.json { json_response(@question.as_json, :created) }
       end
     else
-      render @question.errors, status: :unprocessable_entity
+      puts("question_id: #{@question.quiz_id}")
+      respond_to do |format|
+        # format.html { render 'new' } # when new exists render new
+        format.json { json_response(@question.errors, status: status) }
+      end
     end
   end
 
@@ -49,7 +53,7 @@ class QuestionsController < ApplicationController
   def update
     if @question.update(question_params)
       respond_to do |format|
-        format.html redirect_to(@question)
+        format.html { redirect_to(@question) }
         format.json { json_response(@question, status: :updated) }
       end
     else
@@ -82,7 +86,7 @@ class QuestionsController < ApplicationController
 
   def question_params
     # whitelist params
-    params.require(:question).permit(:order, :text, :description)
+    params.require(:question).permit(:order, :text, :description, :quiz_id)
   end
 
 end
