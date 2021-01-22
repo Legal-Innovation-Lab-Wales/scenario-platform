@@ -17,5 +17,19 @@ module ExceptionHandler
         format.json { json_response({ message: e.message }, :unprocessable_entity) }
       end
     end
+
+    rescue_from ActiveRecord::RecordNotUnique do |e|
+      respond_to do |format|
+        format.html
+        format.json { json_response({ message: e.message }, :unprocessable_entity) }
+      end
+    end
+
+    rescue_from ActionController::ParameterMissing do |e|
+      respond_to do |format|
+        format.html
+        format.json { json_response({ message: e.original_message }, :unprocessable_entity) }
+      end
+    end
   end
 end

@@ -35,12 +35,11 @@ class QuestionsController < ApplicationController
         format.html { redirect_to(@quiz) }
         format.json { json_response(@question.as_json, :created) }
       end
-    else
-      puts("question_id: #{@question.quiz_id}")
-      respond_to do |format|
-        # format.html { render 'new' } # when new exists render new
-        format.json { json_response(@question.errors, status: status) }
-      end
+    # else
+    #   respond_to do |format|
+    #     # format.html { render 'new' } # when new exists render new
+    #     format.json { json_response(@question.errors) }
+    #   end
     end
   end
 
@@ -54,10 +53,10 @@ class QuestionsController < ApplicationController
     if @question.update(question_params)
       respond_to do |format|
         format.html { redirect_to(@question) }
-        format.json { json_response(@question, status: :updated) }
+        format.json { json_response(@question, :no_content) }
       end
-    else
-      render @question.errors, status: :unprocessable_entity
+    # else
+    #   render @question.errors, status: :unprocessable_entity
     end
   end
 
@@ -81,7 +80,12 @@ class QuestionsController < ApplicationController
   end
 
   def require_admin
-    redirect_to root unless current_user.admin?
+    unless current_user.admin?
+      respond_to do |format|
+        format.html { redirect_to root }
+        format.json { json_response('', :forbidden) }
+      end
+    end
   end
 
   def question_params
