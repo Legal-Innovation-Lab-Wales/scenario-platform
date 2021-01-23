@@ -15,7 +15,7 @@ RSpec.describe Answer, type: :model do
   it { should validate_presence_of(:question_id) }
 
   context 'when creating an answer' do
-    let(:answer) { create(:answer) }
+    let(:answer) { create(:answer, :with_next_question_order) }
 
     it 'updates the next question id' do
       expect answer.next_question_id.present?

@@ -9,10 +9,11 @@ class Answer < ApplicationRecord
   private
 
   def update_next_question_id
-    self.next_question_id = question.quiz.questions.find_by(order: next_question_order).id if (next_question_order? && next_question_order != -1)
+    if next_question_order? && next_question_order != -1
+      self.next_question_id = question.quiz.questions.find_by!(order: next_question_order).id
+    end
   end
 
   # validations
   validates_presence_of :text, :user_id, :question_id
-
 end

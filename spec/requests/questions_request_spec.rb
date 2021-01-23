@@ -83,7 +83,7 @@ RSpec.describe 'Questions', type: :request do
 
     # Create when unauthorised
     context 'POST /quizzes/:quiz_id/questions' do
-      context 'when the request is valid but the user is not' do
+      context 'when the request is valid but the user is not admin' do
         before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
 
         it 'returns status code 403' do
