@@ -38,7 +38,7 @@ class AnswersController < ApplicationController
     end
   end
 
-  # DELETE /quizzes/:quiz_id/questions/:id
+  # DELETE /quizzes/:quiz_id/questions/:question_id/answers/:id
   def destroy
     @answer.destroy
   end
@@ -51,10 +51,6 @@ class AnswersController < ApplicationController
 
   def set_answer
     @answer = Answer.find(params[:id])
-  end
-
-  def require_admin
-    redirect_to root unless current_user.admin?
   end
 
   def answer_params

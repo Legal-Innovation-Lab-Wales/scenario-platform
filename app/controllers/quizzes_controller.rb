@@ -76,10 +76,6 @@ class QuizzesController < ApplicationController
             end
   end
 
-  def require_admin
-    redirect_to index unless current_user.admin?
-  end
-
   def quiz_params
     # whitelist params
     params.require(:quiz).permit(:variables, :variable_initial_values, :name, :available, :description)
