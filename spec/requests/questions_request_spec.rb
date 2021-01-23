@@ -1,3 +1,4 @@
+# spec/requests/questions_request_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'Questions', type: :request do
@@ -12,6 +13,21 @@ RSpec.describe 'Questions', type: :request do
     { question: { order: (Question.last.order + 1),
                   description: 'Setting the scene',
                   text: 'asking the question' } }
+  end
+
+  context 'when user not signed in' do
+    # Index when unauthorised
+    context 'get /quizzes/:quiz_id/questions' do
+      before { get "/quizzes/#{quiz_id}/questions", headers: headers }
+
+      it 'returns status code 403' do
+        expect(response).to have_http_status(401)
+      end
+
+      it 'returns an unauthorised message' do
+        expect(response.body).to include('You need to sign in or sign up before continuing.')
+      end
+    end
   end
 
   context 'when any user signed in' do
@@ -63,13 +79,11 @@ RSpec.describe 'Questions', type: :request do
         #   expect(response.body).to match(/Couldn't find Question/)
         # end
       end
-
     end
 
     # Create when unauthorised
     context 'POST /quizzes/:quiz_id/questions' do
-
-      context 'when the request is valid but the user is n0t' do
+      context 'when the request is valid but the user is not' do
         before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
 
         it 'returns status code 403' do
@@ -88,7 +102,6 @@ RSpec.describe 'Questions', type: :request do
 
     # Create
     context 'POST /quizzes/:quiz_id/questions' do
-
       context 'when the request is valid' do
         before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
 
@@ -118,7 +131,7 @@ RSpec.describe 'Questions', type: :request do
       end
 
       context 'when record is not unique' do
-        let(:invalid_attributes) { { question: { order: Question.first.order} } }
+        let(:invalid_attributes) { { question: { order: Question.first.order } } }
 
         before { post "/quizzes/#{quiz_id}/questions", params: invalid_attributes, headers: headers }
 
@@ -171,9 +184,8 @@ RSpec.describe 'Questions', type: :request do
       end
 
       it 'deletes the record' do
-        expect { @question.reload }.to raise_error
+        expect { Question.find(question_id) }.to raise_error ActiveRecord::RecordNotFound
       end
-
     end
   end
 end
