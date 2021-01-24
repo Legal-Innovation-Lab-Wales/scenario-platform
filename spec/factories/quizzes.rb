@@ -1,7 +1,7 @@
 # spec/factories/quizzes.rb
 FactoryBot.define do
   factory :quiz do
-    user { create(:user) }
+    user { create(:user, :admin) }
     name { 'MyString' }
     description { 'MyText' }
     variables { ['health', 'stamina', 'experience', 'coin'] }
