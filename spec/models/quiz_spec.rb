@@ -13,17 +13,17 @@ RSpec.describe Quiz, type: :model do
   # Validation Tests
   # ensure values are present before saving
   it { should validate_presence_of(:user_id) }
-  it { should validate_presence_of(:organisation) }
   it { should validate_presence_of(:variables) }
   it { should validate_presence_of(:variable_initial_values) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
 
   context 'when creating a quiz' do
-    let(:quiz) { create(:quiz) }
+    let(:quiz) { create(:quiz, :without_organisation) }
 
     it 'adds organisation to quiz' do
       expect quiz.organisation.present?
+      expect quiz.organisation == quiz.user.organisation
     end
   end
 end

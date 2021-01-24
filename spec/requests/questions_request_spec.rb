@@ -12,12 +12,6 @@ RSpec.describe 'Questions', type: :request do
 
   let(:headers) { { 'ACCEPT' => 'application/json' } }
 
-  let(:valid_attributes) do
-    { question: { order: (Question.last.order + 1),
-                  description: 'Setting the scene',
-                  text: 'asking the question' } }
-  end
-
   describe 'index questions (GET quiz_questions)' do
     context 'when user not signed in' do
       before { get "/quizzes/#{quiz_id}/questions", headers: headers }
@@ -99,8 +93,13 @@ RSpec.describe 'Questions', type: :request do
   end
 
   describe 'create question (POST quiz_questions)' do
+    let(:valid_attributes) do
+      { question: { order: (Question.last.order + 1),
+                    description: 'Setting the scene',
+                    text: 'asking the question' } }
+    end
     context 'when user not signed in' do
-      before { post "/quizzes/#{quiz_id}/questions/#{question_id}/answers", params: valid_attributes, headers: headers }
+      before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
 
       it 'returns status code 403' do
         expect(response).to have_http_status(401)

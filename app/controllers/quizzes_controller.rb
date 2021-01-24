@@ -1,6 +1,6 @@
 # app/controllers/quizzes_controller.rb
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: %i[show update]
+  before_action :set_quiz, only: %i[show update destroy]
   before_action :require_admin, only: %i[new create edit update delete]
 
   # GET /quizzes
@@ -23,7 +23,7 @@ class QuizzesController < ApplicationController
       format.html
       # TODO Improve this query
       # format.json { render json: @quiz.as_json }
-      format.json { json_response(@quiz.as_json(include: { questions: { include: :answers } })) }
+      format.json { json_response(@quiz.as_json(include: { questions: { include: :answers } } )) }
     end
   end
 
@@ -36,7 +36,7 @@ class QuizzesController < ApplicationController
   def create
     if (@quiz = current_user.quizzes.create!(quiz_params))
       respond_to do |format|
-        format.html redirect_to(@quiz)
+        format.html { redirect_to(@quiz) }
         format.json { json_response(@quiz, :created) }
       end
     else
@@ -53,8 +53,8 @@ class QuizzesController < ApplicationController
   def update
     if @quiz.update(quiz_params)
       respond_to do |format|
-        format.html redirect_to(@quiz)
-        format.json { json_response(@quiz, status: :updated) }
+        format.html { redirect_to(@quiz) }
+        format.json { json_response(@quiz, :no_content) }
       end
     else
       render @quiz.errors, status: :unprocessable_entity
@@ -78,6 +78,6 @@ class QuizzesController < ApplicationController
 
   def quiz_params
     # whitelist params
-    params.require(:quiz).permit(:variables, :variable_initial_values, :name, :available, :description)
+    params.require(:quiz).permit(:name, :description, {:variables => []}, {:variable_initial_values =>[]}, :available)
   end
 end

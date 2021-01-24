@@ -5,12 +5,12 @@ class CreateQuizzes < ActiveRecord::Migration[6.1]
 
       t.belongs_to :user, null: false, foreign_key: true
 
+      t.string :name
+      t.text :description
       t.string :organisation, null: false, default: ''
       t.string :variables, array: true, default: []
       t.integer :variable_initial_values, array: true, default: []
-      t.string :name
       t.boolean :available, default: false
-      t.text :description
 
       t.timestamps
     end

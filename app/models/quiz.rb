@@ -1,3 +1,4 @@
+# app/models/quiz.rb
 class Quiz < ApplicationRecord
   belongs_to :user
   has_many :questions, dependent: :destroy, foreign_key: :quiz_id
@@ -12,6 +13,6 @@ class Quiz < ApplicationRecord
   end
 
   # validations
-  validates_presence_of :user_id, :organisation, :variables, :variable_initial_values, :name, :description
+  validates_presence_of :user_id, :name, :description, :variables, :variable_initial_values
 
 end
