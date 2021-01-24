@@ -1,7 +1,7 @@
 # app/controllers/quizzes_controller.rb
 class QuizzesController < ApplicationController
-  before_action :set_quiz, only: [:show, :update]
-  before_action :require_admin, only: [:new, :create, :edit, :update]
+  before_action :set_quiz, only: %i[show update destroy]
+  before_action :require_admin, only: %i[new create edit update delete]
 
   # GET /quizzes
   def index
@@ -13,18 +13,17 @@ class QuizzesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @quizzes.as_json }
+      format.json { json_response(@quizzes) }
     end
   end
 
   # GET /quizzes/:id
   def show
-    @quiz
     respond_to do |format|
       format.html
       # TODO Improve this query
       # format.json { render json: @quiz.as_json }
-      format.json { render json: @quiz.as_json(include: { questions: { include: :answers } }), status: :ok }
+      format.json { json_response(@quiz.as_json(include: { questions: { include: :answers } } )) }
     end
   end
 
@@ -37,7 +36,7 @@ class QuizzesController < ApplicationController
   def create
     if (@quiz = current_user.quizzes.create!(quiz_params))
       respond_to do |format|
-        format.html redirect_to(@quiz)
+        format.html { redirect_to(@quiz) }
         format.json { json_response(@quiz, :created) }
       end
     else
@@ -53,10 +52,18 @@ class QuizzesController < ApplicationController
   # PUT /quizzes/:id
   def update
     if @quiz.update(quiz_params)
-      render json: @quiz
+      respond_to do |format|
+        format.html { redirect_to(@quiz) }
+        format.json { json_response(@quiz, :no_content) }
+      end
     else
       render @quiz.errors, status: :unprocessable_entity
     end
+  end
+
+  # DELETE /quizzes/:quiz_id
+  def destroy
+    @quiz.destroy
   end
 
   private
@@ -69,12 +76,8 @@ class QuizzesController < ApplicationController
             end
   end
 
-  def require_admin
-    redirect_to index unless current_user.admin?
-  end
-
   def quiz_params
     # whitelist params
-    params.require(:quiz).permit(:variables, :variable_initial_values, :name, :available, :description)
+    params.require(:quiz).permit(:name, :description, {:variables => []}, {:variable_initial_values =>[]}, :available)
   end
 end

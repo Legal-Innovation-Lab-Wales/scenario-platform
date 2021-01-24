@@ -1,10 +1,13 @@
+# spec/factories/answers.rb
 FactoryBot.define do
   factory :answer do
-    question { nil }
-    user { nil }
-    text { "MyString" }
-    variable_mods { "" }
+    question { create(:question) }
+    user { create(:user) }
+    text { 'MyString Answer Factory' }
+    variable_mods { '' }
+  end
+
+  trait :with_next_question_order do
     next_question_order { 1 }
-    next_question_id { 1 }
   end
 end

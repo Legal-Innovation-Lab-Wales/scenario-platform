@@ -1,6 +1,7 @@
+# app/controllers/answers_controller.rb
 class AnswersController < ApplicationController
   before_action :set_question
-  before_action :set_answer, only: [:edit, :update, :destroy]
+  before_action :set_answer, only: %i[edit update destroy]
   before_action :require_admin
 
   # GET /quizzes/:quiz_id/questions/:question_id/answers/new
@@ -10,9 +11,9 @@ class AnswersController < ApplicationController
 
   # POST /quizzes/:quiz_id/questions/:question_id/answers
   def create
-    if (@answer = current_user.answers.create!(answer_params))
+    if (@answer = current_user.answers.create!(answer_params.merge(question_id: @question.id)))
       respond_to do |format|
-        format.html redirect_to(@question)
+        format.html { redirect_to(@question) }
         format.json { json_response(@answer, :created) }
       end
     else
@@ -29,15 +30,15 @@ class AnswersController < ApplicationController
   def update
     if @answer.update(answer_params)
       respond_to do |format|
-        format.html redirect_to(@question)
-        format.json { json_response(@answer, :updated) }
+        format.html { redirect_to(@question) }
+        format.json { json_response(@answer, :no_content) }
       end
     else
       render @answer.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /quizzes/:quiz_id/questions/:id
+  # DELETE /quizzes/:quiz_id/questions/:question_id/answers/:id
   def destroy
     @answer.destroy
   end
@@ -52,12 +53,8 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:id])
   end
 
-  def require_admin
-    redirect_to root unless current_user.admin?
-  end
-
   def answer_params
     # whitelist params
-    params.require(:answer).permit(:text, :variable_mods, :next_question_order)
+    params.require(:answer).permit(:text, :variable_mods, :next_question_order, :question_id)
   end
 end

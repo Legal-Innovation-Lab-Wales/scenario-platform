@@ -1,17 +1,25 @@
 # app/controllers/questions_controller.rb
 class QuestionsController < ApplicationController
   before_action :set_quiz
-  before_action :set_question, except: [:new, :create]
-  before_action :require_admin, only: [:new, :create, :edit, :update]
+  before_action :set_question, except: %i[new create index]
+  before_action :require_admin, only: %i[new create edit update delete]
+
+  # GET /quizzes/:quiz_id/questions
+  def index
+    @questions = Question.all.where(quiz_id: @quiz.id)
+    respond_to do |format|
+      format.html
+      # TODO: Improve this query
+      format.json { json_response(@questions.as_json(include: :answers)) }
+    end
+  end
 
   # GET /quizzes/:quiz_id/questions/:id
   def show
-    @question
-
     respond_to do |format|
       format.html
-      # TODO Improve this query
-      format.json { render json: @question.as_json(include: :answers), status: :ok }
+      # TODO: Improve this query
+      format.json { json_response(@question.as_json(include: :answers)) }
     end
   end
 
@@ -22,13 +30,16 @@ class QuestionsController < ApplicationController
 
   # POST /quizzes/:quiz_id/questions
   def create
-    if (@question = current_user.questions.create!(question_params))
+    if (@question = current_user.questions.create!(question_params.merge(quiz_id: @quiz.id)))
       respond_to do |format|
-        format.html redirect_to(@quiz)
-        format.json { json_response(@question, :created) }
+        format.html { redirect_to(@quiz) }
+        format.json { json_response(@question.as_json, :created) }
       end
-    else
-      render @question.errors, status: :unprocessable_entity
+    # else
+    #   respond_to do |format|
+    #     # format.html { render 'new' } # when new exists render new
+    #     format.json { json_response(@question.errors) }
+    #   end
     end
   end
 
@@ -41,11 +52,11 @@ class QuestionsController < ApplicationController
   def update
     if @question.update(question_params)
       respond_to do |format|
-        format.html redirect_to(@question)
-        format.json { json_response(@question, :updated) }
+        format.html { redirect_to(@question) }
+        format.json { json_response(@question, :no_content) }
       end
-    else
-      render @question.errors, status: :unprocessable_entity
+    # else
+    #   render @question.errors, status: :unprocessable_entity
     end
   end
 
@@ -68,13 +79,9 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
   end
 
-  def require_admin
-    redirect_to root unless current_user.admin?
-  end
-
   def question_params
     # whitelist params
-    params.require(:question).permit(:order, :text, :description)
+    params.require(:question).permit(:order, :text, :description, :quiz_id)
   end
 
 end

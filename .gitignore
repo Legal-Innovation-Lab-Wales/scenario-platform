@@ -54,6 +54,10 @@ pickle-email-*.html
 *.ipr
 *.iws
 
+
+## Ignore Rubocop config
+.rubocop.yml
+
 ## Generated from $ rails webpacker:install
 /public/packs
 /public/packs-test
@@ -61,3 +65,4 @@ pickle-email-*.html
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+

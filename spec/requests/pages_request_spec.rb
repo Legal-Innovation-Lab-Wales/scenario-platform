@@ -1,26 +1,30 @@
+# spec/requests/pages_request_spec.rb
 require 'rails_helper'
 
-RSpec.describe "Pages", type: :request do
+RSpec.describe 'Pages', type: :request do
 
-  describe "GET /main" do
-    it "returns http success" do
-      get "/pages/main"
+  describe 'GET root' do
+    it 'returns http success' do
+      get '/'
+      expect(response).to have_http_status(:success)
+    end
+  end
+  
+#TODO uncomment after Alex's code is merged
+=begin
+  describe 'GET /guide' do
+    it 'returns http success' do
+      get '/guide'
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET /about" do
-    it "returns http success" do
-      get "/pages/about"
+  describe 'GET /app' do
+    it 'returns http success' do
+      get '/app'
       expect(response).to have_http_status(:success)
     end
   end
-
-  describe "GET /user_profile" do
-    it "returns http success" do
-      get "/pages/user_profile"
-      expect(response).to have_http_status(:success)
-    end
-  end
+=end
 
 end
