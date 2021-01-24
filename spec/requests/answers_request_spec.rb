@@ -8,6 +8,8 @@ RSpec.describe 'Answers', type: :request do
   let(:quiz_id) { quiz.id }
   let(:question) { create(:question, quiz: quiz) }
   let(:question_id) { question.id }
+  let(:answer) { create(:answer, question: question) }
+  let(:answer_id) { answer.id }
 
   let(:headers) { { 'ACCEPT' => 'application/json' } }
 
@@ -102,8 +104,7 @@ RSpec.describe 'Answers', type: :request do
 
     context 'when admin signed in' do
       before { sign_in admin }
-      let(:answer) { create(:answer, question: question) }
-      let(:answer_id) { answer.id }
+
       let(:updated_attributes) { { answer: { text: 'updated text' } } }
       # before { puts("question_id: #{question_id}. Quiz questions #{Quiz.find(quiz_id).questions.map {|q| [q.id, q.order]}}")}
       before { put "/quizzes/#{quiz_id}/questions/#{question_id}/answers/#{answer_id}", params: updated_attributes, headers: headers }
