@@ -5,19 +5,21 @@ RSpec.describe 'Questions', type: :request do
   let(:user) { create(:user) }
   let(:admin) { create(:user, :admin) }
   let(:quiz) { create(:quiz) }
+  let(:quiz_id) { quiz.id }
   let!(:questions) { create_list(:question, 10, quiz: quiz) }
   let(:question_id) { questions.first.id }
-  let(:quiz_id) { quiz.id }
+  let!(:answers) { create_list(:answer, 10, question: questions.first) }
+
   let(:headers) { { 'ACCEPT' => 'application/json' } }
+
   let(:valid_attributes) do
     { question: { order: (Question.last.order + 1),
                   description: 'Setting the scene',
                   text: 'asking the question' } }
   end
 
-  context 'when user not signed in' do
-    # Index when unauthorised
-    context 'get /quizzes/:quiz_id/questions' do
+  describe 'index questions (GET quiz_questions)' do
+    context 'when user not signed in' do
       before { get "/quizzes/#{quiz_id}/questions", headers: headers }
 
       it 'returns status code 403' do
@@ -28,13 +30,9 @@ RSpec.describe 'Questions', type: :request do
         expect(response.body).to include('You need to sign in or sign up before continuing.')
       end
     end
-  end
 
-  context 'when any user signed in' do
-    before { sign_in user }
-
-    # Index
-    context 'GET /quizzes/:quiz_id/questions' do
+    context 'when any user signed in' do
+      before { sign_in user }
       before { get "/quizzes/#{quiz_id}/questions", headers: headers }
 
       it 'returns http status success' do
@@ -49,16 +47,38 @@ RSpec.describe 'Questions', type: :request do
         expect(json).not_to be_empty
         expect(json.size).to eq(10)
       end
+      it 'includes answers with the questions' do
+        expect(json.first['answers']).not_to be_empty
+        expect(json.first['answers'].size).to eq(10)
+      end
+    end
+  end
+
+  describe 'show question (GET quiz_question)' do
+    context 'when user not signed in' do
+      before { get "/quizzes/#{quiz_id}/questions/#{question_id}", headers: headers }
+
+      it 'returns status code 403' do
+        expect(response).to have_http_status(401)
+      end
+
+      it 'returns an unauthorised message' do
+        expect(response.body).to include('You need to sign in or sign up before continuing.')
+      end
     end
 
-    # Show
-    context 'GET /quizzes/:quiz_id/questions/:id' do
+    context 'when any user signed in' do
+      before { sign_in user }
       before { get "/quizzes/#{quiz_id}/questions/#{question_id}", headers: headers }
 
       context 'when the record exits' do
         it 'returns the question' do
           expect(json).not_to be_empty
           expect(json['id']).to eq(question_id)
+        end
+        it 'includes answers with the question' do
+          expect(json['answers']).not_to be_empty
+          expect(json['answers'].size).to eq(10)
         end
         it 'returns http status success' do
           expect(response).to have_http_status(:success)
@@ -80,28 +100,35 @@ RSpec.describe 'Questions', type: :request do
         # end
       end
     end
-
-    # Create when unauthorised
-    context 'POST /quizzes/:quiz_id/questions' do
-      context 'when the request is valid but the user is not admin' do
-        before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
-
-        it 'returns status code 403' do
-          expect(response).to have_http_status(403)
-        end
-
-        it 'does not create a question' do
-          expect(Question.last.text).to_not eq('unauthorized user')
-        end
-      end
-    end
   end
 
-  context 'when admin signed in' do
-    before { sign_in admin }
+  describe 'create question (POST quiz_questions)' do
+    context 'when user not signed in' do
+      before { post "/quizzes/#{quiz_id}/questions/#{question_id}/answers", params: valid_attributes, headers: headers }
 
-    # Create
-    context 'POST /quizzes/:quiz_id/questions' do
+      it 'returns status code 403' do
+        expect(response).to have_http_status(401)
+      end
+
+      it 'returns an unauthorised message' do
+        expect(response.body).to include('You need to sign in or sign up before continuing.')
+      end
+    end
+    context 'when user signed in but not admin' do
+      before { sign_in user }
+      before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
+
+      it 'returns status code 403' do
+        expect(response).to have_http_status(403)
+      end
+
+      it 'does not create a question' do
+        expect(Question.last.text).to_not eq('unauthorized user')
+      end
+    end
+
+    context 'when admin signed in' do
+      before { sign_in admin }
       context 'when the request is valid' do
         before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
 
@@ -132,7 +159,6 @@ RSpec.describe 'Questions', type: :request do
 
       context 'when record is not unique' do
         let(:invalid_attributes) { { question: { order: Question.first.order } } }
-
         before { post "/quizzes/#{quiz_id}/questions", params: invalid_attributes, headers: headers }
 
         it 'returns status code 422' do
@@ -143,12 +169,14 @@ RSpec.describe 'Questions', type: :request do
           expect(response.body).to include('unique')
         end
       end
+
     end
+  end
 
-    # Update
-    context 'PUT /quizzes/:quiz_id/questions/:id' do
+  describe 'update question (PUT quiz_questions)' do
+    context 'when admin signed in' do
+      before { sign_in admin }
       let(:valid_attributes) { { question: { text: 'updated text' } } }
-
       before { put "/quizzes/#{quiz_id}/questions/#{question_id}", params: valid_attributes, headers: headers }
 
       context 'when question exists' do
@@ -174,9 +202,11 @@ RSpec.describe 'Questions', type: :request do
         end
       end
     end
+  end
 
-    # Delete
-    context 'DELETE /quizzes/:quiz_id/questions/:id' do
+  describe 'delete question (DELETE quiz_questions)' do
+    context 'when admin signed in' do
+      before { sign_in admin }
       before { delete "/quizzes/#{quiz_id}/questions/#{question_id}" }
 
       it 'returns status code 204' do
