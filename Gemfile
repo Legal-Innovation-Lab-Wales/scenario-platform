@@ -24,6 +24,9 @@ gem 'jbuilder', '~> 2.7'
 # Use Devise for user authentication
 gem 'devise'
 
+gem 'bootstrap', '~> 5.0.0.beta1'
+gem 'jquery-rails'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

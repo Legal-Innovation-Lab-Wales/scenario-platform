@@ -11,10 +11,13 @@ class User < ApplicationRecord
   has_many :answers, foreign_key: :user_id
   has_many :quiz_attempts, foreign_key: :user_id
 
-
   private
 
   # validations
-  validates_presence_of :first_name, :last_name, :email, :organisation
+  validates_presence_of :first_name,
+                        :last_name,
+                        :email,
+                        :organisation
+  validates :email, uniqueness: { case_sensitive: false }
 
 end

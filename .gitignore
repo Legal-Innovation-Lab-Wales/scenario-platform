@@ -34,14 +34,8 @@ config/secrets.yml
 /.env
 
 # Other
-/public/packs
-/public/packs-test
 /public/system
 /public/assets
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
 
 *.rbc
 capybara-*.html
@@ -60,5 +54,15 @@ pickle-email-*.html
 *.ipr
 *.iws
 
+
 ## Ignore Rubocop config
 .rubocop.yml
+
+## Generated from $ rails webpacker:install
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
