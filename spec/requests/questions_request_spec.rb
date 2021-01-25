@@ -16,7 +16,7 @@ RSpec.describe 'Questions', type: :request do
     context 'when user not signed in' do
       before { get "/quizzes/#{quiz_id}/questions", headers: headers }
 
-      it 'returns status code 403' do
+      it 'returns status code 401 Unauthorized' do
         expect(response).to have_http_status(401)
       end
 
@@ -51,7 +51,7 @@ RSpec.describe 'Questions', type: :request do
     context 'when user not signed in' do
       before { get "/quizzes/#{quiz_id}/questions/#{question_id}", headers: headers }
 
-      it 'returns status code 403' do
+      it 'returns status code 401 Unauthorized' do
         expect(response).to have_http_status(401)
       end
 
@@ -101,7 +101,7 @@ RSpec.describe 'Questions', type: :request do
     context 'when user not signed in' do
       before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
 
-      it 'returns status code 403' do
+      it 'returns status code 401 Unauthorized' do
         expect(response).to have_http_status(401)
       end
 
@@ -113,7 +113,7 @@ RSpec.describe 'Questions', type: :request do
       before { sign_in user }
       before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
 
-      it 'returns status code 403' do
+      it 'returns status code 403 Forbidden' do
         expect(response).to have_http_status(403)
       end
 
