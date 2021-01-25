@@ -2,29 +2,29 @@
 require 'rails_helper'
 
 RSpec.describe 'Pages', type: :request do
+  let(:user) { create(:user) }
 
   describe 'GET root' do
+    before { get '/' }
     it 'returns http success' do
-      get '/'
       expect(response).to have_http_status(:success)
     end
   end
-  
-#TODO uncomment after Alex's code is merged
-=begin
+
   describe 'GET /guide' do
+    before { sign_in user }
+    before { get '/guide' }
     it 'returns http success' do
-      get '/guide'
       expect(response).to have_http_status(:success)
     end
   end
 
   describe 'GET /app' do
+    before { sign_in user }
+    before { get '/app' }
     it 'returns http success' do
-      get '/app'
       expect(response).to have_http_status(:success)
     end
   end
-=end
 
 end
