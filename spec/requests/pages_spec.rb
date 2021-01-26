@@ -1,4 +1,4 @@
-# spec/requests/pages_request_spec.rb
+# spec/requests/pages_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'Pages', type: :request do

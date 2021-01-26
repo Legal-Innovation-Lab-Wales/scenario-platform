@@ -1,4 +1,4 @@
-# spec/requests/questions_request_spec.rb
+# spec/requests/questions_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'Questions', type: :request do

@@ -1,4 +1,4 @@
-# spec/requests/quizzes_request_spec.rb
+# spec/requests/quizzes_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'Quizzes', type: :request do
