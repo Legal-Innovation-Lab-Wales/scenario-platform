@@ -3,6 +3,8 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   # Association Test
+  # ensure User record belongs to a single Organisation
+  it { should belong_to(:organisation) }
   # ensure User model has a 1:m relationship with the Quiz model
   it { should have_many(:quizzes) }
   # ensure User model has a 1:m relationship with the Question model
@@ -17,6 +19,6 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of(:first_name) }
   it { should validate_presence_of(:last_name) }
   it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:organisation) }
+  it { should validate_presence_of(:organisation_id) }
 
 end
