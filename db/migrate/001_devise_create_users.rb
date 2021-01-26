@@ -33,6 +33,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
 
       ## Additional Fields
       # Non standard devise fields
+      t.belongs_to :organisation, null: false, foreign_key: true
+
       t.string :first_name,   null: false, default: ''
       t.string :last_name,    null: false, default: ''
 

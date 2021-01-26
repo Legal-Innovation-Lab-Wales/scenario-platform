@@ -1,4 +1,4 @@
-# db/migrate/001_create_quizzes.rb
+# db/migrate/002_create_quizzes.rb
 class CreateQuizzes < ActiveRecord::Migration[6.1]
   def change
     create_table :quizzes do |t|
@@ -7,7 +7,6 @@ class CreateQuizzes < ActiveRecord::Migration[6.1]
 
       t.string :name
       t.text :description
-      t.string :organisation, null: false, default: ''
       t.string :variables, array: true, default: []
       t.integer :variable_initial_values, array: true, default: []
       t.boolean :available, default: false

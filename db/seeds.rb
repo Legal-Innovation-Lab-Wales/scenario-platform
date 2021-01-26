@@ -8,6 +8,9 @@
 
 require 'faker'
 
+Organisation.create!(
+  name: 'One'
+)
 
 ## Create users
 # Create Static Users
@@ -16,7 +19,7 @@ user = User.new(
   last_name: 'Reynolds',
   email: 'philr@purpleriver.dev',
   bio: 'Hello World',
-  organisation: 'One',
+  organisation_id: 1,
   admin: true,
   password: 'test1234'
 )
@@ -28,7 +31,7 @@ user = User.new(
   last_name: 'Wing',
   email: 'awing@purpleriver.dev',
   bio: 'Hello World',
-  organisation: 'One',
+  organisation_id: 1,
   admin: true,
   password: 'test1234'
 )
@@ -40,7 +43,7 @@ User.create!(
   last_name: 'surname',
   email: 'test1@email.com',
   bio: 'I am test',
-  organisation: 'One',
+  organisation_id: 1,
   password: 'testpass'
 )
 # Create 8 more users
@@ -52,7 +55,7 @@ u = 1
     last_name: 'surname'+u.to_s,
     email: 'test'+u.to_s+'@purpleriver.dev',
     bio: Faker::Movie.quote,
-    organisation: 'One',
+    organisation_id: 1,
     password: 'testpass'
   )
 end
@@ -66,8 +69,7 @@ Quiz.create!(
   variable_initial_values: [100, 100, 0, 10],
   name: 'First test adventure quiz',
   description: 'This is the first adventure quiz, it probably won\'t make a huge amount of sense but should have clickable options',
-  available: false,
-  organisation: 'One'
+  available: false
 )
 
 
@@ -306,8 +308,7 @@ Quiz.create!(
   variable_initial_values: [0, 0, 0, 0],
   name: 'Quiz on retail secret shoppers',
   description: 'This is the quiz to test employees through online secret shoppers',
-  available: true,
-  organisation: 'One'
+  available: true
 )
 # ID 11
 Question.create!(
