@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :trackable#, :omniauthable
 
+  belongs_to :organisation, foreign_key: :org_id
   has_many :quizzes, foreign_key: :user_id
   has_many :questions, foreign_key: :user_id
   has_many :answers, foreign_key: :user_id
