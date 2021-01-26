@@ -69,9 +69,9 @@ class QuestionsController < ApplicationController
 
   def set_quiz
     @quiz = if current_user.admin?
-              Quiz.where(organisation: current_user.organisation).find(params[:quiz_id])
+              current_user.organisation.quizzes.find(params[:quiz_id])
             else
-              Quiz.where(organisation: current_user.organisation).where(available: true).find(params[:quiz_id])
+              current_user.organisation.quizzes.available.find(params[:quiz_id])
             end
   end
 
