@@ -1,7 +1,7 @@
 # spec/factories/users.rb
 FactoryBot.define do
   factory :user do
-    organisation { create(:organisation) }
+    organisation { Organisation.first || association(:organisation) }
     email { Faker::Internet.email }
     password { 'test1234' }
     password_confirmation { 'test1234' }
@@ -11,6 +11,12 @@ FactoryBot.define do
 
     trait :admin do
       admin { true }
+      organisation { Organisation.first || association(:organisation) }
+    end
+
+    trait :alt_admin do
+      admin { true }
+      organisation { association(:organisation) }
     end
   end
 

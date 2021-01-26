@@ -6,9 +6,9 @@ class QuizzesController < ApplicationController
   # GET /quizzes
   def index
     @quizzes = if current_user.admin?
-                 Quiz.where(organisation: current_user.organisation)
+                 current_user.organisation.quizzes
                else
-                 Quiz.where(organisation: current_user.organisation).where(available: true)
+                 current_user.organisation.quizzes.available
                end
 
     respond_to do |format|
@@ -70,14 +70,14 @@ class QuizzesController < ApplicationController
 
   def set_quiz
     @quiz = if current_user.admin?
-              Quiz.where(organisation: current_user.organisation).find(params[:id])
+              current_user.organisation.quizzes.find(params[:id])
             else
-              Quiz.where(organisation: current_user.organisation).where(available: true).find(params[:id])
+              current_user.organisation.quizzes.available.find(params[:id])
             end
   end
 
   def quiz_params
     # whitelist params
-    params.require(:quiz).permit(:name, :description, {:variables => []}, {:variable_initial_values =>[]}, :available)
+    params.require(:quiz).permit(:name, :description, { variables: [] }, { variable_initial_values: [] }, :available)
   end
 end
