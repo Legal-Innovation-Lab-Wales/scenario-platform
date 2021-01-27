@@ -4,9 +4,10 @@ require 'rails_helper'
 RSpec.describe 'Questions', type: :request do
   let(:user) { create(:user) }
   let(:admin) { create(:user, :admin) }
-  let(:quiz) { create(:quiz) }
-  let(:quiz_id) { quiz.id }
-  let!(:questions) { create_list(:question, 10, quiz: quiz) }
+  let(:quizzes) { create_list(:quiz, 2) }
+  let(:quiz_id) { quizzes.first.id }
+  let!(:questions) { create_list(:question, 10, quiz: quizzes.first) }
+  let!(:quiz_2_questions) { create_list(:question, 10, quiz: quizzes.second) }
   let(:question_id) { questions.first.id }
   let!(:answers) { create_list(:answer, 10, question: questions.first) }
 
@@ -42,9 +43,16 @@ RSpec.describe 'Questions', type: :request do
         expect(json).not_to be_empty
         expect(json.size).to eq(10)
       end
+
       it 'includes answers with the questions' do
         expect(json.first['answers']).not_to be_empty
         expect(json.first['answers'].size).to eq(10)
+      end
+
+      it 'expects questions to be for the right quiz' do
+        questions = JSON.parse(response.body)
+        question_quiz_ids = questions.map { |q| q['quiz_id'] }
+        expect(question_quiz_ids.uniq).to eq([quiz_id])
       end
     end
   end
@@ -84,6 +92,10 @@ RSpec.describe 'Questions', type: :request do
         it 'returns json content' do
           expect(response.content_type).to include('application/json')
         end
+
+        it 'expects the question to be for the right quiz' do
+          expect(json['quiz_id']).to eq(quiz_id)
+        end
       end
 
       context 'when the record does not exist' do
@@ -97,6 +109,20 @@ RSpec.describe 'Questions', type: :request do
           expect(response.body).to match(/Couldn't find Question/)
         end
       end
+
+      context 'when the request is invalid' do
+        # question is not part of this quiz
+        let(:quiz_id) { quizzes.second.id }
+
+        it 'returns status code 404' do
+          expect(response).to have_http_status(404)
+        end
+
+        it 'returns a not found message' do
+          expect(response.body).to match(/Couldn't find Question/)
+        end
+      end
+
     end
   end
 

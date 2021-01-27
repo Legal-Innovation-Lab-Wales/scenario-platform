@@ -76,7 +76,7 @@ class QuestionsController < ApplicationController
   end
 
   def set_question
-    @question = Question.find(params[:id])
+    @question = @quiz.questions.find(params[:id])
   end
 
   def question_params
