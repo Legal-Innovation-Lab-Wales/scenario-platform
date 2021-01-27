@@ -46,7 +46,8 @@ RSpec.describe 'Quizzes', type: :request do
       it 'expects quizzes to be from the correct organisation' do
         quizzes = JSON.parse(response.body)
         quizzes_user_ids = quizzes.map { |q| q['user_id'] }
-        expect(quizzes_user_ids.map { |user_id| User.find(user_id).organisation_id }.uniq).to eq([user.organisation_id])
+        quizzes_user_org_ids = quizzes_user_ids.map { |user_id| User.find(user_id).organisation_id }
+        expect(quizzes_user_org_ids.uniq).to eq([user.organisation_id])
       end
 
       it 'expects quizzes to be available' do
@@ -67,9 +68,15 @@ RSpec.describe 'Quizzes', type: :request do
           expect(response.content_type).to include('application/json')
         end
 
-        it 'returns no quizzes' do
+        it 'returns 10 quizzes' do
           expect(Quiz.all.count).to eq(30)
           expect(json.size).to eq(10)
+        end
+
+        it 'expects all returned quizzes to be available' do
+          quizzes = JSON.parse(response.body)
+          available_map = quizzes.map { |q| q['available'] }
+          expect(available_map).to all(be_truthy)
         end
       end
     end

@@ -11,5 +11,6 @@ FactoryBot.define do
 
   trait :unavailable do
     available { false }
+    user { User.first || association(:user) }
   end
 end
