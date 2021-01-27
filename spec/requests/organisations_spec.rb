@@ -12,22 +12,22 @@ RSpec.describe '/organisations', type: :request do
   #   end
   # end
 
-  describe 'GET /show' do
-    before { get organisation_url(organisation), headers: headers }
-
-    it 'renders a successful response' do
-      expect(response).to be_successful
-    end
-
-    it 'returns json content' do
-      expect(response.content_type).to include('application/json')
-    end
-
-    it 'returns the organisation' do
-      expect(json).not_to be_empty
-      expect(json['id']).to eq(organisation.id)
-    end
-  end
+  # describe 'GET /show' do
+  #   before { get organisation_url(organisation), headers: headers }
+  #
+  #   it 'renders a successful response' do
+  #     expect(response).to be_successful
+  #   end
+  #
+  #   it 'returns json content' do
+  #     expect(response.content_type).to include('application/json')
+  #   end
+  #
+  #   it 'returns the organisation' do
+  #     expect(json).not_to be_empty
+  #     expect(json['id']).to eq(organisation.id)
+  #   end
+  # end
 
   # describe 'GET /new' do
   #   it 'renders a successful response' do

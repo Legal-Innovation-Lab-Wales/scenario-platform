@@ -1,7 +1,7 @@
 # app/controllers/organisations_controller.rb
 class OrganisationsController < ApplicationController
-  skip_before_action :authenticate_user!, only: :show
-  before_action :set_organisation # , only: [:show, :edit, :update, :destroy]
+  # skip_before_action :authenticate_user!, only: :show
+  # before_action :set_organisation # , only: [:show, :edit, :update, :destroy]
 
   # GET /organisations
   # GET /organisations.json
@@ -11,7 +11,7 @@ class OrganisationsController < ApplicationController
 
   # GET /organisations/1
   # GET /organisations/1.json
-  def show; end
+  # def show; end
 
   # GET /organisations/new
   # def new
