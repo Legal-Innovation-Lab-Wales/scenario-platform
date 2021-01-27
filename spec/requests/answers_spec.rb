@@ -1,4 +1,4 @@
-# spec/requests/answers_request_spec.rb
+# spec/requests/answers_spec.rb
 require 'rails_helper'
 
 RSpec.describe 'Answers', type: :request do

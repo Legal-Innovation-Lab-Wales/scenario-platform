@@ -9,6 +9,8 @@ RSpec.describe Quiz, type: :model do
   it { should have_many(:questions).dependent(:destroy) }
   # ensure Quiz model has a 1:m relationship with the Quiz_attempt model
   it { should have_many(:quiz_attempts) }
+  # ensure quiz response to organisation
+  it { should respond_to(:organisation) }
 
   # Validation Tests
   # ensure values are present before saving
@@ -17,13 +19,4 @@ RSpec.describe Quiz, type: :model do
   it { should validate_presence_of(:variable_initial_values) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
-
-  context 'when creating a quiz' do
-    let(:quiz) { create(:quiz, :without_organisation) }
-
-    it 'adds organisation to quiz' do
-      expect quiz.organisation.present?
-      expect quiz.organisation == quiz.user.organisation
-    end
-  end
 end

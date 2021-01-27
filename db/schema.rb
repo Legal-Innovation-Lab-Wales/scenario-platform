@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 4) do
+ActiveRecord::Schema.define(version: 5) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -27,6 +27,12 @@ ActiveRecord::Schema.define(version: 4) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
+  create_table "organisations", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -56,12 +62,11 @@ ActiveRecord::Schema.define(version: 4) do
 
   create_table "quizzes", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "organisation", default: "", null: false
+    t.string "name"
+    t.text "description"
     t.string "variables", default: [], array: true
     t.integer "variable_initial_values", default: [], array: true
-    t.string "name"
     t.boolean "available", default: false
-    t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_quizzes_on_user_id"
@@ -82,16 +87,16 @@ ActiveRecord::Schema.define(version: 4) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.bigint "organisation_id", null: false
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
     t.text "bio"
     t.boolean "admin", default: false
-    t.string "organisation", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["first_name"], name: "index_users_on_first_name"
+    t.index ["organisation_id"], name: "index_users_on_organisation_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -102,4 +107,5 @@ ActiveRecord::Schema.define(version: 4) do
   add_foreign_key "quiz_attempts", "quizzes"
   add_foreign_key "quiz_attempts", "users"
   add_foreign_key "quizzes", "users"
+  add_foreign_key "users", "organisations"
 end
