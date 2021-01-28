@@ -6,9 +6,10 @@ RSpec.describe 'Answers', type: :request do
   let(:admin) { create(:user, :admin) }
   let(:quiz) { create(:quiz) }
   let(:quiz_id) { quiz.id }
-  let(:question) { create(:question, quiz: quiz) }
+  let(:questions) { create_list(:question, 5, quiz: quiz) }
+  let(:question) { questions.first }
   let(:question_id) { question.id }
-  let(:answer) { create(:answer, question: question) }
+  let(:answer) { create(:answer, :with_next_question_order) }
   let(:answer_id) { answer.id }
 
   let(:headers) { { 'ACCEPT' => 'application/json' } }
@@ -16,12 +17,12 @@ RSpec.describe 'Answers', type: :request do
   let(:valid_attributes) do
     { answer: { text: 'answering the question this way',
                 variable_mods: [{ 'health': 10 }, { 'stamina': 10 }, { 'experience': 10 }, { 'coin': 10 }],
-                next_question_order: question.order } }
+                next_question_order: questions.second.order } }
   end
 
   describe 'create answer (POST quiz_question_answers)' do
     context 'when no user signed in' do
-      before { post "/quizzes/#{quiz_id}/questions/#{question_id}/answers", params: valid_attributes, headers: headers }
+      before { post quiz_question_answers_url(quiz, question), params: valid_attributes, headers: headers }
 
       it 'returns status code 401 Unauthorized' do
         expect(response).to have_http_status(401)
@@ -33,12 +34,13 @@ RSpec.describe 'Answers', type: :request do
     end
     context 'when user signed in but not admin' do
       before { sign_in user }
-      before { post "/quizzes/#{quiz_id}/questions/#{question_id}/answers", params: valid_attributes, headers: headers }
+      before { post quiz_question_answers_url(quiz, question), params: valid_attributes, headers: headers }
 
       it 'returns status code 403 Forbidden' do
         expect(response).to have_http_status(403)
       end
 
+      # TODO: Check this
       it 'does not create a answer' do
         expect(Question.last.text).to_not eq('unauthorized user')
       end
@@ -46,7 +48,7 @@ RSpec.describe 'Answers', type: :request do
     context 'when admin signed in' do
       before { sign_in admin }
       context 'when the request is valid' do
-        before { post "/quizzes/#{quiz_id}/questions/#{question_id}/answers", params: valid_attributes, headers: headers }
+        before { post quiz_question_answers_url(quiz, question), params: valid_attributes, headers: headers }
 
         it 'creates a answer' do
           expect(json['text']).to eq('answering the question this way')
@@ -61,7 +63,7 @@ RSpec.describe 'Answers', type: :request do
         end
       end
       context 'when no body in request' do
-        before { post "/quizzes/#{quiz_id}/questions/#{question_id}/answers", params: {}, headers: headers }
+        before { post quiz_question_answers_url(quiz, question), params: {}, headers: headers }
 
         it 'returns status code 422' do
           expect(response).to have_http_status(422)
@@ -74,7 +76,7 @@ RSpec.describe 'Answers', type: :request do
       context 'when record is missing an attribute ' do
         let(:invalid_attributes) { { answer: { next_question_order: Question.first.order } } }
 
-        before { post "/quizzes/#{quiz_id}/questions/#{question_id}/answers", params: invalid_attributes, headers: headers }
+        before { post quiz_question_answers_url(quiz, question), params: invalid_attributes, headers: headers }
 
         it 'returns status code 422' do
           expect(response).to have_http_status(422)
@@ -85,9 +87,9 @@ RSpec.describe 'Answers', type: :request do
         end
       end
       context 'when an incorrect next_question_order is submitted' do
-        let(:invalid_attributes) { { answer: { text: 'updated text', next_question_order: (Question.first.order + 5) } } }
+        let(:invalid_attributes) { { answer: { text: 'updated text', next_question_order: (Question.last.order + 5) } } }
 
-        before { post "/quizzes/#{quiz_id}/questions/#{question_id}/answers", params: invalid_attributes, headers: headers }
+        before { post quiz_question_answers_url(quiz, question), params: invalid_attributes, headers: headers }
 
         it 'returns status code 404' do
           expect(response).to have_http_status(404)
@@ -117,6 +119,18 @@ RSpec.describe 'Answers', type: :request do
         it 'updates the answer' do
           updated_answer = Answer.find(answer_id)
           expect(updated_answer.text).to match(/updated text/)
+        end
+
+        context 'when updating the next question order' do
+          let(:answer_original_next_question_id) { answer.next_question_id }
+          let(:updated_attributes) { { answer: { next_question_order: questions.last.order } } }
+          before { put quiz_question_answer_url(quiz, question, answer), params: updated_attributes, headers: headers }
+
+          it 'should change the next question ID' do
+            expect(Answer.find(answer_id).next_question_id).to eq(questions.last.id)
+            expect(Answer.find(answer_id).next_question_id).not_to eq(answer_original_next_question_id)
+          end
+
         end
       end
 
