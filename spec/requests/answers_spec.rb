@@ -41,9 +41,8 @@ RSpec.describe 'Answers', type: :request do
         expect(response).to have_http_status(403)
       end
 
-      # TODO: Check this
       it 'does not create a answer' do
-        expect(Question.last.text).to_not eq('unauthorized user')
+        expect(Answer.count).to be(0)
       end
     end
 
