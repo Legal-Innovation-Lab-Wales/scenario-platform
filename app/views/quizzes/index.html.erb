@@ -8,12 +8,22 @@
 </nav>
 <h1>Quizzes</h1>
 <h3>Quiz Count: <%= @quizzes.count %></h3>
+
+<% if current_user.admin? %>
+  <td><%= link_to('Create Quiz', new_quiz_path)%></td>
+<% end %>
+
+
 <table>
   <thead>
   <tr>
     <th>Name</th>
     <th>Description</th>
     <th></th>
+    <% if current_user.admin? %>
+    <th></th>
+    <% end %>
+
   </tr>
   </thead>
 
@@ -22,7 +32,11 @@
     <tr>
       <td><%= quiz.name %></td>
       <td><%= quiz.description %></td>
-      <td>TODO View or Edit</td>
+      <td><%= link_to('View', quiz_path(quiz))%></td>
+      <% if current_user.admin? %>
+        <td><%= link_to('Edit', edit_quiz_path(quiz))%></td>
+      <% end %>
+
     </tr>
   <% end %>
   </tbody>
