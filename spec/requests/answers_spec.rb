@@ -63,6 +63,11 @@ RSpec.describe 'Answers', type: :request do
         it 'returns status code 201' do
           expect(response).to have_http_status(201)
         end
+
+        it 'has the correct variable mods' do
+          debugger
+          expect(json['variable_mods'][0]).to eq('health')
+        end
       end
 
       context 'when no body in request' do
