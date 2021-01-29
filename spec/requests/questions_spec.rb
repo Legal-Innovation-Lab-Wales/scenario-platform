@@ -54,6 +54,19 @@ RSpec.describe 'Questions', type: :request do
         question_quiz_ids = questions.map { |q| q['quiz_id'] }
         expect(question_quiz_ids.uniq).to eq([quiz_id])
       end
+
+      context 'when quiz does not exist' do
+        let(:quiz_id) { 0 }
+
+        it 'returns status code 404' do
+          expect(response).to have_http_status(404)
+        end
+
+        it 'returns a not found message' do
+          expect(response.body).to include('Couldn\'t find Quiz')
+        end
+
+      end
     end
   end
 
