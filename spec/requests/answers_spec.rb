@@ -16,7 +16,7 @@ RSpec.describe 'Answers', type: :request do
 
   let(:valid_attributes) do
     { answer: { text: 'answering the question this way',
-                variable_mods: { 'health' => 10, 'stamina' => 10, 'experience' => 10, 'coin' => 10},
+                variable_mods: { 'health' => 10, 'stamina' => 10, 'experience' => 10, 'coin' => 10, 'bad' => 10 },
                 next_question_order: questions.second.order } }
   end
 
@@ -64,8 +64,9 @@ RSpec.describe 'Answers', type: :request do
           expect(response).to have_http_status(201)
         end
 
-        it 'has the correct variable mods' do
+        it 'has the valid variable mods' do
           expect(json['variable_mods']).to include('health')
+          expect(json['variable_mods']).not_to include('bad')
         end
       end
 
