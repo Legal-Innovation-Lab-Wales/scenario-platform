@@ -32,6 +32,7 @@ RSpec.describe 'Answers', type: :request do
         expect(response.body).to include('You need to sign in or sign up before continuing.')
       end
     end
+
     context 'when user signed in but not admin' do
       before { sign_in user }
       before { post quiz_question_answers_url(quiz, question), params: valid_attributes, headers: headers }
@@ -45,6 +46,7 @@ RSpec.describe 'Answers', type: :request do
         expect(Question.last.text).to_not eq('unauthorized user')
       end
     end
+
     context 'when admin signed in' do
       before { sign_in admin }
       context 'when the request is valid' do
@@ -62,6 +64,7 @@ RSpec.describe 'Answers', type: :request do
           expect(response).to have_http_status(201)
         end
       end
+
       context 'when no body in request' do
         before { post quiz_question_answers_url(quiz, question), params: {}, headers: headers }
 
@@ -73,6 +76,7 @@ RSpec.describe 'Answers', type: :request do
           expect(response.body).to include('param is missing')
         end
       end
+
       context 'when record is missing an attribute ' do
         let(:invalid_attributes) { { answer: { next_question_order: Question.first.order } } }
 
@@ -86,6 +90,7 @@ RSpec.describe 'Answers', type: :request do
           expect(response.body).to include('Validation failed:')
         end
       end
+
       context 'when an incorrect next_question_order is submitted' do
         let(:invalid_attributes) { { answer: { text: 'updated text', next_question_order: (Question.last.order + 5) } } }
 
