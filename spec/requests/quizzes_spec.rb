@@ -132,9 +132,8 @@ RSpec.describe 'Quizzes', type: :request do
           expect(json['id']).to eq(quiz_id)
         end
 
-        it 'includes questions with the quiz' do
-          expect(json['questions']).not_to be_empty
-          expect(json['questions'].size).to eq(10)
+        it 'doesnt include questions with the quiz' do
+          expect(json['questions']).to be_nil
         end
 
         it 'returns http status success' do
@@ -154,6 +153,7 @@ RSpec.describe 'Quizzes', type: :request do
         end
 
       end
+
       context 'when the record does not exist' do
         let(:quiz_id) { 100 }
 
@@ -165,6 +165,7 @@ RSpec.describe 'Quizzes', type: :request do
           expect(response.body).to include('Couldn\'t find Quiz')
         end
       end
+
       context 'when the quiz is not available' do
         let(:unavailable_quiz) { create(:quiz, :unavailable) }
 
@@ -188,12 +189,18 @@ RSpec.describe 'Quizzes', type: :request do
     context 'when admin signed in and quiz is not available' do
       before { sign_in admin }
       let(:unavailable_quiz) { create(:quiz, :unavailable) }
+      let!(:questions) { create_list(:question, 10, quiz: unavailable_quiz) }
       before { get "/quizzes/#{unavailable_quiz.id}", headers: headers }
 
       it 'returns the quiz' do
         expect(Quiz.find(unavailable_quiz.id)).to be_present
         expect(json).not_to be_empty
         expect(json['id']).to eq(unavailable_quiz.id)
+      end
+
+      it 'includes questions with the quiz' do
+        expect(json['questions']).not_to be_empty
+        expect(json['questions'].size).to eq(10)
       end
 
       it 'returns http status success' do
@@ -279,6 +286,7 @@ RSpec.describe 'Quizzes', type: :request do
       before { sign_in admin }
       let(:valid_attributes) { { quiz: { name: 'updated name' } } }
       before { put "/quizzes/#{quiz_id}", params: valid_attributes, headers: headers }
+
       context 'when quiz exists' do
         it 'returns status code 204' do
           expect(response).to have_http_status(204)
