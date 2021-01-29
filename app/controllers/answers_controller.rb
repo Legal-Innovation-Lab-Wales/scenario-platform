@@ -55,6 +55,6 @@ class AnswersController < ApplicationController
 
   def answer_params
     # whitelist params
-    params.require(:answer).permit(:text, :variable_mods, :next_question_order, :question_id)
+    params.require(:answer).permit(:text, :next_question_order, :question_id, variable_mods: {})
   end
 end
