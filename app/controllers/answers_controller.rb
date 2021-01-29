@@ -55,6 +55,7 @@ class AnswersController < ApplicationController
 
   def answer_params
     # whitelist params
-    params.require(:answer).permit(:text, :next_question_order, :question_id, variable_mods: {})
+    variables = Quiz.find(params[:quiz_id]).variables.map { |v| [v.to_sym] }
+    params.require(:answer).permit(:text, :next_question_order, :question_id, variable_mods: variables)
   end
 end
