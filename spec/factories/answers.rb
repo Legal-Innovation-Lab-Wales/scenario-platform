@@ -8,6 +8,7 @@ FactoryBot.define do
   end
 
   trait :with_next_question_order do
-    next_question_order { 1 }
+    question { Question.first || association(:question) }
+    next_question_order { Question.second.present? ? Question.second.order : question.order }
   end
 end

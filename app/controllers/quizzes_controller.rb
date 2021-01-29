@@ -19,11 +19,14 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/:id
   def show
+    quiz = if current_user.admin?
+             @quiz.as_json(include: { questions: { include: :answers } })
+           else
+             @quiz
+           end
     respond_to do |format|
       format.html
-      # TODO Improve this query
-      # format.json { render json: @quiz.as_json }
-      format.json { json_response(@quiz.as_json(include: { questions: { include: :answers } } )) }
+      format.json { json_response(quiz) }
     end
   end
 

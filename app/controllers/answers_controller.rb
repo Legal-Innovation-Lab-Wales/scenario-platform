@@ -31,7 +31,7 @@ class AnswersController < ApplicationController
     if @answer.update(answer_params)
       respond_to do |format|
         format.html { redirect_to(@question) }
-        format.json { json_response(@answer, :no_content) }
+        format.json { json_response(@answer, :ok) }
       end
     else
       render @answer.errors, status: :unprocessable_entity
@@ -55,6 +55,7 @@ class AnswersController < ApplicationController
 
   def answer_params
     # whitelist params
-    params.require(:answer).permit(:text, :variable_mods, :next_question_order, :question_id)
+    # variables = Quiz.find(params[:quiz_id]).variables.map { |v| [v.to_sym] }
+    params.require(:answer).permit(:text, :next_question_order, :question_id, variable_mods: {})
   end
 end
