@@ -2,10 +2,16 @@
 <h2> <%= @quiz.name %> </h2>
 <p> <%= @quiz.description %> </p>
 
-<h3><%= link_to "Start Quiz", quiz_question_path(@quiz, @quiz.questions.find_by(order: 0)) %></h3>
+<% if @quiz.questions.find_by(order: 0).present? %>
+  <h3><%= link_to "Start Quiz", quiz_question_path(@quiz, @quiz.questions.find_by(order: 0)) %></h3>
+<% else %>
+  <h3> Please add a question with order 0 as a starting point for your quiz</h3>
+<% end %>
 
 <% if current_user.admin? %>
   <h2>Admin Only View</h2>
+  <p>Variables: <%= @quiz.variables %></p>
+  <p>Starting Values: <%= @quiz.variable_initial_values %></p>
   <% @quiz.questions.each do |question| %>
     <h3><%= question.description %></h3>
     <h4><%= question.text %></h4>

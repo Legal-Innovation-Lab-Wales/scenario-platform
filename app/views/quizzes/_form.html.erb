@@ -1,3 +1,4 @@
+
 <%= form_with(model: quiz) do |form| %>
   <% if quiz.errors.any? %>
     <div id="error_explanation">
@@ -21,15 +22,22 @@
     <%= form.text_area :description %>
   </div>
 
-  <div class="field">
+  <div id="variables"  class="field">
+    <input type="hidden" value="1" id="total_vars">
+    <button type="button" id="add_variable">Add</button>
+    <button type="button" id="remove_variable">Remove</button>
     <%= form.label :variables %>
-    <%= form.text_field :variables %>
+    <span id='variable-0'><input multiple='multiple' type='text' name='quiz[variables][]'></span>
   </div>
 
-  <div class="field">
+
+  <div id="initial_values" class="field">
+    <input type="hidden" value="1" id="total_vals">
     <%= form.label :variable_initial_values %>
-    <%= form.text_field :variable_initial_values %>
+    <span id='initial_value-0'><input multiple='multiple' type='number' name='quiz[variable_initial_values][]'></span>
+
   </div>
+
 
   <div class="field">
     <%= form.label :available %>
@@ -40,3 +48,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<%= javascript_pack_tag 'erb_form_functions' %>
