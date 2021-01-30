@@ -2,7 +2,6 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[show update destroy]
   before_action :require_admin, only: %i[new create edit update delete]
-  # before_action :
 
   # GET /quizzes
   def index
