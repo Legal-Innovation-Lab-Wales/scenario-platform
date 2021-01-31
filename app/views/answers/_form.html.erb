@@ -26,7 +26,7 @@
             <input multiple='multiple' type='number'
                    value='<%= answer.variable_mods[variable] if answer.variable_mods.present? && answer.variable_mods.has_key?(variable) %>'
                    name='answer[variable_mods][<%= variable %>]'
-                   placeholder="<%= variable %>">
+                   placeholder='<%= variable %>'>
           </td>
         </tr>
       <% end %>
