@@ -46,7 +46,7 @@
                 <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-primary btn-sm">Next
                   Question: <%= answer.next_question_order %></a>
               </div>
-              <div class="card-footer text-small">
+              <div class="card-footer small">
                 <p>Variable Modifiers:</p>
                 <ul>
                   <% answer.variable_mods&.each do |variable_mod| %>
@@ -54,11 +54,15 @@
                   <% end %>
                 </ul>
               </div>
+              <div class="card-footer text-center">
+                <%= link_to "Edit Answer", edit_quiz_question_answer_path(@quiz, question, answer) %>
+              </div>
             </div>
           </div>
         <% end %>
 
         <div>
+          <%= link_to "Edit Question", edit_quiz_question_path(@quiz, question), class: "btn btn-warning" %>
           <%= link_to "Add new answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-info" %>
         </div>
       </div>
