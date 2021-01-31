@@ -36,20 +36,23 @@
         <h3><%= question.description %></h3>
         <h4><%= question.text %></h4>
 
-
         <% question.answers.each do |answer| %>
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="card shadow-sm mb-5 bg-white rounded">
               <div class="card-body text-center">
                 <h5 class="card-title"><%= answer.text %></h5>
-                <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-primary btn-sm">Next
-                  Question: <%= answer.next_question_order %></a>
+                <% if answer.next_question_order.present? %>
+                  <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-primary btn-sm">Next
+                    Question: <%= answer.next_question_order %></a>
+                <% else %>
+                  <a href="#" class="btn btn-primary btn-sm disabled">No Next Question</a>
+                <% end %>
               </div>
               <div class="card-footer small">
-                <p>Variable Modifiers:</p>
-                <ul>
+                <em>Variable Modifiers:</em>
+                <ul class="list-unstyled">
                   <% answer.variable_mods&.each do |variable_mod| %>
-                    <li><%= variable_mod[0] %>: <%= variable_mod[1] %></li>
+                    <li><%= variable_mod[0] %>: <strong><%= variable_mod[1] %></strong></li>
                   <% end %>
                 </ul>
               </div>
