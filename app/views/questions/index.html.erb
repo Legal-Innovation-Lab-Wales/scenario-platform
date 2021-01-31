@@ -18,9 +18,9 @@
         <td><%= question.description %></td>
         <td><%= question.text %></td>
         <td><%= question.order %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', quiz_question_path(question.quiz_id, question.id) %></td>
+        <td><%= link_to 'Edit', edit_quiz_question_path(question.quiz_id, question.id) %></td>
+        <td><%= link_to 'Destroy', quiz_question_path(question.quiz_id, question.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_quiz_question_path(@quiz) %>

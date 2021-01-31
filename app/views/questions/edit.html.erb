@@ -1,6 +1,6 @@
 <h1>Editing Question</h1>
 
-<%= render 'form', question: @question %>
+<%= render 'form', question: @question, action: "update" %>
 
-<%= link_to 'Show', @question %> |
-<%= link_to 'Back', questions_path %>
+<%= link_to 'Show', quiz_question_path(@question.quiz_id, @question.id) %> |
+<%= link_to 'Back', quiz_questions_path %>

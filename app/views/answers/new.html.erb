@@ -1,5 +1,5 @@
 <h1>New Answer</h1>
 
-<%= render 'form', answer: @answer %>
+<%= render 'form', answer: @answer, action: "create" %>
 
-<%= link_to 'Back', answers_path %>
+<%= link_to 'Back', quiz_question_path(@question.quiz_id, @question.id) %>
