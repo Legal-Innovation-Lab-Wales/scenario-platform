@@ -38,6 +38,17 @@ user = User.new(
 user.skip_confirmation!
 user.save!
 
+user = User.new(
+  first_name: 'Test',
+  last_name: 'NoAdmin',
+  email: 'NoAdmin@purpleriver.dev',
+  bio: 'Hello World',
+  organisation_id: 1,
+  password: 'test1234'
+)
+user.skip_confirmation!
+user.save!
+
 User.create!(
   first_name: 'test',
   last_name: 'surname',
