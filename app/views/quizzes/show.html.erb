@@ -17,8 +17,7 @@
     <div class="row">
 
       <h2 class="text-danger">Admin Only View</h2>
-      <!--      <p>Variables: <%#= @quiz.variables %></p>-->
-      <!--      <p>Starting Values: <%#= @quiz.variable_initial_values %></p>-->
+      <h2><%= link_to "Edit Quiz", edit_quiz_path, class: "btn btn-secondary btn-sm" %></h2>
       <h5> Variables & Starting Values </h5>
       <ul class="list-unstyled">
         <% @quiz.variables.zip(@quiz.variable_initial_values) do |variable, variable_initial_value| %>
@@ -63,7 +62,7 @@
 
         <div>
           <%= link_to "Edit Question", edit_quiz_question_path(@quiz, question), class: "btn btn-warning" %>
-          <%= link_to "Add new answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-info" %>
+          <%= link_to "Add New Answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-info" %>
         </div>
       </div>
     <% end %>
