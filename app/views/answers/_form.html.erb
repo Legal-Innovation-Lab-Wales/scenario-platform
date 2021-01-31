@@ -18,7 +18,9 @@
 
   <div class="field">
     <%= form.label :variable_mods %>
-    <%= form.text_field :variable_mods %>
+    <% @variables.each do |variable| %>
+      <input multiple='multiple' type='number' name='answer[variable_mods][<%= variable %>]' placeholder="<%= variable %>">
+    <% end %>
   </div>
 
   <div class="field">

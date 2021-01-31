@@ -1,6 +1,6 @@
 # app/controllers/answers_controller.rb
 class AnswersController < ApplicationController
-  before_action :set_question
+  before_action :set_question, :set_variables
   before_action :set_answer, only: %i[edit update destroy]
   before_action :require_admin
 
@@ -47,6 +47,10 @@ class AnswersController < ApplicationController
 
   def set_question
     @question = Question.find(params[:question_id])
+  end
+
+  def set_variables
+    @variables = Quiz.find(params[:quiz_id]).variables
   end
 
   def set_answer
