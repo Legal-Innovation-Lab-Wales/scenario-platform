@@ -1,22 +1,76 @@
-<h1>Quiz</h1>
-<h2> <%= @quiz.name %> </h2>
-<p> <%= @quiz.description %> </p>
+<div class="container">
+  <div class="row">
+    <h1>Quiz</h1>
+    <h2> <%= @quiz.name %> </h2>
+    <p> <%= @quiz.description %> </p>
 
-<% if @quiz.questions.find_by(order: 0).present? %>
-  <h3><%= link_to "Start Quiz", quiz_question_path(@quiz, @quiz.questions.find_by(order: 0)) %></h3>
-<% else %>
-  <h3> Please add a question with order 0 as a starting point for your quiz</h3>
-<% end %>
+    <% if @quiz.questions.find_by(order: 0).present? %>
+      <div class="text-center"><%= link_to "Start Quiz", quiz_question_path(@quiz, @quiz.questions.find_by(order: 0)), class: "btn btn-success btn-lg" %></div>
+    <% else %>
+      <h3> Please add a question with order 0 as a starting point for your quiz</h3>
+    <% end %>
+  </div>
+</div>
 
 <% if current_user.admin? %>
-  <h2>Admin Only View</h2>
-  <p>Variables: <%= @quiz.variables %></p>
-  <p>Starting Values: <%= @quiz.variable_initial_values %></p>
-  <% @quiz.questions.each do |question| %>
-    <h3><%= question.description %></h3>
-    <h4><%= question.text %></h4>
-    <% question.answers.each do |answer| %>
-      <li><%= answer.text %></li>
+  <div class="container">
+    <div class="row">
+
+      <h2 class="text-danger">Admin Only View</h2>
+      <!--      <p>Variables: <%#= @quiz.variables %></p>-->
+      <!--      <p>Starting Values: <%#= @quiz.variable_initial_values %></p>-->
+      <h5> Variables & Starting Values </h5>
+      <ul class="list-unstyled">
+        <% @quiz.variables.zip(@quiz.variable_initial_values) do |variable, variable_initial_value| %>
+          <li><%= variable %>: <%= variable_initial_value %></li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="container">
+
+    <% @quiz.questions.each do |question| %>
+      <div id="question_order_<%= question.order %>" class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
+        <h5>Question Order: <%= question.order %></h5>
+        <h3><%= question.description %></h3>
+        <h4><%= question.text %></h4>
+
+
+        <% question.answers.each do |answer| %>
+          <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card shadow-sm mb-5 bg-white rounded">
+              <div class="card-body text-center">
+                <h5 class="card-title"><%= answer.text %></h5>
+                <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-primary btn-sm">Next
+                  Question: <%= answer.next_question_order %></a>
+              </div>
+              <div class="card-footer text-small">
+                <p>Variable Modifiers:</p>
+                <ul>
+                  <% answer.variable_mods&.each do |variable_mod| %>
+                    <li><%= variable_mod[0] %>: <%= variable_mod[1] %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div>
+          <%= link_to "Add new answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-info" %>
+        </div>
+      </div>
     <% end %>
-  <% end %>
+
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
+      <div class="text-center">
+        <%= link_to "Add new question", new_quiz_question_path(@quiz), class: "btn btn-info" %>
+      </div>
+    </div>
+  </div>
 <% end %>
