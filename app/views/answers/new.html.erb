@@ -2,4 +2,4 @@
 
 <%= render 'form', answer: @answer, action: "create" %>
 
-<%= link_to 'Back', quiz_path(@question.quiz_id, anchor: "question_order_" + @question.order.to_s) %>
+<%= link_to 'Back', quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order.to_s}") %>
