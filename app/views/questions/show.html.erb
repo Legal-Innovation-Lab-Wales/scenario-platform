@@ -5,7 +5,7 @@
 
 <div>
   <% @question.answers.each do |answer| %>
-  <a href="<%= question_path(answer.next_question_id) if answer.next_question_id.present? %>">
+  <a href="<%= quiz_question_path(answer.next_question_id) if answer.next_question_id.present? %>">
     <div>
       <p> <%= answer.text %> </p>
     </div>
