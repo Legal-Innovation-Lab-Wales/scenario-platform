@@ -22,20 +22,40 @@
     <%= form.text_area :description %>
   </div>
 
-  <div id="variables"  class="field">
-    <input type="hidden" value="1" id="total_vars">
+
+  <div class="field">
+    <table id="variables">
+      <input type="hidden" value="<%= quiz.variables.count %>" id="total_vars">
+      <tr>
+        <th><%= form.label :variables %></th>
+        <th><%= form.label :variable_initial_values %></th>
+      </tr>
+      <% quiz.variables.zip(quiz.variable_initial_values).each_with_index do |variable, variable_initial_value, index| %>
+        <tr id='variable-<%= variable_initial_value %>'>
+          <td><input multiple='multiple' type='text' value='<%= variable[0] %>' name='quiz[variables][]'></td>
+          <td><input multiple='multiple' type='number' value='<%= variable[1] %>' name='quiz[variable_initial_values][]'></td>
+        </tr>
+      <% end %>
+
+    </table>
+
+      <%# quiz.variables&.each do |variable| %>
+<!--        <span id='variable-0'><input multiple='multiple' type='text' value='<%#= variable %>' name='quiz[variables][]'></span>-->
+      <%# end %>
+
+<!--      <input type="hidden" value="1" id="total_vals">-->
+
+      <%# quiz.variable_initial_values&.each do |variable_initial_value| %>
+<!--          <span id='initial_value-0'><input multiple='multiple' type='number' value='<%#= variable_initial_value %>' name='quiz[variable_initial_values][]'></span>-->
+      <%# end %>
+
+  </div>
+
+  <div>
     <button type="button" id="add_variable">Add</button>
     <button type="button" id="remove_variable">Remove</button>
-    <%= form.label :variables %>
-    <span id='variable-0'><input multiple='multiple' type='text' name='quiz[variables][]'></span>
   </div>
 
-
-  <div id="initial_values" class="field">
-    <input type="hidden" value="1" id="total_vals">
-    <%= form.label :variable_initial_values %>
-    <span id='initial_value-0'><input multiple='multiple' type='number' name='quiz[variable_initial_values][]'></span>
-  </div>
 
 
   <div class="field">
