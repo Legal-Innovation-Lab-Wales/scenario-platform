@@ -18,9 +18,14 @@
 
   <div class="field">
     <%= form.label :variable_mods %>
-    <% @variables.each do |variable| %>
-      <input multiple='multiple' type='number' name='answer[variable_mods][<%= variable %>]' placeholder="<%= variable %>">
-    <% end %>
+    <table>
+      <% @variables.each do |variable| %>
+        <tr>
+          <td><label for='answer[variable_mods][<%= variable %>]'><%= variable %>: </label></td>
+          <td><input multiple='multiple' type='number' value='<%= answer.variable_mods[variable]%>' name='answer[variable_mods][<%= variable %>]' placeholder="<%= variable %>"></td>
+        </tr>
+      <% end %>
+    </table>
   </div>
 
   <div class="field">
