@@ -32,7 +32,7 @@ class QuestionsController < ApplicationController
   def create
     if (@question = current_user.questions.create!(question_params.merge(quiz_id: @quiz.id)))
       respond_to do |format|
-        format.html { redirect_to(@quiz) }
+        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order.to_s}") }
         format.json { json_response(@question.as_json, :created) }
       end
     # else
@@ -52,7 +52,7 @@ class QuestionsController < ApplicationController
   def update
     if @question.update(question_params)
       respond_to do |format|
-        format.html { redirect_to(@question) }
+        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@question, :no_content) }
       end
     # else
