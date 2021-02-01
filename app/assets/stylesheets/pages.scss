@@ -3,6 +3,9 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 @import "variables";
+form:before {
+  background-color: $body-bg !important;
+}
 
 body#overboot {
   font-family: $font;

@@ -1,6 +1,14 @@
-<h1>Editing Quiz</h1>
+<section class="admin-view">
+  <div class="container">
 
-<%= render 'form', quiz: @quiz %>
+    <h1 class="text-center">Editing Quiz</h1>
 
-<%= link_to 'Show', @quiz %> |
-<%= link_to 'Back', quizzes_path %>
+    <%= render 'form', quiz: @quiz %>
+
+    <div class="text-center">
+      <%= link_to 'Show', @quiz %> |
+      <%= link_to 'Back', quizzes_path %>
+    </div>
+
+  </div>
+</section>
