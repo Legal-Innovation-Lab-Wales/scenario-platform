@@ -138,5 +138,10 @@ form:before {
 
 }
 .admin-view {
-
+  padding-top: 2rem;
+  background: $admin-background;
+  .admin-header {
+    background-color: $section-bg;
+    padding-bottom: 2rem;
+  }
 }

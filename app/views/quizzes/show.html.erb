@@ -19,16 +19,29 @@
 <% if current_user.admin? %>
   <section class="admin-view">
     <div class="container">
-      <div class="row">
+      <div class="row justify-content-center">
+        <div class="col-4 admin-header align-self-center">
+          <div class="card">
+            <div class="card-body">
 
-        <h2 class="text-danger">Admin Only View</h2>
-        <h2><%= link_to "Edit Quiz", edit_quiz_path, class: "btn btn-secondary btn-sm" %></h2>
-        <h5> Variables & Starting Values </h5>
-        <ul class="list-unstyled">
-          <% @quiz.variables.zip(@quiz.variable_initial_values) do |variable, variable_initial_value| %>
-            <li><%= variable %>: <%= variable_initial_value %></li>
-          <% end %>
-        </ul>
+              <h2 class="text-danger text-center">Admin Only View</h2>
+              <h2 class="text-center"><%= link_to "Edit Quiz", edit_quiz_path, class: "btn btn-secondary btn-sm" %></h2>
+                <table class="mx-auto">
+                  <tr>
+                    <th colspan="2"><h5>Variables & Starting Values </h5> </th>
+                  </tr>
+
+                    <% @quiz.variables.zip(@quiz.variable_initial_values) do |variable, variable_initial_value| %>
+                    <tr>
+                      <td><%= variable %>: </td><td><%= variable_initial_value %></td>
+                    </tr>
+                    <% end %>
+                </table>
+
+            </div>
+
+          </div>
+        </div>
 
       </div>
     </div>
@@ -54,24 +67,40 @@
                     <a href="#" class="btn btn-primary btn-sm disabled">No Next Question</a>
                   <% end %>
                 </div>
-                <div class="card-footer small">
-                  <em>Variable Modifiers:</em>
-                  <ul class="list-unstyled">
-                    <% answer.variable_mods&.each do |variable_mod| %>
-                      <li><%= variable_mod[0] %>: <strong><%= variable_mod[1] %></strong></li>
+                <div class="card-footer small ">
+                  <table class="mx-auto">
+                    <tr>
+                      <th colspan="2"><em>Variable Modifiers:</em></th>
+                      <% if answer.variable_mods.present? %>
+                        <% answer.variable_mods&.each do |variable_mod| %>
+                        <tr>
+                          <td><%= variable_mod[0] %>:</td>
+                          <td><strong><%= variable_mod[1] %></strong></td>
+                        </tr>
+                      <% end %>
+                    <% else %>
+                      <% @quiz.variables&.each do |variable| %>
+                        <tr>
+                          <td><%= variable %>:</td>
+                          <td><strong> nil </strong></td>
+                        </tr>
+                      <% end %>
+
                     <% end %>
-                  </ul>
+                    </tr>
+                  </table>
+
                 </div>
                 <div class="card-footer text-center">
-                  <%= link_to "Edit Answer", edit_quiz_question_answer_path(@quiz, question, answer), class: "btn btn-warning btn-sm"  %>
+                  <%= link_to "Edit Answer", edit_quiz_question_answer_path(@quiz, question, answer), class: "btn btn-info btn-sm"  %>
                 </div>
               </div>
             </div>
           <% end %>
 
           <div>
-            <%= link_to "Edit Question", edit_quiz_question_path(@quiz, question), class: "btn btn-warning" %>
-            <%= link_to "Add New Answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-info" %>
+            <%= link_to "Edit Question", edit_quiz_question_path(@quiz, question), class: "btn btn-info" %>
+            <%= link_to "Add New Answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-warning" %>
           </div>
         </div>
       <% end %>
