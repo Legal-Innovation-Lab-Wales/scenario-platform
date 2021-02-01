@@ -4,6 +4,72 @@
 
 @import "variables";
 
+body#overboot {
+  font-family: $font;
+  color: $ink-navy;
+  background-color: $body-bg;
+  .text-danger {
+    color: $brand-danger;
+  }
+  .btn {
+    box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.3);
+    transition: 0.2s ;
+  }
+  .btn:hover{
+    box-shadow: none;
+  }
+  .btn-primary {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+    color: $ink-white;
+  }
+  .btn-primary:hover {
+    background-color: $brand-primary-hover;
+    border-color: $brand-primary-hover;
+  }
+  .btn-success {
+    background-color: $brand-success;
+    border-color: $brand-success;
+    color: $ink-white;
+  }
+  .btn-success:hover {
+    background-color: $brand-success-hover;
+    border-color: $brand-success-hover;
+  }
+  .btn-info {
+    background-color: $brand-info;
+    border-color: $brand-info;
+    color: $ink-white;
+  }
+  .btn-info:hover {
+    background-color: $brand-info-hover;
+    border-color: $brand-info-hover;
+  }
+  .btn-warning {
+    background-color: $brand-warning;
+    border-color:$brand-warning;
+    color: $ink-white;
+  }
+  .btn-warning:hover {
+    background-color: $brand-warning-hover;
+    border-color:$brand-warning-hover;
+  }
+  .btn-danger {
+    background-color: $brand-danger;
+    border-color:$brand-danger;
+  }
+  .btn-danger:hover {
+    background-color: $brand-danger-hover;
+    border-color:$brand-danger-hover;
+  }
+
+
+}
+h1, h2, h3, h4, h5 {
+  font-family: $heading-font
+}
+
+
 #cover {
     background: #222 url('https://images.squarespace-cdn.com/content/v1/5ec39523fd9ccb514097857d/1594284353636-I0JVY21SQ1SVUVNQ8U5P/ke17ZwdGBToddI8pDm48kFyD7pzB8zoMIVY5aiUuFlp7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0jG2lbcDYBOeMi4OFSYem8DMb5PTLoEDdB05UqhYu-xbnSznFxIRsaAU-3g5IaylIg/LILW4.jpg?format=2500w') center center no-repeat;
     background-size: cover;
@@ -50,7 +116,7 @@ form:before {
       font-weight:  400;
       color: white;
       opacity:  .85;
-    
+
     }
     text-align: center;
     max-width: 460px;
@@ -59,3 +125,18 @@ form:before {
     padding: 10px;
     background-color: rgba(0,0,0,0.9);
     }
+
+.quiz-header {
+
+  .container {
+    background-color: $section-bg-navy;
+    color: $ink-orange;
+    padding: 1rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+  }
+
+}
+.admin-view {
+
+}
