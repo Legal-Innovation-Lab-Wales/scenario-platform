@@ -1,15 +1,19 @@
-<h1> Question </h1>
-
-<h2> <%= @question.description %> </h2>
-<h2> <%= @question.text %> </h2>
-
-<div>
-  <% @question.answers.each do |answer| %>
-  <a href="<%= quiz_question_path(@quiz, answer.next_question_id) if answer.next_question_id.present? %>">
-    <div>
-      <p> <%= answer.text %> </p>
+<section class="quiz-header text-center">
+  <div class="container quiz-show-container shadow rounded-3">
+    <div class="row">
+      <h2 class="quiz-heading"> <%= @question.description %> </h2>
+      <p> <%= @question.text %> </p>
     </div>
-  </a>
-  <% end %>
 
-</div>
+    <% @question.answers.each do |answer| %>
+      <a class="text-decoration-none" href="<%= quiz_question_path(@quiz, answer.next_question_id) if answer.next_question_id.present? %>">
+        <div class="row justify-content-md-center answer-row">
+          <div class="col question-answer">
+            <p> <%= answer.text %> </p>
+          </div>
+        </div>
+      </a>
+    <% end %>
+
+  </div>
+</section>

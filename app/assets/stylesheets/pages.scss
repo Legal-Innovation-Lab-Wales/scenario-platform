@@ -169,3 +169,22 @@ section.quiz-index {
     padding-bottom: 2rem;
   }
 }
+
+.answer-row{
+  .question-answer {
+    background-color: $section-bg-navy;
+    border: 2px solid $ink-orange;
+    border-radius: 10px;
+    transition: 0.2s;
+    margin: 6px 50px;
+    p {
+      color: $ink-orange;
+      //text-decoration: none;
+      text-decoration-line: none;
+      margin: 5px 0;
+    }
+    &:hover {
+      background-color: #F7F7F822;
+    }
+  }
+}
