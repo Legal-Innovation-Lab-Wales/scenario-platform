@@ -4,7 +4,8 @@
 
     <%= render 'form', question: @question, action: "create" %>
 
-    <%= link_to 'Back', quiz_path(@quiz.id) %>
-
+    <div class="text-center">
+      <%= link_to 'Back', quiz_path(@quiz.id) %>
+    </div>
   </div>
 </section>
