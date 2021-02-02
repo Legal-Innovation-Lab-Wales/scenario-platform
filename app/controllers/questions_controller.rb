@@ -32,7 +32,7 @@ class QuestionsController < ApplicationController
   def create
     if (@question = current_user.questions.create!(question_params.merge(quiz_id: @quiz.id)))
       respond_to do |format|
-        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order.to_s}") }
+        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@question.as_json, :created) }
       end
     # else
@@ -62,7 +62,12 @@ class QuestionsController < ApplicationController
 
   # DELETE /quizzes/:quiz_id/questions/:id
   def destroy
-    @question.destroy
+    if @question.destroy
+      respond_to do |format|
+        format.html { redirect_to quiz_path(@question.quiz_id) }
+        format.json { json_response(@question, :no_content) }
+      end
+    end
   end
 
   private

@@ -30,7 +30,7 @@ class AnswersController < ApplicationController
   def update
     if @answer.update(answer_params)
       respond_to do |format|
-        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order.to_s}") }
+        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@answer, :ok) }
       end
     else
@@ -40,7 +40,12 @@ class AnswersController < ApplicationController
 
   # DELETE /quizzes/:quiz_id/questions/:question_id/answers/:id
   def destroy
-    @answer.destroy
+    if @answer.destroy
+      respond_to do |format|
+        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
+        format.json { json_response(nil, :no_content) }
+      end
+    end
   end
 
   private

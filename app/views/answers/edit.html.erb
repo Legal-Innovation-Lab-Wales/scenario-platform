@@ -5,6 +5,9 @@
 
     <%= render 'form', answer: @answer, action: "update" %>
 
+    <div class="text-center my-2">
+      <%= link_to 'Destroy', quiz_question_answer_path(@question.quiz_id, @question.id, @answer), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+    </div>
     <div class="text-center">
     <%= link_to 'Back', quiz_path(@question.quiz_id, "question_order_#{@question.order.to_s}") %>
     </div>

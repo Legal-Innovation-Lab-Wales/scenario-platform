@@ -66,7 +66,12 @@ class QuizzesController < ApplicationController
 
   # DELETE /quizzes/:quiz_id
   def destroy
-    @quiz.destroy
+    if @quiz.destroy
+      respond_to do |format|
+        format.html { redirect_to quizzes_path }
+        format.json { json_response(@quiz, :no_content) }
+      end
+    end
   end
 
   private
