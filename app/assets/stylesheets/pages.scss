@@ -74,7 +74,9 @@ h1, h2, h3, h4, h5 {
 
 
 #cover {
-    background: #222 url('https://images.squarespace-cdn.com/content/v1/5ec39523fd9ccb514097857d/1594284353636-I0JVY21SQ1SVUVNQ8U5P/ke17ZwdGBToddI8pDm48kFyD7pzB8zoMIVY5aiUuFlp7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0jG2lbcDYBOeMi4OFSYem8DMb5PTLoEDdB05UqhYu-xbnSznFxIRsaAU-3g5IaylIg/LILW4.jpg?format=2500w') center center no-repeat;
+    background-image: image-url('LILW4.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
     text-align: center;
@@ -129,17 +131,36 @@ form:before {
     background-color: rgba(0,0,0,0.9);
     }
 
-.quiz-header {
-
-  .container {
+section.quiz-header, section.quiz-album {
+  .quiz-show-container {
     background-color: $section-bg-navy;
     color: $ink-orange;
+  }
+}
+section.quiz-header {
+  .quiz-show-container {
     padding: 1rem;
     margin-top: 5rem;
     margin-bottom: 5rem;
   }
-
 }
+section.quiz-album {
+  background-color: $section-bg;
+}
+section.quiz-index {
+  background-image: image-url('LILW4.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+
+
+  .grey-transparent-bg {
+    background-color: $section-bg-transparent;
+    padding: 0.6rem;
+    border-radius: 0.4rem;
+
+  }
+}
+
 .admin-view {
   padding-top: 2rem;
   background: $admin-background;
