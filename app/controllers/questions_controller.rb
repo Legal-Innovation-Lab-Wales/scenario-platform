@@ -2,7 +2,7 @@
 class QuestionsController < ApplicationController
   before_action :set_quiz
   before_action :set_question, except: %i[new create index]
-  before_action :require_admin, only: %i[new create edit update delete]
+  before_action :require_admin, except: :show
 
   # GET /quizzes/:quiz_id/questions
   def index
