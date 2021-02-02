@@ -27,7 +27,7 @@ RSpec.describe 'Questions', type: :request do
     end
 
     context 'when any user signed in' do
-      before { sign_in user }
+      before { sign_in admin }
       before { get "/quizzes/#{quiz_id}/questions", headers: headers }
 
       it 'returns http status success' do
