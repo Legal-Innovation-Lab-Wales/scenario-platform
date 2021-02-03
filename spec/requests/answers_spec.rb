@@ -230,7 +230,7 @@ RSpec.describe 'Answers', type: :request do
   describe 'delete answer (DELETE quiz_question_answer' do
     context 'when admin signed in' do
       before { sign_in admin }
-      before { delete "/quizzes/#{quiz_id}/questions/#{question_id}/answers/#{answer_id}" }
+      before { delete "/quizzes/#{quiz_id}/questions/#{question_id}/answers/#{answer_id}", headers: headers }
 
       it 'returns status code 204' do
         expect(response).to have_http_status(204)

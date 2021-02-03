@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+<section class="text-center">
+  <div class="container">
+    <div class="row">
+
+
+      <h1>Quiz: <%= @quiz.id %></h1>
+      <h3><%= @quiz.name %></h3>
+      <h5><%= @quiz.description %></h5>
+      <h1>Questions</h1>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <% @questions.each do |question| %>
+      <div id="question_order_<%= question.order %>" class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
+        <p><strong>Order: </strong><%= question.order %></p>
+        <p><strong>Description: </strong><%= question.description %></p>
+        <p><strong>Text: </strong><%= question.text %></p>
+        <p><strong>Answers:</strong></p>
+        <table>
+          <tbody>
+          <% question.answers.each do |answer| %>
+            <tr>
+              <td><%= answer.text %></td>
+              <td>
+                Next Question: <a href="#question_order_<%= answer.next_question_order %>">
+                Order <%= answer.next_question_order %>
+              </a>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
+      <table>
+        <thead>
+        <tr>
+          <th>Description</th>
+          <th>Text</th>
+          <th>Order</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @questions.each do |question| %>
+          <tr>
+            <td><%= question.description %></td>
+            <td><%= question.text %></td>
+            <td><%= question.order %></td>
+            <td><%= link_to 'Show', quiz_question_path(question.quiz_id, question.id) %></td>
+            <td><%= link_to 'Edit', edit_quiz_question_path(question.quiz_id, question.id) %></td>
+            <td><%= link_to 'Destroy', quiz_question_path(question.quiz_id, question.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<br>
+
+<%= link_to 'New Question', new_quiz_question_path(@quiz) %>

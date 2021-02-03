@@ -315,7 +315,7 @@ RSpec.describe 'Quizzes', type: :request do
   describe 'delete quiz (DELETE quiz)' do
     context 'when admin signed in' do
       before { sign_in admin }
-      before { delete "/quizzes/#{quiz_id}" }
+      before { delete "/quizzes/#{quiz_id}", headers: headers }
 
       it 'returns status code 204' do
         expect(response).to have_http_status(204)

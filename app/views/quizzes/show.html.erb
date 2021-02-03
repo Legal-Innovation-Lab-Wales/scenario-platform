@@ -1,13 +1,118 @@
-<h1>Quiz</h1>
-<h2> <%= @quiz.name %> </h2>
-<p> <%= @quiz.description %> </p>
+<section class="quiz-header text-center">
+    <div class="container quiz-show-container shadow rounded-3">
+      <div class="row">
+        <h1 class="quiz-heading"> <%= @quiz.name %> </h1>
+        <p> <%= @quiz.description %> </p>
 
-<h3><%= link_to "Start Quiz", question_path(@quiz.questions.find_by(order: 0)) %></h3>
+        <% if @quiz.questions.find_by(order: 0).present? %>
+          <div class="text-center"><%= link_to "Start Quiz", quiz_question_path(@quiz, @quiz.questions.find_by(order: 0)), class: "btn btn-success btn-lg" %></div>
+        <% elsif current_user.admin? %>
+          <h3> Please add a question with order 0 as a starting point for your quiz</h3>
+        <% else %>
+          <div class="text-center"><button class="btn btn-primary btn-large disabled">Start Quiz</button></div>
+        <% end %>
+      </div>
+    </div>
+</section>
 
-<% @quiz.questions.each do |question| %>
-  <h3><%= question.description %></h3>
-  <h4><%= question.text %></h4>
-  <% question.answers.each do |answer| %>
-    <li><%= answer.text %></li>
-  <% end %>
+
+<% if current_user.admin? %>
+  <section class="admin-view">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-10 admin-header align-self-center">
+          <div class="card">
+            <div class="card-body">
+
+              <h2 class="text-danger text-center">Admin Only View</h2>
+              <h2 class="text-center"><%= link_to "Edit Quiz", edit_quiz_path, class: "btn btn-secondary btn-sm" %></h2>
+                <table class="mx-auto">
+                  <tr>
+                    <th colspan="2"><h5>Variables & Starting Values </h5> </th>
+                  </tr>
+
+                    <% @quiz.variables.zip(@quiz.variable_initial_values) do |variable, variable_initial_value| %>
+                    <tr>
+                      <td><%= variable %>: </td><td><%= variable_initial_value %></td>
+                    </tr>
+                    <% end %>
+                </table>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+
+      <% @quiz.questions.each do |question| %>
+        <div id="question_order_<%= question.order %>" class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
+          <h5>Question Order: <%= question.order %></h5>
+          <h3><%= question.description %></h3>
+          <h4><%= question.text %></h4>
+
+          <% question.answers.each do |answer| %>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+              <div class="card shadow-sm mb-5 bg-white rounded">
+                <div class="card-body text-center">
+                  <h5 class="card-title"><%= answer.text %></h5>
+                  <% if answer.next_question_order.present? %>
+                    <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-primary btn-sm">
+                      Next Question: <%= answer.next_question_order %>
+                    </a>
+                  <% else %>
+                    <a href="#" class="btn btn-primary btn-sm disabled">No Next Question</a>
+                  <% end %>
+                </div>
+                <div class="card-footer small ">
+                  <table class="mx-auto">
+                    <tr>
+                      <th colspan="2"><em>Variable Modifiers:</em></th>
+                      <% if answer.variable_mods.present? %>
+                        <% answer.variable_mods&.each do |variable_mod| %>
+                        <tr>
+                          <td><%= variable_mod[0] %>:</td>
+                          <td><strong><%= variable_mod[1] %></strong></td>
+                        </tr>
+                      <% end %>
+                    <% else %>
+                      <% @quiz.variables&.each do |variable| %>
+                        <tr>
+                          <td><%= variable %>:</td>
+                          <td><strong> nil </strong></td>
+                        </tr>
+                      <% end %>
+
+                    <% end %>
+                    </tr>
+                  </table>
+
+                </div>
+                <div class="card-footer text-center">
+                  <%= link_to "Edit Answer", edit_quiz_question_answer_path(@quiz, question, answer), class: "btn btn-info btn-sm"  %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <div>
+            <%= link_to "Edit Question", edit_quiz_question_path(@quiz, question), class: "btn btn-info" %>
+            <%= link_to "Add New Answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-warning" %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
+        <div class="text-center">
+          <%= link_to "Add new question", new_quiz_question_path(@quiz), class: "btn btn-info" %>
+        </div>
+      </div>
+    </div>
+  </section>
 <% end %>

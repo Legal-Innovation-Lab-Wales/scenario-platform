@@ -1,0 +1,35 @@
+<div class="row">
+
+<%= form_for question, url: { action: action } do |form| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+        <% question.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_field :description, class: "form-control" %>
+  </div>
+
+  <div class="field mb-3">
+    <%= form.label :text, class: "form-label" %>
+    <%= form.text_field :text, class: "form-control" %>
+  </div>
+
+  <div class="field mb-3">
+    <%= form.label :order, class: "form-label" %>
+    <%= form.number_field :order, class: "form-control" %>
+  </div>
+
+  <div class="actions text-center">
+    <%= form.submit nil, class: "btn btn-primary" %>
+  </div>
+<% end %>
+</div>

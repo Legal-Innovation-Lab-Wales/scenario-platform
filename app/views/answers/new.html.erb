@@ -1,0 +1,12 @@
+<section class="admin-view">
+  <div class="container">
+
+    <h1 class="text-center">New Answer</h1>
+
+    <%= render 'form', answer: @answer, action: "create" %>
+
+    <div class="text-center">
+    <%= link_to 'Back', quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order.to_s}") %>
+    </div>
+  </div>
+</section>

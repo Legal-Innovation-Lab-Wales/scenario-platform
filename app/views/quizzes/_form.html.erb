@@ -1,0 +1,63 @@
+<div class="row">
+  <%= form_with(model: quiz) do |form| %>
+    <% if quiz.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
+
+        <ul>
+          <% quiz.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field mb-3">
+      <%= form.label :name, class: "form-label" %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="field mb-3">
+      <%= form.label :description, class: "form-label" %>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+
+
+    <div class="field mb-3 justify-content-center">
+      <table id="variables" class="mx-auto">
+        <input type="hidden" value="<%= quiz.variables.count %>" id="total_vars">
+        <tr>
+          <th><%= form.label :variables, class: "form-label" %></th>
+          <th><%= form.label :variable_initial_values, class: "form-label" %></th>
+        </tr>
+        <% quiz.variables.zip(quiz.variable_initial_values).each_with_index do |variable, variable_initial_value, index| %>
+          <tr id='variable-<%= variable_initial_value %>'>
+            <td>
+              <input multiple='multiple' type='text' value='<%= variable[0] %>' name='quiz[variables][]' class="form-control">
+            </td>
+            <td>
+              <input multiple='multiple' type='number' value='<%= variable[1] %>' name='quiz[variable_initial_values][]' class="form-control">
+            </td>
+          </tr>
+        <% end %>
+
+      </table>
+      <div class="text-center">
+        <button type="button" id="add_variable" class="btn btn-sm btn-success">Add</button>
+        <button type="button" id="remove_variable" class="btn btn-sm btn-danger">Remove</button>
+      </div>
+    </div>
+
+    <div class="field mb-3 text-center">
+      <%= form.label :available %>
+      <%= form.check_box :available %>
+    </div>
+
+    <div class="actions text-center">
+      <%= form.submit nil, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+
+<%= javascript_pack_tag 'erb_form_functions' %>

@@ -66,7 +66,12 @@ class QuizzesController < ApplicationController
 
   # DELETE /quizzes/:quiz_id
   def destroy
-    @quiz.destroy
+    if @quiz.destroy
+      respond_to do |format|
+        format.html { redirect_to quizzes_path }
+        format.json { json_response(@quiz, :no_content) }
+      end
+    end
   end
 
   private
@@ -81,6 +86,6 @@ class QuizzesController < ApplicationController
 
   def quiz_params
     # whitelist params
-    params.require(:quiz).permit(:name, :description, { variables: [] }, { variable_initial_values: [] }, :available)
+    params.require(:quiz).permit(:name, :description, :available, { variables: [] }, { variable_initial_values: [] })
   end
 end

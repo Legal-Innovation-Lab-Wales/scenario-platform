@@ -1,0 +1,11 @@
+<section class="admin-view">
+  <div class="container">
+    <h1 class="text-center">New Question</h1>
+
+    <%= render 'form', question: @question, action: "create" %>
+
+    <div class="text-center">
+      <%= link_to 'Back', quiz_path(@quiz.id) %>
+    </div>
+  </div>
+</section>
