@@ -12,7 +12,7 @@ Coming soon
 
 ## Tech/framework used
 The core technologies used for this project are:
-* Ruby.2.7.2 With Rails webpacker 4.3.0, 
+* Ruby. (2.7.2) With Rails (6.1.0) webpacker (4.3.0), 
 
 * React. 17.0.1, React router & Bootstrap for styling the front end components
 
