@@ -35,11 +35,11 @@ class QuestionsController < ApplicationController
         format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@question.as_json, :created) }
       end
-    # else
-    #   respond_to do |format|
-    #     # format.html { render 'new' } # when new exists render new
-    #     format.json { json_response(@question.errors) }
-    #   end
+    else
+      respond_to do |format|
+        format.html { render 'new' } # when new exists render new
+        format.json { json_response(@question.errors) }
+      end
     end
   end
 
@@ -55,8 +55,11 @@ class QuestionsController < ApplicationController
         format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@question, :no_content) }
       end
-    # else
-    #   render @question.errors, status: :unprocessable_entity
+    else
+      respond_to do |format|
+        format.html { render 'edit' } # when new exists render new
+        format.json { json_response(@question.errors, status: :unprocessable_entity) }
+      end
     end
   end
 
