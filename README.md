@@ -5,12 +5,10 @@ This repository holds the online platform ISPP. Its purpose as a platform is to 
 This project is created by the [Legal Innovation Lab Wales](https://legaltech.wales/) for purposes of creating a platform for charities/organisations to easily create interactive assement tools to simulate situations and assements. Such as interview scenarios, Conversation monitoring and life scenarios.
 
 ## Code style
-If you're using any code style like xo, standard etc. That will help others while contributing to your project. Ex. -
-
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/Legal-Innovation-Lab-Wales/quiz-builder)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/airbnb/ruby)
 
 ## Screenshots
-demo coming soon
+Coming soon
 
 ## Tech/framework used
 The core technologies used for this project are:
@@ -48,17 +46,13 @@ You should now be able view the main web page at
 
 ## API Reference
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+Coming soon
 
 ## Tests
-Describe and show how to run the tests with code examples.
+Coming soon
 
 ## Credits
 [Legal Innovation Lab Wales Developer Team](https://legaltech.wales/)
 
-#### Anything else that seems useful
-
 ## License
-A short snippet describing the license (MIT, Apache etc)
 
-MIT © [Yourname]()
