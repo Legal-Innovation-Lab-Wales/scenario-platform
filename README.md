@@ -1,8 +1,8 @@
 ## Interactive Scenario Training Platform 
-This repository holds the online platform ISPP. Its purpose as a platform is to provide the creation and taking of interactive assesments with added complexities such as concurrent variables and branching paths for a more indepth assesment.
+This repository holds the online platform ISPP. Its purpose as a platform is to provide the creation and taking of interactive assessments with added complexities such as concurrent variables and branching paths for a more in-depth assessment.
 
 ## Motivation
-This project is created by the [Legal Innovation Lab Wales](https://legaltech.wales/) for purposes of creating a platform for charities/organisations to easily create interactive assement tools to simulate situations and assements. Such as interview scenarios, Conversation monitoring and life scenarios.
+This project is created by the [Legal Innovation Lab Wales](https://legaltech.wales/) for purposes of creating a platform for charities/organisations to easily create interactive assessment tools to simulate situations and assessments. Such as interview scenarios, Conversation monitoring and life scenarios.
 
 ## Code style
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/airbnb/ruby)
@@ -40,7 +40,7 @@ rails db:create
 rails db:migrate
 rails db:seed``
 
-You should now be able view the main web page at 
+You should now be able to view the main web page at 
 
 ``http://localhost:3000``
 
@@ -55,4 +55,3 @@ Coming soon
 [Legal Innovation Lab Wales Developer Team](https://legaltech.wales/)
 
 ## License
-
