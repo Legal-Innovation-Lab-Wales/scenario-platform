@@ -479,6 +479,141 @@ Answer.create!(
   next_question_order: 8
 )
 
-
+QuizAttempt.create!(
+  user_id: 1,
+  quiz_id: 1,
+  attempt_number: 1,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 1
+    }, {
+      "question_id": 2,
+      "answer_id": 4
+    }, {
+      "question_id": 5,
+      "answer_id": 11
+    }],
+  scores: { health: 0, stamina: 0, experience: 0, coin: 10 }
+)
+QuizAttempt.create!(
+  user_id: 1,
+  quiz_id: 1,
+  attempt_number: 2,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 1
+    }, {
+      "question_id": 2,
+      "answer_id": 6
+    }, {
+      "question_id": 7,
+      "answer_id": 13
+    }],
+  scores: { health: 100, stamina: 100, experience: 50, coin: 10 }
+)
+QuizAttempt.create!(
+  user_id: 1,
+  quiz_id: 1,
+  attempt_number: 3,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
+QuizAttempt.create!(
+  user_id: 1,
+  quiz_id: 1,
+  attempt_number: 4,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 8
+    }, {
+      "question_id": 9,
+      "answer_id": 15
+    }],
+  scores: { health: 100, stamina: 100, experience: 100, coin: 100000010 }
+)
+QuizAttempt.create!(
+  user_id: 2,
+  quiz_id: 1,
+  attempt_number: 1,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
+QuizAttempt.create!(
+  user_id: 3,
+  quiz_id: 1,
+  attempt_number: 1,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
+QuizAttempt.create!(
+  user_id: 3,
+  quiz_id: 1,
+  attempt_number: 2,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
+QuizAttempt.create!(
+  user_id: 3,
+  quiz_id: 1,
+  attempt_number: 3,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
 
 
