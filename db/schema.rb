@@ -52,10 +52,11 @@ ActiveRecord::Schema.define(version: 5) do
     t.bigint "quiz_id", null: false
     t.bigint "user_id", null: false
     t.integer "attempt_number"
-    t.hstore "question_answers"
-    t.integer "scores", default: [], array: true
+    t.json "question_answers"
+    t.hstore "scores"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["quiz_id", "user_id", "attempt_number"], name: "index_quiz_attempts_on_quiz_id_and_user_id_and_attempt_number", unique: true
     t.index ["quiz_id"], name: "index_quiz_attempts_on_quiz_id"
     t.index ["user_id"], name: "index_quiz_attempts_on_user_id"
   end

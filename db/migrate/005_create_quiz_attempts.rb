@@ -5,10 +5,12 @@ class CreateQuizAttempts < ActiveRecord::Migration[6.1]
       t.belongs_to :quiz, null: false, foreign_key: true
       t.belongs_to :user, null: false, foreign_key: true
       t.integer :attempt_number
-      t.hstore :question_answers
-      t.integer :scores, array: true, default: []
+      t.json :question_answers
+      t.hstore :scores
 
       t.timestamps
     end
+
+    add_index :quiz_attempts, [:quiz_id, :user_id, :attempt_number], unique: true
   end
 end
