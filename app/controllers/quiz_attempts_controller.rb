@@ -1,5 +1,5 @@
 class QuizAttemptsController < ApplicationController
-  before_action :set_quiz_attempt, only: :select_answer
+  before_action :set_quiz_attempt, only: [:select_answer, :attempt_summary]
 
   def start_quiz
     QuizAttempt.create!(
@@ -34,8 +34,7 @@ class QuizAttemptsController < ApplicationController
 
   def end_quiz
     @quiz_attempt.update(scores: compute_scores)
-    #TODO: Redirect to Summary View
-    redirect_to root_path
+    render 'attempt_summary'
   end
 
   private
