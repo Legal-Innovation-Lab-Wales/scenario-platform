@@ -9,5 +9,5 @@ class Quiz < ApplicationRecord
   scope :available, -> { where(available: true) }
 
   # validations
-  validates_presence_of :user_id, :name, :description, :variables, :variable_initial_values
+  validates_presence_of :user_id, :name, :description, :variables, :variable_initial_values, :variables_with_initial_values
 end
