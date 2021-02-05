@@ -1,0 +1,23 @@
+<section class="quiz-header text-center">
+  <div class="container quiz-show-container shadow rounded-3">
+    <div class="row">
+      <h2 class="quiz-heading"> Summary </h2>
+      <p> This is your <%= @quiz_attempt.attempt_number.ordinalize %> attempt </p>
+      <div class="col-sm-10 col-md-6 col-lg-3 mx-auto">
+        <table class="mx-auto">
+          <tr>
+            <th colspan="2"><em>Your Scores</em></th>
+          </tr>
+        <% @quiz_attempt.scores.each do |score| %>
+          <tr>
+            <td><%= score[0].capitalize %>: </td>
+            <td><%= score[1] %></td>
+          </tr>
+        <% end %>
+        </table>
+        <br>
+        <%= link_to "Back to Quiz", quiz_path(@quiz_attempt.quiz_id), class: "btn btn-success" %>
+      </div>
+    </div>
+  </div>
+</section>
