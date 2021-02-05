@@ -6,11 +6,7 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes
   def index
-    @quizzes = if current_user.admin?
-                 current_user.organisation.quizzes
-               else
-                 current_user.organisation.quizzes.available
-               end
+    @quizzes = set_quizzes
 
     respond_to do |format|
       format.html
@@ -24,6 +20,7 @@ class QuizzesController < ApplicationController
              @quiz.as_json(include: { questions: { include: :answers } })
            else
              @quiz
+             @quiz_attempts = user_quiz_attempts
            end
     respond_to do |format|
       format.html
@@ -77,12 +74,24 @@ class QuizzesController < ApplicationController
 
   private
 
+  def set_quizzes
+    if current_user.admin?
+      current_user.organisation.quizzes
+    else
+      current_user.organisation.quizzes.available
+    end
+  end
+
   def set_quiz
     @quiz = if current_user.admin?
               current_user.organisation.quizzes.find(params[:id])
             else
               current_user.organisation.quizzes.available.find(params[:id])
             end
+  end
+
+  def user_quiz_attempts
+    @quiz.quiz_attempts.where(user_id: current_user.id)
   end
 
   def create_variables_hstore
