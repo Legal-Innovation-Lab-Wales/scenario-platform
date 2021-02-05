@@ -27,39 +27,54 @@
   <% end %>
 </section>
 
-
 <% if current_user.admin? %>
   <section class="admin-view">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6 col-sm-10 admin-header align-self-center">
           <div class="card">
-            <div class="card-body">
-
-              <h2 class="text-danger text-center">Admin Only View</h2>
-              <h2 class="text-center"><%= link_to "Edit Quiz", edit_quiz_path, class: "btn btn-secondary btn-sm" %></h2>
+            <div class="card-body text-center">
+              <h2 class="text-danger">Admin Only View</h2>
+              <h2><%= link_to "Edit Quiz", edit_quiz_path, class: "btn btn-secondary btn-sm" %></h2>
                 <table class="mx-auto">
                   <tr>
                     <th colspan="2"><h5>Variables & Starting Values </h5> </th>
                   </tr>
 
                     <% @quiz.variables.zip(@quiz.variable_initial_values) do |variable, variable_initial_value| %>
-                    <tr>
+                    <tr class="text-start">
                       <td><%= variable %>: </td><td><%= variable_initial_value %></td>
                     </tr>
                     <% end %>
                 </table>
-
+              <h2><button class="btn btn-sm btn-secondary" onclick="toggleQuizAttempts()">Show Quiz Attempts</button></h2>
             </div>
-
           </div>
         </div>
+      </div>
+    </div>
+
+    <div id="quiz-attempts" class="container">
+      <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded text-center">
+        <h3>Quiz Attempts</h3>
+        <p>Total Attempts: <%= @quiz.quiz_attempts.count %></p>
+        <p>by <%= @quiz.quiz_attempts.map { |u| [u.user_id] }.uniq.count %> Users</p>
+        <h2 class="text-danger">Do some other stuff here</h2>
+        <p>Completed By</p>
+        <% @quiz.quiz_attempts.map { |qa| [qa.user] }.uniq.each do |user| %>
+          <p class="mb-0"><%= user[0].first_name %> <%= user[0].last_name %></p>
+        <% end %>
+        <hr>
+        <ul>TODO List
+          <li>count of how many times each user has completed quiz</li>
+          <li>summary of scores</li>
+          <li>best score?</li>
+        </ul>
 
       </div>
     </div>
 
     <div class="container">
-
       <% @quiz.questions.each do |question| %>
         <div id="question_order_<%= question.order %>" class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
           <h5>Question Order: <%= question.order %></h5>
@@ -128,3 +143,14 @@
     </div>
   </section>
 <% end %>
+
+<script>
+    function toggleQuizAttempts() {
+        var x = document.getElementById("quiz-attempts");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>

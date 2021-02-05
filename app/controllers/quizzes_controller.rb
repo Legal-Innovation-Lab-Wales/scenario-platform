@@ -20,8 +20,8 @@ class QuizzesController < ApplicationController
              @quiz.as_json(include: { questions: { include: :answers } })
            else
              @quiz
-             @quiz_attempts = user_quiz_attempts
            end
+    @quiz_attempts = user_quiz_attempts
     respond_to do |format|
       format.html
       format.json { json_response(quiz) }
