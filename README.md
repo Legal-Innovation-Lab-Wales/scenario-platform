@@ -3,17 +3,21 @@
 </p>
 
 <p align="center">
+  <a href="#project-goals-and-motivation">Introduction & Motivation</a>
   <a href="#syntax-highlighting">Key Features</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#installation">Installation</a> •
-  <a href="#customization">Customization</a> •
-  <a href="#project-goals-and-alternatives">Project goals, alternatives</a><br>
+  <a href="#customization">API Reference</a> •
+  <a href="#customization">Credit and Licence</a> •
+  <br>
 </p>
+
+
 
 ## Interactive Scenario Training Platform 
 This repository holds the online platform ISPP. Its purpose as a platform is to provide the creation and taking of interactive assessments with added complexities such as concurrent variables and branching paths for a more in-depth assessment.
 
-## Motivation
+## Project Goals and Motivation
 This project is created by the [Legal Innovation Lab Wales](https://legaltech.wales/) for purposes of creating a platform for charities/organisations to easily create interactive assessment tools to simulate situations and assessments. Such as interview scenarios, Conversation monitoring and life scenarios.
 
 ## Code style
