@@ -15,7 +15,7 @@
 
 
 <p align="center">
-  Interactive Scenario Training Platform 
+  ## Interactive Scenario Training Platform 
 </p>
 
 ## Project Goals and Motivation
