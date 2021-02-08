@@ -1,5 +1,6 @@
 class QuizAttemptsController < ApplicationController
-  before_action :set_quiz_attempt, only: [:select_answer, :attempt_summary]
+  before_action :set_answer, only: :select_answer
+  before_action :quiz_attempt, only: :select_answer
 
   def start_quiz
     QuizAttempt.create!(
@@ -17,19 +18,11 @@ class QuizAttemptsController < ApplicationController
   end
 
   def select_answer
-    # Params from answer button:
-    # quiz_id: @question.quiz_id,
-    # question_id: @question.id,
-    # answer_id: answer.id,
-    # next_question_id: answer.next_question_id,
-    # next_question_order: answer.next_question_order
-
-    end_quiz and return if params[:next_question_order] == '-1'
+    end_quiz and return if @answer.next_question_order == -1
 
     # TODO: Handle when someone goes backwards
-
     @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
-    redirect_to quiz_question_path(Question.find(params[:question_id]).quiz_id, params[:next_question_id])
+    redirect_to quiz_question_path(Question.find(@answer.question_id).quiz_id, @answer.next_question_id)
   end
 
   def end_quiz
@@ -39,18 +32,22 @@ class QuizAttemptsController < ApplicationController
 
   private
 
+  def set_answer
+    @answer = Answer.find(params[:answer_id])
+  end
+
   def set_attempt_number
     (QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, params[:quiz_id])
                                       .maximum('attempt_number') || 0) + 1
   end
 
-  def set_quiz_attempt
-    @quiz_attempt = QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, params[:quiz_id])
+  def quiz_attempt
+    @quiz_attempt = QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, @answer.question.quiz.id)
                                 .order(:attempt_number).last
   end
 
   def selected_answer
-    { "question_id": params[:question_id], "answer_id": params[:answer_id] }
+    { "question_id": @answer.question_id, "answer_id": params[:answer_id] }
   end
 
   def compute_scores
@@ -64,7 +61,7 @@ class QuizAttemptsController < ApplicationController
   end
 
   def initial_values
-    Quiz.find(params[:quiz_id]).variables_with_initial_values
+    Quiz.find(@answer.question.quiz.id).variables_with_initial_values
   end
 
 end
