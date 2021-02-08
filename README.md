@@ -14,10 +14,14 @@
 
 
 
-## Interactive Scenario Training Platform 
-This repository holds the online platform ISPP. Its purpose as a platform is to provide the creation and taking of interactive assessments with added complexities such as concurrent variables and branching paths for a more in-depth assessment.
+<p align="center">
+  Interactive Scenario Training Platform 
+</p>
 
 ## Project Goals and Motivation
+
+This repository holds the online platform ISPP. Its purpose as a platform is to provide the creation and taking of interactive assessments with added complexities such as concurrent variables and branching paths for a more in-depth assessment.
+
 This project is created by the [Legal Innovation Lab Wales](https://legaltech.wales/) for purposes of creating a platform for charities/organisations to easily create interactive assessment tools to simulate situations and assessments. Such as interview scenarios, Conversation monitoring and life scenarios.
 
 ## Key Features
