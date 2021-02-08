@@ -3,12 +3,12 @@
 </p>
 
 <p align="center">
-  <a href="#project-goals-and-motivation">Introduction & Motivation</a>
+  <a href="#project-goals-and-motivation">Introduction & Motivation</a> •
   <a href="#syntax-highlighting">Key Features</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#installation">Installation</a> •
-  <a href="#customization">API Reference</a> •
-  <a href="#customization">Credit and Licence</a> •
+  <a href="#api-reference">API Reference</a> •
+  <a href="#credit">Credit and Licence</a> •
   <br>
 </p>
 
@@ -20,7 +20,7 @@ This repository holds the online platform ISPP. Its purpose as a platform is to 
 ## Project Goals and Motivation
 This project is created by the [Legal Innovation Lab Wales](https://legaltech.wales/) for purposes of creating a platform for charities/organisations to easily create interactive assessment tools to simulate situations and assessments. Such as interview scenarios, Conversation monitoring and life scenarios.
 
-## Code style
+## Key Features
 
 
 ## Screenshots
@@ -34,8 +34,8 @@ The core technologies used for this project are:
 
 * HTML, CSS + JS. All HTML, CSS and JS
 
-## Code Example
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+## How to use
+
 
 ## Installation
 Check the package.json for dependencies
