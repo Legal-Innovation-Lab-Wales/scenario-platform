@@ -21,11 +21,11 @@ This project is created by the [Legal Innovation Lab Wales](https://legaltech.wa
 
 ## Key Features
 
-#Free Linking Questions
+•Free Linking Questions
 
 ISPP supports free linking questions which can be used to create and simulate scenarios that are more directly in line with modern conversation. Different answers can be linked to branching questions to allow pathways and a more complex flow. Allowing users to have a more personal assesment.
 
-#Extensive variable customisation
+•Extensive variable customisation
 
 Each assement can have adjastent variables tagged along with it. These variables are fully customisable to each individual quiz. Allowing assements of different areas such as complience, understanding, health to run alongside the quiz. This as a result can lead to assements showcasing users strongpoints and areas lacking based of their answers. 
 
