@@ -13,11 +13,6 @@
 </p>
 
 
-
-<p align="center">
-  ## Interactive Scenario Training Platform 
-</p>
-
 ## Project Goals and Motivation
 
 This repository holds the online platform ISPP. Its purpose as a platform is to provide the creation and taking of interactive assessments with added complexities such as concurrent variables and branching paths for a more in-depth assessment.
