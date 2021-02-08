@@ -52,7 +52,8 @@ class QuizzesController < ApplicationController
 
   # PUT /quizzes/:id
   def update
-    if @quiz.update(quiz_params.merge(variables_with_initial_values: create_variables_hstore))
+    quiz_params.merge(variables_with_initial_values: create_variables_hstore) unless create_variables_hstore.nil?
+    if @quiz.update(quiz_params)
       respond_to do |format|
         format.html { redirect_to(@quiz) }
         format.json { json_response(@quiz, :no_content) }
@@ -95,6 +96,10 @@ class QuizzesController < ApplicationController
   end
 
   def create_variables_hstore
+    return unless params['quiz'].present?
+
+    return unless params['quiz']['variables'].present? && params['quiz']['variable_initial_values'].present?
+
     vars = params['quiz']['variables']
     vals = params['quiz']['variable_initial_values']
     vars.zip(vals).to_h
