@@ -4,11 +4,11 @@
 
 <p align="center">
   <a href="#project-goals-and-motivation">Introduction & Motivation</a> •
-  <a href="#syntax-highlighting">Key Features</a> •
+  <a href="#key-features">Key Features</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#installation">Installation</a> •
   <a href="#api-reference">API Reference</a> •
-  <a href="#credit">Credit and Licence</a> •
+  <a href="#credit-and-licence">Credit and Licence</a> •
   <br>
 </p>
 
@@ -67,7 +67,5 @@ Coming soon
 ## Tests
 Coming soon
 
-## Credits
+## Credits and licence
 [Legal Innovation Lab Wales Developer Team](https://legaltech.wales/)
-
-## License
