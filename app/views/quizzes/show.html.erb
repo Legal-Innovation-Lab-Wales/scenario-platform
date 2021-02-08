@@ -146,11 +146,7 @@
 
 <script>
     function toggleQuizAttempts() {
-        var x = document.getElementById("quiz-attempts");
-        if (x.style.display === "block") {
-            x.style.display = "none";
-        } else {
-            x.style.display = "block";
-        }
+        const el = document.getElementById('quiz-attempts');
+        el.style.display = (el.style.display === 'block' ? 'none' : 'block');
     }
 </script>
