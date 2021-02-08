@@ -6,7 +6,7 @@
     </div>
 
     <% @question.answers.each do |answer| %>
-      <a class="text-decoration-none" href="<%= select_answer_url(quiz_id: @question.quiz_id, question_id: @question.id, answer_id: answer.id, next_question_id: answer.next_question_id, next_question_order: answer.next_question_order) %>">
+      <a class="text-decoration-none" data-method="put" href="<%= select_answer_url(quiz_id: @question.quiz_id, question_id: @question.id, answer_id: answer.id, next_question_id: answer.next_question_id, next_question_order: answer.next_question_order) %>">
         <div class="row justify-content-md-center answer-row">
           <div class="col question-answer">
             <p> <%= answer.text %> </p>

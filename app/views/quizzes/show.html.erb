@@ -5,7 +5,7 @@
         <p> <%= @quiz.description %> </p>
 
         <% if @quiz.questions.find_by(order: 0).present? %>
-          <div class="text-center"><%= link_to "Start Quiz", start_quiz_url(quiz_id: @quiz), class: "btn btn-success btn-lg" %></div>
+          <div class="text-center"><%= link_to "Start Quiz", start_quiz_url(quiz_id: @quiz), method: "post", class: "btn btn-success btn-lg" %></div>
         <% elsif current_user.admin? %>
           <h3> Please add a question with order 0 as a starting point for your quiz</h3>
         <% else %>

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'start_quiz', to: 'quiz_attempts#start_quiz'
-  get 'select_answer', to: 'quiz_attempts#select_answer'
+  post 'start_quiz', to: 'quiz_attempts#start_quiz'
+  put 'select_answer', to: 'quiz_attempts#select_answer'
 
 end
