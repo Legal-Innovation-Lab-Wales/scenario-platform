@@ -84,4 +84,4 @@ Coming soon
 ## Credits and licence
 [MIT License](https://github.com/Legal-Innovation-Lab-Wales/quiz-builder/blob/add-license-1/LICENSE)
 
-[Legal Innovation Lab Wales Developer Team](https://legaltech.wales/) Copyright (c) 2021 
+[Legal Innovation Lab Wales](https://legaltech.wales/) 
