@@ -57,11 +57,13 @@ Run the application
 
 You might have to 
 
-``but you might have to run:``
-``rails db:drop``
-``rails db:create``
-``rails db:migrate``
-``rails db:seed``
+but you might have to run:
+```
+rails db:drop
+rails db:create
+rails db:migrate
+rails db:seed
+```
 
 You should now be able to view the main web page at 
 
