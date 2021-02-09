@@ -57,16 +57,19 @@ Run the application
 
 You might have to 
 
-``but you might have to run:
-rails db:drop
-rails db:create
-rails db:migrate
-rails db:seed``
+``but you might have to run:``
+``rails db:drop``
+``rails db:create``
+``rails db:migrate``
+``rails db:seed``
 
 You should now be able to view the main web page at 
 
 ``http://localhost:3000``
 
+Local Fixing:
+You might be asked to overide your local webpacker enviroment to work
+``config/webpack/enviroment.js``
 ## API Reference
 
 Coming soon
