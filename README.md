@@ -71,7 +71,9 @@ You should now be able to view the main web page at
 
 Local Fixing:
 You might be asked to overide your local webpacker enviroment to work
-``config/webpack/enviroment.js``
+```
+config/webpack/enviroment.js
+```
 ## API Reference
 
 Coming soon
