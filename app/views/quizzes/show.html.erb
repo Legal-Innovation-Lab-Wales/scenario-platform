@@ -19,8 +19,12 @@
         <h1 class="quiz-heading"> Previous Attempts </h1>
         <% @quiz_attempts.each do |quiz_attempt| %>
           <p class="mb-0"><strong><%= quiz_attempt.attempt_number.ordinalize %> Attempt.</strong></p>
-          <p class="mb-0"><em>Scores: </em>
-          <p><% quiz_attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %>, <% end %></p>
+          <% if quiz_attempt.scores.present? %>
+            <p class="mb-0"><em>Scores: </em>
+            <p><% quiz_attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %>, <% end %></p>
+          <% else %>
+            <p>This attempt was abandoned.</p>
+          <% end %>
         <% end %>
       </div>
     </div>

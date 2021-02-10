@@ -1,6 +1,7 @@
 class QuizAttemptsController < ApplicationController
   before_action :set_answer, only: :select_answer
   before_action :quiz_attempt, only: :select_answer
+  before_action :set_expected_question, only: :select_answer
 
   def start_quiz
     QuizAttempt.create!(
@@ -10,19 +11,35 @@ class QuizAttemptsController < ApplicationController
       question_answers: []
     )
 
-    respond_to do |format|
-      format.html { redirect_to quiz_question_path(params[:quiz_id], Quiz.find(params[:quiz_id]).questions.find_by(order: 0)) }
-      # TODO: does this need to respond to JSON at the moment?
-      # format.json { json_response(@question.as_json, :created) }
-    end
+    redirect_to quiz_question_path(params[:quiz_id], Quiz.find(params[:quiz_id]).questions.find_by(order: 0))
   end
 
   def select_answer
-    end_quiz and return if @answer.next_question_order == -1
+    $current_question_id = @answer.question_id
+    $next_question_id = @answer.next_question_id
+    $quiz_id = @quiz_attempt.quiz_id
 
-    # TODO: Handle when someone goes backwards
-    @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
-    redirect_to quiz_question_path(Question.find(@answer.question_id).quiz_id, @answer.next_question_id)
+    # Answer was not in response to the expected question => user has skipped around.
+    if $current_question_id != @expected_question.id
+      # User has answered this question before => backtracking.
+      if @quiz_attempt.question_answers.any? { |answer| answer['question_id'] == $current_question_id }
+        # Preserve every answer up to the current question being answered.
+        $new_question_answers = []
+        @quiz_attempt.question_answers.each { |answer| if answer['question_id'] != $current_question_id then $new_question_answers << answer else break end }
+        @quiz_attempt.update(question_answers: $new_question_answers)
+        redirect_to quiz_question_path($quiz_id, $next_question_id)
+      else
+        # User hasn't answered this question before => jumped path entirely => don't accept answer =>
+        # send them to where they should be given the @expected_question.
+        redirect_to quiz_question_path($quiz_id, @expected_question.id)
+      end
+    else
+      # Answer was from the expected question => append the question-answer pair.
+      @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
+
+      # If there are no further questions end quiz otherwise go to next question.
+      if @answer.next_question_order == -1 then end_quiz else redirect_to quiz_question_path($quiz_id, $next_question_id) end
+    end
   end
 
   def end_quiz
@@ -39,6 +56,17 @@ class QuizAttemptsController < ApplicationController
   def set_attempt_number
     (QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, params[:quiz_id])
                                       .maximum('attempt_number') || 0) + 1
+  end
+
+  def set_expected_question
+    if @quiz_attempt.question_answers.length > 0
+      # User has attempted this quiz already => expected question is the next question leading on from the last given answer.
+      $last_answer = Answer.find(@quiz_attempt.question_answers.last['answer_id'])
+      @expected_question = Question.find($last_answer.next_question_id)
+    else
+      # User has not attempted this quiz already => expected question is the first question for the quiz.
+      @expected_question = Quiz.find(@quiz_attempt.quiz_id).questions.find_by(order: 0)
+    end
   end
 
   def quiz_attempt
