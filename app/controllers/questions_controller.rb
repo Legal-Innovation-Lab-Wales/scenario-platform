@@ -1,8 +1,9 @@
 # app/controllers/questions_controller.rb
 class QuestionsController < ApplicationController
   before_action :set_quiz
-  before_action :set_quiz_attempt, only: :show
   before_action :set_question, except: %i[new create index]
+  before_action :set_quiz_attempt, only: :show
+  before_action :verify_attempt, only: :show
   before_action :require_admin, except: :show
 
   # GET /quizzes/:quiz_id/questions
@@ -17,25 +18,10 @@ class QuestionsController < ApplicationController
 
   # GET /quizzes/:quiz_id/questions/:id
   def show
-    # User has not started an attempt for this quiz
-    if @quiz_attempt.nil?
-      redirect_to quiz_path(@quiz.id)
-    else
-      # User has started an attempt and answered questions
-      if helpers.has_answers(@quiz_attempt)
-        $next_question = helpers.next_question(@quiz_attempt)
-
-        # Fetch this question if it is the expected next question or it is a question that has previously been answered
-        if @question.id == $next_question.id or helpers.has_question(@quiz_attempt, @question.id)
-          get_question
-        else
-          # User has jumped to around to unexpected question given the attempt
-          redirect_question($next_question.id)
-        end
-      else
-        # User has started an attempt but not answered any questions => they should be at first question
-        if @question.order == 0 then get_question else redirect_question(helpers.first(@quiz)) end
-      end
+    respond_to do |format|
+      format.html
+      # TODO: Improve this query
+      format.json { json_response(@question.as_json(include: :answers)) }
     end
   end
 
@@ -91,11 +77,24 @@ class QuestionsController < ApplicationController
 
   private
 
-  def get_question
-    respond_to do |format|
-      format.html
-      # TODO: Improve this query
-      format.json { json_response(@question.as_json(include: :answers)) }
+  def verify_attempt
+    # No QuizAttempt exists for the user => Redirect to /quizzes/:quiz_id
+    if @quiz_attempt.nil?
+      redirect_to quiz_path(@quiz.id)
+    # QuizAttempt exists with answers
+    elsif helpers.has_answers(@quiz_attempt)
+      $next_question = helpers.next_question(@quiz_attempt)
+
+      # This question is not the next expected question and it's not a question that has been answered previously
+      # The user is completely off-path here, they've skipped to some future question in the quiz so we send them to where they should be
+      if @question.id != $next_question.id and not helpers.has_question(@quiz_attempt, @question.id)
+        redirect_to quiz_question_path(@quiz.id, $next_question.id)
+      end
+    # QuizAttempt exists but no answers have been selected
+      # User has selected a question that is not the first
+        # Redirect them to the first question
+    elsif @question.order != 0
+      redirect_to quiz_question_path(@quiz.id, helpers.first(@quiz).id)
     end
   end
 
