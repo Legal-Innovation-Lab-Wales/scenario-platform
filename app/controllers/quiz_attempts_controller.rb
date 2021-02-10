@@ -26,7 +26,7 @@ class QuizAttemptsController < ApplicationController
         # Preserve every answer up to the current question being answered.
         $new_question_answers = []
         @quiz_attempt.question_answers.each { |answer| if answer['question_id'] != $current_question_id then $new_question_answers << answer else break end }
-        @quiz_attempt.update(question_answers: $new_question_answers)
+        @quiz_attempt.update(question_answers: $new_question_answers << selected_answer)
         redirect_to quiz_question_path($quiz_id, $next_question_id)
       else
         # User hasn't answered this question before => jumped path entirely => don't accept answer =>
