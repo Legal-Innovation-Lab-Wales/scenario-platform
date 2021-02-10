@@ -4,14 +4,34 @@ class QuizAttemptsController < ApplicationController
   before_action :set_expected_question, only: :select_answer
 
   def start_quiz
+    deactivate_all_attempts
     QuizAttempt.create!(
       user_id: current_user.id,
       quiz_id: params[:quiz_id],
       attempt_number: set_attempt_number,
-      question_answers: []
+      question_answers: [],
+      active: true
     )
 
     redirect_to quiz_question_path(params[:quiz_id], Quiz.find(params[:quiz_id]).questions.find_by(order: 0))
+  end
+
+  def resume_quiz
+    $quiz_attempt = QuizAttempt.find(params[:quiz_attempt_id])
+
+    if $quiz_attempt.scores.nil?
+      deactivate_all_attempts
+      $quiz_attempt.update(active: true)
+
+      if $quiz_attempt.question_answers.length > 0
+        $last_answer = Answer.find($quiz_attempt.question_answers.last['answer_id'])
+        redirect_to quiz_question_path($quiz_attempt.quiz_id, $last_answer.next_question_id)
+      else
+        $quiz = Quiz.find($quiz_attempt.quiz_id)
+        $first_question = $quiz.questions.find_by(order: 0)
+        redirect_to quiz_question_path($quiz_attempt.quiz_id, $first_question.id)
+      end
+    end
   end
 
   def select_answer
@@ -40,7 +60,7 @@ class QuizAttemptsController < ApplicationController
   end
 
   def end_quiz
-    @quiz_attempt.update(scores: compute_scores)
+    @quiz_attempt.update(scores: compute_scores, active: false)
     render 'attempt_summary'
   end
 
@@ -64,6 +84,10 @@ class QuizAttemptsController < ApplicationController
       # User has not attempted this quiz already => expected question is the first question for the quiz.
       @expected_question = Quiz.find(@quiz_attempt.quiz_id).questions.find_by(order: 0)
     end
+  end
+
+  def deactivate_all_attempts
+    QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, params[:quiz_id]).update(active: false)
   end
 
   def quiz_attempt

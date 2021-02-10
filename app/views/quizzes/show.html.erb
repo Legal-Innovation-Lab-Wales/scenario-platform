@@ -24,6 +24,7 @@
             <p><% quiz_attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %>, <% end %></p>
           <% else %>
             <p>This attempt was abandoned.</p>
+            <div class="text-center"><%= link_to "Resume Quiz", resume_quiz_url(quiz_attempt_id: quiz_attempt.id), method: "post", class: "btn btn-success btn-lg" %></div>
           <% end %>
         <% end %>
       </div>

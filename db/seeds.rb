@@ -496,7 +496,8 @@ QuizAttempt.create!(
       "question_id": 5,
       "answer_id": 11
     }],
-  scores: { health: 0, stamina: 0, experience: 0, coin: 10 }
+  scores: { health: 0, stamina: 0, experience: 0, coin: 10 },
+  active: false
 )
 QuizAttempt.create!(
   user_id: 1,
@@ -513,7 +514,8 @@ QuizAttempt.create!(
       "question_id": 7,
       "answer_id": 13
     }],
-  scores: { health: 100, stamina: 100, experience: 50, coin: 10 }
+  scores: { health: 100, stamina: 100, experience: 50, coin: 10 },
+  active: false
 )
 QuizAttempt.create!(
   user_id: 1,
@@ -530,7 +532,8 @@ QuizAttempt.create!(
       "question_id": 8,
       "answer_id": 14
     }],
-  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 },
+  active: false
 )
 QuizAttempt.create!(
   user_id: 1,
@@ -547,7 +550,8 @@ QuizAttempt.create!(
       "question_id": 9,
       "answer_id": 15
     }],
-  scores: { health: 100, stamina: 100, experience: 100, coin: 100000010 }
+  scores: { health: 100, stamina: 100, experience: 100, coin: 100000010 },
+  active: false
 )
 QuizAttempt.create!(
   user_id: 2,
@@ -564,7 +568,8 @@ QuizAttempt.create!(
       "question_id": 8,
       "answer_id": 14
     }],
-  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 },
+  active: false
 )
 QuizAttempt.create!(
   user_id: 3,
@@ -581,7 +586,8 @@ QuizAttempt.create!(
       "question_id": 8,
       "answer_id": 14
     }],
-  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 },
+  active: false
 )
 QuizAttempt.create!(
   user_id: 3,
@@ -598,7 +604,8 @@ QuizAttempt.create!(
       "question_id": 8,
       "answer_id": 14
     }],
-  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 },
+  active: false
 )
 QuizAttempt.create!(
   user_id: 3,
@@ -615,7 +622,8 @@ QuizAttempt.create!(
       "question_id": 8,
       "answer_id": 14
     }],
-  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 },
+  active: false
 )
 
 
