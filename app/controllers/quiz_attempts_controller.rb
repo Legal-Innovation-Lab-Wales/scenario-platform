@@ -38,6 +38,10 @@ class QuizAttemptsController < ApplicationController
         $first_question = helpers.first($quiz)
         redirect_to quiz_question_path($quiz_attempt.quiz_id, $first_question.id)
       end
+    else
+      respond_to do |format|
+        format.text { json_response('Quiz attempt [%d] has been completed and so cannot be resumed!' % $quiz_attempt.id, :bad_request) }
+      end
     end
   end
 
