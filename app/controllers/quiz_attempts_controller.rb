@@ -13,7 +13,8 @@ class QuizAttemptsController < ApplicationController
       active: true
     )
 
-    redirect_to quiz_question_path(params[:quiz_id], Quiz.find(params[:quiz_id]).questions.find_by(order: 0))
+    $quiz = Quiz.find(params[:quiz_id])
+    redirect_to quiz_question_path($quiz.id, helpers.first($quiz))
   end
 
   def resume_quiz
@@ -29,12 +30,13 @@ class QuizAttemptsController < ApplicationController
       end
 
       # If the now active attempt has answers we should go to the next question after the last answer
-      if $quiz_attempt.question_answers.length > 0
+      if helpers.has_answers($quiz_attempt)
         redirect_to quiz_question_path($quiz_attempt.quiz_id, helpers.next_question($quiz_attempt).id)
       else
         # Otherwise if we have no answers we should go to the first question
-        $first_question = Quiz.find($quiz_attempt.quiz_id).questions.find_by(order: 0)
-        redirect_to quiz_question_path($first_question.quiz_id, $first_question.id)
+        $quiz = Quiz.find($quiz_attempt.quiz_id)
+        $first_question = helpers.first($quiz)
+        redirect_to quiz_question_path($quiz_attempt.quiz_id, $first_question.id)
       end
     end
   end
@@ -49,7 +51,7 @@ class QuizAttemptsController < ApplicationController
     else
       # Answer was not in response to the expected question => user has managed to skip around
       # User has answered this question before => backtracking
-      if helpers.match_question(@quiz_attempt, @answer.question_id)
+      if helpers.has_question(@quiz_attempt, @answer.question_id)
         # Preserve every answer up to the question currently being answered
         $new_question_answers = []
         @quiz_attempt.question_answers.each { |answer| if answer['question_id'] != @answer.question_id then $new_question_answers << answer else break end }
@@ -81,13 +83,9 @@ class QuizAttemptsController < ApplicationController
   end
 
   def set_expected_question
-    if @quiz_attempt.question_answers.length > 0
-      # User has attempted this quiz already => expected question is the next question leading on from the last given answer
-      @expected_question = helpers.next_question(@quiz_attempt)
-    else
-      # User has not attempted this quiz already => expected question is the first question for the quiz
-      @expected_question = Quiz.find(@quiz_attempt.quiz_id).questions.find_by(order: 0)
-    end
+    $quiz = Quiz.find(@quiz_attempt.quiz_id)
+
+    @expected_question = helpers.has_answers(@quiz_attempt) ? helpers.next_question(@quiz_attempt) : helpers.first($quiz)
   end
 
   def deactivate_all_attempts

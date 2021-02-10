@@ -21,12 +21,12 @@ class QuestionsController < ApplicationController
     if @quiz_attempt.nil?
       redirect_to quiz_path(@quiz.id)
     else
-      # User has started and attempt and answered questions
-      if @quiz_attempt.question_answers.length > 0
+      # User has started an attempt and answered questions
+      if helpers.has_answers(@quiz_attempt)
         $next_question = helpers.next_question(@quiz_attempt)
 
-        # Fetch this question if it is the expected next question or it is a question that has previously been answered./
-        if @question.id == $next_question.id or helpers.match_question(@quiz_attempt, @question.id)
+        # Fetch this question if it is the expected next question or it is a question that has previously been answered
+        if @question.id == $next_question.id or helpers.has_question(@quiz_attempt, @question.id)
           get_question
         else
           # User has jumped to around to unexpected question given the attempt
@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
         end
       else
         # User has started an attempt but not answered any questions => they should be at first question
-        if @question.order == 0 then get_question else redirect_question(@quiz.questions.find_by(order: 0)) end
+        if @question.order == 0 then get_question else redirect_question(helpers.first(@quiz)) end
       end
     end
   end
