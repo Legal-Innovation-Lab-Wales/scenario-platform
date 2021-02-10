@@ -16,10 +16,28 @@ class QuestionsController < ApplicationController
 
   # GET /quizzes/:quiz_id/questions/:id
   def show
-    respond_to do |format|
-      format.html
-      # TODO: Improve this query
-      format.json { json_response(@question.as_json(include: :answers)) }
+    $quiz_attempt = helpers.quiz_attempt(current_user.id, @quiz.id)
+
+    # User has not started an attempt for this quiz.
+    if $quiz_attempt.nil?
+      redirect_to quiz_path(@quiz.id)
+    else
+      # User has answered questions
+      if $quiz_attempt.question_answers.length > 0
+        $last_answer = Answer.find($quiz_attempt.question_answers.last['answer_id'])
+        $expected_question = Question.find($last_answer.next_question_id)
+
+        # Fetch this question if it is the next expected question or a question that has previously been answered
+        if @question.id == $expected_question.id or helpers.match_question($quiz_attempt, @question.id)
+          get_question
+        else
+          # User has jumped to around to unexpected question given the attempt
+          redirect_question($expected_question.id)
+        end
+      else
+        # User has started an attempt but not answered any questions => they should be at first question
+        if @question.order == 0 then get_question else redirect_question(@quiz.questions.find_by(order: 0)) end
+      end
     end
   end
 
@@ -74,6 +92,18 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def get_question
+    respond_to do |format|
+      format.html
+      # TODO: Improve this query
+      format.json { json_response(@question.as_json(include: :answers)) }
+    end
+  end
+
+  def redirect_question(question_id)
+    redirect_to quiz_question_path(@quiz.id, question_id)
+  end
 
   def set_quiz
     @quiz = if current_user.admin?

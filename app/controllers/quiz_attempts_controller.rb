@@ -15,30 +15,27 @@ class QuizAttemptsController < ApplicationController
   end
 
   def select_answer
-    $current_question_id = @answer.question_id
-    $next_question_id = @answer.next_question_id
-    $quiz_id = @quiz_attempt.quiz_id
-
-    # Answer was not in response to the expected question => user has skipped around.
-    if $current_question_id != @expected_question.id
-      # User has answered this question before => backtracking.
-      if @quiz_attempt.question_answers.any? { |answer| answer['question_id'] == $current_question_id }
-        # Preserve every answer up to the current question being answered.
-        $new_question_answers = []
-        @quiz_attempt.question_answers.each { |answer| if answer['question_id'] != $current_question_id then $new_question_answers << answer else break end }
-        @quiz_attempt.update(question_answers: $new_question_answers << selected_answer)
-        redirect_to quiz_question_path($quiz_id, $next_question_id)
-      else
-        # User hasn't answered this question before => jumped path entirely => don't accept answer =>
-        # send them to where they should be given the @expected_question.
-        redirect_to quiz_question_path($quiz_id, @expected_question.id)
-      end
-    else
+    if @answer.question_id == @expected_question.id
       # Answer was from the expected question => append the question-answer pair.
       @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
 
       # If there are no further questions end quiz otherwise go to next question.
-      if @answer.next_question_order == -1 then end_quiz else redirect_to quiz_question_path($quiz_id, $next_question_id) end
+      if @answer.next_question_order == -1 then end_quiz else redirect_question(@answer.next_question_id) end
+    else
+      # Answer was not in response to the expected question => user has managed to skip around.
+      # User has answered this question before => backtracking.
+      if helpers.match_question(@quiz_attempt, @answer.question_id)
+        # Preserve every answer up to the question currently being answered.
+        $new_question_answers = []
+        @quiz_attempt.question_answers.each { |answer| if answer['question_id'] != @answer.question_id then $new_question_answers << answer else break end }
+        @quiz_attempt.update(question_answers: $new_question_answers << selected_answer)
+
+        redirect_question(@answer.next_question_id)
+      else
+        # User hasn't answered this question before => jumped path entirely => don't accept answer =>
+        # send them to where they should be given the @expected_question.
+        redirect_question(@expected_question.id)
+      end
     end
   end
 
@@ -70,8 +67,11 @@ class QuizAttemptsController < ApplicationController
   end
 
   def quiz_attempt
-    @quiz_attempt = QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, @answer.question.quiz.id)
-                                .order(:attempt_number).last
+    @quiz_attempt = helpers.quiz_attempt(current_user.id, @answer.question.quiz.id)
+  end
+
+  def redirect_question(question_id)
+    redirect_to quiz_question_path(@quiz_attempt.quiz_id, question_id)
   end
 
   def selected_answer
