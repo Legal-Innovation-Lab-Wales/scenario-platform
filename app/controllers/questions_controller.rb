@@ -1,6 +1,7 @@
 # app/controllers/questions_controller.rb
 class QuestionsController < ApplicationController
   before_action :set_quiz
+  before_action :set_quiz_attempt, only: :show
   before_action :set_question, except: %i[new create index]
   before_action :require_admin, except: :show
 
@@ -16,23 +17,20 @@ class QuestionsController < ApplicationController
 
   # GET /quizzes/:quiz_id/questions/:id
   def show
-    $quiz_attempt = helpers.quiz_attempt(current_user.id, @quiz.id)
-
-    # User has not started an attempt for this quiz.
-    if $quiz_attempt.nil?
+    # User has not started an attempt for this quiz
+    if @quiz_attempt.nil?
       redirect_to quiz_path(@quiz.id)
     else
-      # User has answered questions
-      if $quiz_attempt.question_answers.length > 0
-        $last_answer = Answer.find($quiz_attempt.question_answers.last['answer_id'])
-        $expected_question = Question.find($last_answer.next_question_id)
+      # User has started and attempt and answered questions
+      if @quiz_attempt.question_answers.length > 0
+        $next_question = helpers.next_question(@quiz_attempt)
 
-        # Fetch this question if it is the next expected question or a question that has previously been answered
-        if @question.id == $expected_question.id or helpers.match_question($quiz_attempt, @question.id)
+        # Fetch this question if it is the expected next question or it is a question that has previously been answered./
+        if @question.id == $next_question.id or helpers.match_question(@quiz_attempt, @question.id)
           get_question
         else
           # User has jumped to around to unexpected question given the attempt
-          redirect_question($expected_question.id)
+          redirect_question($next_question.id)
         end
       else
         # User has started an attempt but not answered any questions => they should be at first question
@@ -115,6 +113,10 @@ class QuestionsController < ApplicationController
 
   def set_question
     @question = @quiz.questions.find(params[:id])
+  end
+
+  def set_quiz_attempt
+    @quiz_attempt = helpers.quiz_attempt(current_user.id, @quiz.id)
   end
 
   def question_params
