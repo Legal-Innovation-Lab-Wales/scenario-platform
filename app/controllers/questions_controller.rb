@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   before_action :set_quiz
   before_action :set_question, except: %i[new create index]
   before_action :set_quiz_attempt, only: :show
-  before_action :verify_attempt, only: :show
+  before_action :verify_quiz_attempt, only: :show
   before_action :require_admin, except: :show
 
   # GET /quizzes/:quiz_id/questions
@@ -77,29 +77,12 @@ class QuestionsController < ApplicationController
 
   private
 
-  def verify_attempt
-    # No QuizAttempt exists for the user => Redirect to /quizzes/:quiz_id
-    if @quiz_attempt.nil?
+  def verify_quiz_attempt
+    if @quiz_attempt.nil? || @quiz_attempt.completed
       redirect_to quiz_path(@quiz.id)
-    # QuizAttempt exists with answers
-    elsif helpers.has_answers(@quiz_attempt)
-      $next_question = helpers.next_question(@quiz_attempt)
-
-      # This question is not the next expected question and it's not a question that has been answered previously
-      # The user is completely off-path here, they've skipped to some future question in the quiz so we send them to where they should be
-      if @question.id != $next_question.id and not helpers.has_question(@quiz_attempt, @question.id)
-        redirect_to quiz_question_path(@quiz.id, $next_question.id)
-      end
-    # QuizAttempt exists but no answers have been selected
-      # User has selected a question that is not the first
-        # Redirect them to the first question
-    elsif @question.order != 0
-      redirect_to quiz_question_path(@quiz.id, helpers.first(@quiz).id)
+    elsif @question.id != @quiz_attempt.next_question_id && !@quiz_attempt.has_been_answered(@question.id)
+      redirect_to quiz_question_path(@quiz.id, @quiz_attempt.next_question_id)
     end
-  end
-
-  def redirect_question(question_id)
-    redirect_to quiz_question_path(@quiz.id, question_id)
   end
 
   def set_quiz
@@ -115,7 +98,7 @@ class QuestionsController < ApplicationController
   end
 
   def set_quiz_attempt
-    @quiz_attempt = helpers.quiz_attempt(current_user.id, @quiz.id)
+    @quiz_attempt = QuizAttempt.find(session["quiz_id_#{@quiz.id}"])
   end
 
   def question_params

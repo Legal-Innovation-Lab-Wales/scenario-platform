@@ -1,81 +1,46 @@
 class QuizAttemptsController < ApplicationController
   before_action :set_answer, only: :select_answer
-  before_action :quiz_attempt, only: :select_answer
-  before_action :set_expected_question, only: :select_answer
+  before_action :set_quiz_attempt, only: %i[resume_quiz select_answer]
 
   def start_quiz
-    QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, params[:quiz_id]).update(active: false)
-    QuizAttempt.create!(
+    @quiz_attempt = QuizAttempt.create!(
       user_id: current_user.id,
       quiz_id: params[:quiz_id],
       attempt_number: set_attempt_number,
-      question_answers: [],
-      active: true
+      question_answers: []
     )
 
-    $quiz = Quiz.find(params[:quiz_id])
-    redirect_to quiz_question_path($quiz.id, helpers.first($quiz))
+    update_session
+    next_question
   end
 
   def resume_quiz
-    # 'Resume Quiz' button will pass the ID of the quiz attempt we'd like to resume
-    $quiz_attempt = QuizAttempt.find(params[:quiz_attempt_id])
-
-    # If the scores have been set then this attempt has been completed and so shouldn't be resumable
-    if $quiz_attempt.scores.nil?
-      # If this attempt is inactive it should be set to active and deactivate all other attempts
-      unless $quiz_attempt.active?
-        deactivate_all_attempts
-        $quiz_attempt.update(active: true)
-      end
-
-      # If the now active attempt has answers we should go to the next question after the last answer
-      if helpers.has_answers($quiz_attempt)
-        redirect_to quiz_question_path($quiz_attempt.quiz_id, helpers.next_question($quiz_attempt).id)
-      else
-        # Otherwise if we have no answers we should go to the first question
-        $quiz = Quiz.find($quiz_attempt.quiz_id)
-        $first_question = helpers.first($quiz)
-        redirect_to quiz_question_path($quiz_attempt.quiz_id, $first_question.id)
-      end
-    else
-      respond_to do |format|
-        format.text { json_response('Quiz attempt [%d] has been completed and so cannot be resumed!' % $quiz_attempt.id, :bad_request) }
-      end
-    end
+    update_session
+    next_question
   end
 
   def select_answer
-    if @answer.question_id == @expected_question.id
-      # Answer was from the expected question => append the question-answer pair
-      @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
-
-      # If there are no further questions end quiz otherwise go to next question.
-      if @answer.next_question_order == -1 then end_quiz else redirect_question(@answer.next_question_id) end
+    if @quiz_attempt.next_question_id == @answer.question_id
+      append_answer
+    elsif @quiz_attempt.has_been_answered(@answer.question_id)
+      @quiz_attempt.slice_question_answers(@answer.question_id)
+      append_answer
     else
-      # Answer was not in response to the expected question => user has managed to skip around
-      # User has answered this question before => backtracking
-      if helpers.has_question(@quiz_attempt, @answer.question_id)
-        # Preserve every answer up to the question currently being answered
-        $new_question_answers = []
-        @quiz_attempt.question_answers.each { |answer| if answer['question_id'] != @answer.question_id then $new_question_answers << answer else break end }
-        @quiz_attempt.update(question_answers: $new_question_answers << selected_answer)
-
-        redirect_question(@answer.next_question_id)
-      else
-        # User hasn't answered this question before => jumped path entirely => don't accept answer =>
-        # send them to where they should be given the @expected_question
-        redirect_question(@expected_question.id)
-      end
+      next_question
     end
   end
 
   def end_quiz
-    @quiz_attempt.update(scores: compute_scores, active: false)
+    @quiz_attempt.update(scores: compute_scores)
     render 'attempt_summary'
   end
 
   private
+
+  def append_answer
+    @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
+    if @answer.next_question_order == -1 then end_quiz else next_question end
+  end
 
   def set_answer
     @answer = Answer.find(params[:answer_id])
@@ -83,29 +48,31 @@ class QuizAttemptsController < ApplicationController
 
   def set_attempt_number
     (QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, params[:quiz_id])
-                                      .maximum('attempt_number') || 0) + 1
+                .maximum('attempt_number') || 0) + 1
   end
 
-  def set_expected_question
-    $quiz = Quiz.find(@quiz_attempt.quiz_id)
-
-    @expected_question = helpers.has_answers(@quiz_attempt) ? helpers.next_question(@quiz_attempt) : helpers.first($quiz)
+  def set_quiz_attempt
+    @quiz_attempt = QuizAttempt.find(get_quiz_attempt_id)
   end
 
-  def deactivate_all_attempts
-    QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, params[:quiz_id]).update(active: false)
+  def get_quiz_attempt_id
+    if !params[:quiz_attempt_id].nil?
+      params[:quiz_attempt_id]
+    elsif !@answer.nil?
+      session["quiz_id_#{@answer.question.quiz_id}"]
+    end
   end
 
-  def quiz_attempt
-    @quiz_attempt = helpers.quiz_attempt(current_user.id, @answer.question.quiz.id)
+  def next_question
+    redirect_to quiz_question_path(@quiz_attempt.quiz_id, @quiz_attempt.next_question_id)
   end
 
-  def redirect_question(question_id)
-    redirect_to quiz_question_path(@quiz_attempt.quiz_id, question_id)
+  def update_session
+    session["quiz_id_#{@quiz_attempt.quiz_id}"] = @quiz_attempt.id
   end
 
   def selected_answer
-    { "question_id": @answer.question_id, "answer_id": params[:answer_id] }
+    { "question_id": @answer.question_id, "answer_id": @answer.id }
   end
 
   def compute_scores

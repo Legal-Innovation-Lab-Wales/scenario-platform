@@ -7,7 +7,6 @@ class CreateQuizAttempts < ActiveRecord::Migration[6.1]
       t.integer :attempt_number
       t.json :question_answers
       t.hstore :scores
-      t.boolean :active, default: false
 
       t.timestamps
     end

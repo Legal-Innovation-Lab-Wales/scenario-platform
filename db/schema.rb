@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(version: 5) do
     t.integer "attempt_number"
     t.json "question_answers"
     t.hstore "scores"
-    t.boolean "active", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["quiz_id", "user_id", "attempt_number"], name: "index_quiz_attempts_on_quiz_id_and_user_id_and_attempt_number", unique: true
