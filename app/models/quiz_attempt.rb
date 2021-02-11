@@ -6,10 +6,14 @@ class QuizAttempt < ApplicationRecord
 
   def next_question_id
     if self.question_answers.length > 0
-      Question.find(Answer.find(self.question_answers.last['answer_id']).next_question_id).id
+      Question.find(self.last_answer.next_question_id).id
     else
       Quiz.find(self.quiz_id).first_question.id
     end
+  end
+
+  def last_answer
+    Answer.find(self.question_answers.last['answer_id'])
   end
 
   def has_been_answered(question_id)
