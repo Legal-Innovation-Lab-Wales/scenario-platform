@@ -39,7 +39,7 @@ class QuizAttemptsController < ApplicationController
 
   def append_answer
     @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
-    if @answer.next_question_order == -1 then end_quiz else next_question end
+    @answer.next_question_order == -1 ? end_quiz : next_question
   end
 
   def set_answer
@@ -52,14 +52,14 @@ class QuizAttemptsController < ApplicationController
   end
 
   def set_quiz_attempt
-    @quiz_attempt = QuizAttempt.find(get_quiz_attempt_id)
+    @quiz_attempt = QuizAttempt.where('user_id = ?', current_user.id).find(get_quiz_attempt_id)
   end
 
   def get_quiz_attempt_id
-    if !params[:quiz_attempt_id].nil?
+    if params[:quiz_attempt_id].present?
       params[:quiz_attempt_id]
-    elsif !@answer.nil?
-      session["quiz_id_#{@answer.question.quiz_id}"]
+    elsif @answer.present?
+      session["quiz_id_#{@answer.question.quiz_id}_attempt_id"]
     end
   end
 
@@ -68,7 +68,7 @@ class QuizAttemptsController < ApplicationController
   end
 
   def update_session
-    session["quiz_id_#{@quiz_attempt.quiz_id}"] = @quiz_attempt.id
+    session["quiz_id_#{@quiz_attempt.quiz_id}_attempt_id"] = @quiz_attempt.id
   end
 
   def selected_answer

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   post 'start_quiz', to: 'quiz_attempts#start_quiz'
-  post 'resume_quiz', to: 'quiz_attempts#resume_quiz'
+  put 'resume_quiz', to: 'quiz_attempts#resume_quiz'
   put 'select_answer', to: 'quiz_attempts#select_answer'
 
 end

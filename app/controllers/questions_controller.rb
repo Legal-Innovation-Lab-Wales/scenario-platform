@@ -98,7 +98,7 @@ class QuestionsController < ApplicationController
   end
 
   def set_quiz_attempt
-    @quiz_attempt = QuizAttempt.find(session["quiz_id_#{@quiz.id}"])
+    @quiz_attempt = QuizAttempt.find(session["quiz_id_#{@quiz.id}_attempt_id"])
   end
 
   def question_params

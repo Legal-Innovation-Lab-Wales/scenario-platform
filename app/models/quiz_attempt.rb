@@ -6,9 +6,9 @@ class QuizAttempt < ApplicationRecord
 
   def next_question_id
     if self.question_answers.length > 0
-      Question.find(self.last_answer.next_question_id).id
+      self.last_answer.next_question_id
     else
-      Quiz.find(self.quiz_id).first_question.id
+      self.quiz.first_question.id
     end
   end
 
