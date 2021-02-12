@@ -1,7 +1,5 @@
 class ResultsController < ApplicationController
-  before_action :set_quiz_attempt, only: :show
-  before_action :verify_quiz_attempt, only: :show
-  before_action :verify_results, only: :show
+  before_action :set_quiz_attempt, :verify_quiz_attempt, :verify_results, only: :show
 
   # GET /quizzes/:quiz_id/results/:quiz_attempt_id
   def show
