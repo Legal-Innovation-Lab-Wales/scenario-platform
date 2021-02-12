@@ -2,8 +2,7 @@ class QuizAttemptsController < ApplicationController
   before_action :set_answer, only: :select_answer
   before_action :set_quiz_attempt, only: %i[resume_quiz select_answer]
   before_action :update_session, only: :resume_quiz
-  before_action :verify_answer, only: :select_answer
-  before_action :verify_backtrack, only: :select_answer
+  before_action :verify_answer, :verify_backtrack, only: :select_answer
 
   def start_quiz
     @quiz_attempt = QuizAttempt.create!(
