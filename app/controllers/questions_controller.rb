@@ -78,13 +78,13 @@ class QuestionsController < ApplicationController
 
   def verify_attempt
     if @quiz_attempt.nil? || @quiz_attempt.completed
-      redirect_to quiz_path(@quiz)
+      redirect_to quiz_path(@quiz), notice: "You need to start or resume a quiz to view its questions"
     end
   end
 
   def verify_question
     if @question.id != @quiz_attempt.next_question_id && !@quiz_attempt.has_been_answered(@question.id)
-      redirect_to quiz_question_path(@quiz, @quiz_attempt.next_question_id)
+      redirect_to quiz_question_path(@quiz, @quiz_attempt.next_question_id), notice: "This is the question you should be answering"
     end
   end
 
