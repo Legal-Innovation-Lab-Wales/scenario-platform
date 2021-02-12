@@ -3,7 +3,8 @@ class QuestionsController < ApplicationController
   before_action :set_quiz
   before_action :set_question, except: %i[new create index]
   before_action :set_quiz_attempt, only: :show
-  before_action :verify_quiz_attempt, only: :show
+  before_action :verify_attempt, only: :show
+  before_action :verify_question, only: :show
   before_action :require_admin, except: :show
 
   # GET /quizzes/:quiz_id/questions
@@ -77,10 +78,14 @@ class QuestionsController < ApplicationController
 
   private
 
-  def verify_quiz_attempt
+  def verify_attempt
     if @quiz_attempt.nil? || @quiz_attempt.completed
       redirect_to quiz_path(@quiz.id)
-    elsif @question.id != @quiz_attempt.next_question_id && !@quiz_attempt.has_been_answered(@question.id)
+    end
+  end
+
+  def verify_question
+    if @question.id != @quiz_attempt.next_question_id && !@quiz_attempt.has_been_answered(@question.id)
       redirect_to quiz_question_path(@quiz.id, @quiz_attempt.next_question_id)
     end
   end

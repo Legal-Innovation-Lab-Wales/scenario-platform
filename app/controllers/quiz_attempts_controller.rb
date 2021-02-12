@@ -1,6 +1,9 @@
 class QuizAttemptsController < ApplicationController
   before_action :set_answer, only: :select_answer
   before_action :set_quiz_attempt, only: %i[resume_quiz select_answer]
+  before_action :update_session, only: :resume_quiz
+  before_action :verify_answer, only: :select_answer
+  before_action :verify_backtrack, only: :select_answer
 
   def start_quiz
     @quiz_attempt = QuizAttempt.create!(
@@ -15,19 +18,11 @@ class QuizAttemptsController < ApplicationController
   end
 
   def resume_quiz
-    update_session
     next_question
   end
 
   def select_answer
-    if @quiz_attempt.next_question_id == @answer.question_id
-      append_answer
-    elsif @quiz_attempt.has_been_answered(@answer.question_id)
-      @quiz_attempt.slice_question_answers(@answer.question_id)
-      append_answer
-    else
-      next_question
-    end
+    next_question
   end
 
   def end_quiz
@@ -37,7 +32,20 @@ class QuizAttemptsController < ApplicationController
 
   private
 
-  def append_answer
+  def verify_answer
+    if @quiz_attempt.next_question_id == @answer.question_id
+      add_answer
+    end
+  end
+
+  def verify_backtrack
+    if @quiz_attempt.has_been_answered(@answer.question_id)
+      @quiz_attempt.slice_question_answers(@answer.question_id)
+      add_answer
+    end
+  end
+
+  def add_answer
     @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
     @answer.next_question_order == -1 ? end_quiz : next_question
   end
