@@ -92,7 +92,7 @@ class QuizzesController < ApplicationController
   end
 
   def user_quiz_attempts
-    @quiz.quiz_attempts.where(user_id: current_user.id)
+    @quiz.quiz_attempts.where(user_id: current_user.id).order(:id)
   end
 
   def create_variables_hstore

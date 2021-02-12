@@ -1,28 +1,28 @@
 class QuizAttemptsController < ApplicationController
   before_action :set_answer, only: :select_answer
-  before_action :quiz_attempt, only: :select_answer
+  before_action :set_quiz_attempt, only: %i[resume_quiz select_answer]
+  before_action :update_session, only: :resume_quiz
+  before_action :verify_answer, only: :select_answer
+  before_action :verify_backtrack, only: :select_answer
 
   def start_quiz
-    QuizAttempt.create!(
+    @quiz_attempt = QuizAttempt.create!(
       user_id: current_user.id,
       quiz_id: params[:quiz_id],
       attempt_number: set_attempt_number,
       question_answers: []
     )
 
-    respond_to do |format|
-      format.html { redirect_to quiz_question_path(params[:quiz_id], Quiz.find(params[:quiz_id]).questions.find_by(order: 0)) }
-      # TODO: does this need to respond to JSON at the moment?
-      # format.json { json_response(@question.as_json, :created) }
-    end
+    update_session
+    next_question
+  end
+
+  def resume_quiz
+    next_question
   end
 
   def select_answer
-    end_quiz and return if @answer.next_question_order == -1
-
-    # TODO: Handle when someone goes backwards
-    @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
-    redirect_to quiz_question_path(Question.find(@answer.question_id).quiz_id, @answer.next_question_id)
+    next_question
   end
 
   def end_quiz
@@ -32,22 +32,55 @@ class QuizAttemptsController < ApplicationController
 
   private
 
+  def verify_answer
+    if @quiz_attempt.next_question_id == @answer.question_id
+      add_answer
+    end
+  end
+
+  def verify_backtrack
+    if @quiz_attempt.has_been_answered(@answer.question_id)
+      @quiz_attempt.slice_question_answers(@answer.question_id)
+      add_answer
+    end
+  end
+
+  def add_answer
+    @quiz_attempt.update(question_answers: @quiz_attempt.question_answers << selected_answer)
+    @answer.next_question_order == -1 ? end_quiz : next_question
+  end
+
   def set_answer
     @answer = Answer.find(params[:answer_id])
   end
 
   def set_attempt_number
     (QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, params[:quiz_id])
-                                      .maximum('attempt_number') || 0) + 1
+                .maximum('attempt_number') || 0) + 1
   end
 
-  def quiz_attempt
-    @quiz_attempt = QuizAttempt.where('user_id = ? and quiz_id = ?', current_user.id, @answer.question.quiz.id)
-                                .order(:attempt_number).last
+  def set_quiz_attempt
+    @quiz_attempt = QuizAttempt.where('user_id = ?', current_user.id).find(get_quiz_attempt_id)
+  end
+
+  def get_quiz_attempt_id
+    if params[:quiz_attempt_id].present?
+      params[:quiz_attempt_id]
+    elsif @answer.present?
+      session["quiz_id_#{@answer.question.quiz_id}_attempt_id"]
+    end
+  end
+
+  def next_question
+    redirect_to quiz_question_path(@quiz_attempt.quiz_id, @quiz_attempt.next_question_id)
+  end
+
+  def update_session
+    session["quiz_id_#{@quiz_attempt.quiz_id}_attempt_id"] = @quiz_attempt.id
   end
 
   def selected_answer
-    { "question_id": @answer.question_id, "answer_id": params[:answer_id] }
+    { "question_id": @answer.question_id, "answer_id": @answer.id }
   end
 
   def compute_scores
