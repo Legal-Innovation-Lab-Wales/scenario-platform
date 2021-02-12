@@ -20,5 +20,6 @@ Rails.application.routes.draw do
   post 'start_quiz', to: 'quiz_attempts#start_quiz'
   put 'resume_quiz', to: 'quiz_attempts#resume_quiz'
   put 'select_answer', to: 'quiz_attempts#select_answer'
+  get '/quizzes/:quiz_id/results/:quiz_attempt_id', to: 'results#show', as: 'show_results'
 
 end

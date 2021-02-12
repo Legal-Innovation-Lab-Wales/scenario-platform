@@ -80,13 +80,13 @@ class QuestionsController < ApplicationController
 
   def verify_attempt
     if @quiz_attempt.nil? || @quiz_attempt.completed
-      redirect_to quiz_path(@quiz.id)
+      redirect_to quiz_path(@quiz)
     end
   end
 
   def verify_question
     if @question.id != @quiz_attempt.next_question_id && !@quiz_attempt.has_been_answered(@question.id)
-      redirect_to quiz_question_path(@quiz.id, @quiz_attempt.next_question_id)
+      redirect_to quiz_question_path(@quiz, @quiz_attempt.next_question_id)
     end
   end
 

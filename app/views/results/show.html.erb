@@ -8,12 +8,12 @@
           <tr>
             <th colspan="2"><em>Your Scores</em></th>
           </tr>
-        <% @quiz_attempt.scores.each do |score| %>
-          <tr>
-            <td><%= score[0].capitalize %>: </td>
-            <td><%= score[1] %></td>
-          </tr>
-        <% end %>
+          <% @quiz_attempt.scores.each do |score| %>
+            <tr>
+              <td><%= score[0].capitalize %>: </td>
+              <td><%= score[1] %></td>
+            </tr>
+          <% end %>
         </table>
         <br>
         <%= link_to "Back to Quiz", quiz_path(@quiz_attempt.quiz_id), class: "btn btn-success" %>

@@ -27,7 +27,7 @@ class QuizAttemptsController < ApplicationController
 
   def end_quiz
     @quiz_attempt.update(scores: compute_scores)
-    render 'attempt_summary'
+    redirect_to show_results_path(@quiz_attempt.quiz, @quiz_attempt)
   end
 
   private
@@ -94,7 +94,7 @@ class QuizAttemptsController < ApplicationController
   end
 
   def initial_values
-    Quiz.find(@answer.question.quiz.id).variables_with_initial_values
+    @answer.question.quiz.variables_with_initial_values
   end
 
 end
