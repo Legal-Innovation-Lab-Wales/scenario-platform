@@ -1,3 +1,4 @@
+# app/controllers/quiz_attempts_controller.rb
 class QuizAttemptsController < ApplicationController
   before_action :set_answer, only: :select_answer
   before_action :set_quiz_attempt, only: %i[resume_quiz select_answer]
@@ -32,16 +33,14 @@ class QuizAttemptsController < ApplicationController
   private
 
   def verify_answer
-    if @quiz_attempt.next_question_id == @answer.question_id
-      add_answer
-    end
+    add_answer if @quiz_attempt.next_question_id == @answer.question_id
   end
 
   def verify_backtrack
-    if @quiz_attempt.has_been_answered(@answer.question_id)
-      @quiz_attempt.slice_question_answers(@answer.question_id)
-      add_answer
-    end
+    return unless @quiz_attempt.has_been_answered(@answer.question_id)
+
+    @quiz_attempt.slice_question_answers(@answer.question_id)
+    add_answer
   end
 
   def add_answer
@@ -59,10 +58,10 @@ class QuizAttemptsController < ApplicationController
   end
 
   def set_quiz_attempt
-    @quiz_attempt = QuizAttempt.where('user_id = ?', current_user.id).find(get_quiz_attempt_id)
+    @quiz_attempt = QuizAttempt.where('user_id = ?', current_user.id).find(quiz_attempt_id)
   end
 
-  def get_quiz_attempt_id
+  def quiz_attempt_id
     if params[:quiz_attempt_id].present?
       params[:quiz_attempt_id]
     elsif @answer.present?
@@ -95,5 +94,4 @@ class QuizAttemptsController < ApplicationController
   def initial_values
     @answer.question.quiz.variables_with_initial_values
   end
-
 end
