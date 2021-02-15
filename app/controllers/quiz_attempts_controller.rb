@@ -2,8 +2,7 @@ class QuizAttemptsController < ApplicationController
   before_action :set_answer, only: :select_answer
   before_action :set_quiz_attempt, only: %i[resume_quiz select_answer]
   before_action :update_session, only: :resume_quiz
-  before_action :verify_answer, only: :select_answer
-  before_action :verify_backtrack, only: :select_answer
+  before_action :verify_answer, :verify_backtrack, only: :select_answer
 
   def start_quiz
     @quiz_attempt = QuizAttempt.create!(
@@ -27,7 +26,7 @@ class QuizAttemptsController < ApplicationController
 
   def end_quiz
     @quiz_attempt.update(scores: compute_scores)
-    render 'attempt_summary'
+    redirect_to show_results_path(@quiz_attempt.quiz, @quiz_attempt)
   end
 
   private
@@ -94,7 +93,7 @@ class QuizAttemptsController < ApplicationController
   end
 
   def initial_values
-    Quiz.find(@answer.question.quiz.id).variables_with_initial_values
+    @answer.question.quiz.variables_with_initial_values
   end
 
 end
