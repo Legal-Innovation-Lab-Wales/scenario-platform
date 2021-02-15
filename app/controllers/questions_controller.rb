@@ -2,6 +2,7 @@
 class QuestionsController < ApplicationController
   before_action :set_quiz
   before_action :set_question, except: %i[new create index]
+  before_action :set_quiz_attempt, :verify_attempt, :verify_question, only: :show
   before_action :require_admin, except: :show
 
   # GET /quizzes/:quiz_id/questions
@@ -35,11 +36,11 @@ class QuestionsController < ApplicationController
         format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@question.as_json, :created) }
       end
-    # else
-    #   respond_to do |format|
-    #     # format.html { render 'new' } # when new exists render new
-    #     format.json { json_response(@question.errors) }
-    #   end
+    else
+      respond_to do |format|
+        format.html { render 'new' } # when new exists render new
+        format.json { json_response(@question.errors) }
+      end
     end
   end
 
@@ -55,8 +56,11 @@ class QuestionsController < ApplicationController
         format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@question, :no_content) }
       end
-    # else
-    #   render @question.errors, status: :unprocessable_entity
+    else
+      respond_to do |format|
+        format.html { render 'edit' } # when new exists render new
+        format.json { json_response(@question.errors, status: :unprocessable_entity) }
+      end
     end
   end
 
@@ -72,6 +76,20 @@ class QuestionsController < ApplicationController
 
   private
 
+  def verify_attempt
+    return unless @quiz_attempt.nil? || @quiz_attempt.completed
+
+    redirect_to quiz_path(@quiz),
+                notice: 'You need to start or resume a quiz to view its questions'
+  end
+
+  def verify_question
+    return unless @question.id != @quiz_attempt.next_question_id && !@quiz_attempt.been_answered?(@question.id)
+
+    redirect_to quiz_question_path(@quiz, @quiz_attempt.next_question_id),
+                notice: 'This is the question you should be answering'
+  end
+
   def set_quiz
     @quiz = if current_user.admin?
               current_user.organisation.quizzes.find(params[:quiz_id])
@@ -84,9 +102,12 @@ class QuestionsController < ApplicationController
     @question = @quiz.questions.find(params[:id])
   end
 
+  def set_quiz_attempt
+    @quiz_attempt = QuizAttempt.where('user_id = ?', current_user.id).find(session["quiz_id_#{@quiz.id}_attempt_id"])
+  end
+
   def question_params
     # whitelist params
     params.require(:question).permit(:order, :text, :description, :quiz_id)
   end
-
 end

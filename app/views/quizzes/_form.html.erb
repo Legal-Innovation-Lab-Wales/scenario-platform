@@ -30,8 +30,9 @@
           <th><%= form.label :variables, class: "form-label" %></th>
           <th><%= form.label :variable_initial_values, class: "form-label" %></th>
         </tr>
-        <% quiz.variables.zip(quiz.variable_initial_values).each_with_index do |variable, variable_initial_value, index| %>
-          <tr id='variable-<%= variable_initial_value %>'>
+
+        <% quiz.variables_with_initial_values&.each_with_index do |variable, index| %>
+          <tr id='variable-<%= index %>'>
             <td>
               <input multiple='multiple' type='text' value='<%= variable[0] %>' name='quiz[variables][]' class="form-control">
             </td>

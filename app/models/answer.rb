@@ -9,9 +9,9 @@ class Answer < ApplicationRecord
   private
 
   def update_next_question_id
-    if next_question_order? && next_question_order != -1
-      self.next_question_id = question.quiz.questions.find_by!(order: next_question_order).id
-    end
+    return unless next_question_order? && next_question_order != -1
+
+    self.next_question_id = question.quiz.questions.find_by!(order: next_question_order).id
   end
 
   # validations
