@@ -37,7 +37,7 @@ class QuizAttemptsController < ApplicationController
   end
 
   def verify_backtrack
-    return unless @quiz_attempt.has_been_answered(@answer.question_id)
+    return unless @quiz_attempt.been_answered?(@answer.question_id)
 
     @quiz_attempt.slice_question_answers(@answer.question_id)
     add_answer

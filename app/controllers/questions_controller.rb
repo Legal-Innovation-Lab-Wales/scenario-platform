@@ -83,7 +83,7 @@ class QuestionsController < ApplicationController
   end
 
   def verify_question
-    if @question.id != @quiz_attempt.next_question_id && !@quiz_attempt.has_been_answered(@question.id)
+    if @question.id != @quiz_attempt.next_question_id && !@quiz_attempt.been_answered?(@question.id)
       redirect_to quiz_question_path(@quiz, @quiz_attempt.next_question_id), notice: "This is the question you should be answering"
     end
   end
