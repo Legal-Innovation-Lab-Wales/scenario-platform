@@ -5,9 +5,9 @@
         <p> <%= @quiz.description %> </p>
 
         <% if @quiz.questions.find_by(order: 0).present? %>
-          <div class="text-center"><%= link_to "Start Quiz", quiz_question_path(@quiz, @quiz.questions.find_by(order: 0)), class: "btn btn-success btn-lg" %></div>
+          <div class="text-center">
+            <%= link_to "Start Assessment", quiz_question_path(@quiz, @quiz.questions.find_by(order: 0)), class: "btn btn-success btn-lg" %></div>
         <% elsif current_user.admin? %>
-          <h3> Please add a question with order 0 as a starting point for your quiz</h3>
         <% else %>
           <div class="text-center"><button class="btn btn-primary btn-large disabled">Start Quiz</button></div>
         <% end %>
@@ -24,8 +24,11 @@
           <div class="card">
             <div class="card-body">
 
+
               <h2 class="text-danger text-center">Admin Only View</h2>
-              <h2 class="text-center"><%= link_to "Edit Quiz", edit_quiz_path, class: "btn btn-secondary btn-sm" %></h2>
+
+              <h2 class="text-center"><%= link_to "Edit Assessment", edit_quiz_path, class: "btn btn-secondary btn-sm" %>
+                <%= link_to "Help", guide_path, class: "btn btn-secondary btn-sm", target: :_blank %></h2>
                 <table class="mx-auto">
                   <tr>
                     <th colspan="2"><h5>Variables & Starting Values </h5> </th>
@@ -37,6 +40,11 @@
                     </tr>
                     <% end %>
                 </table>
+
+              <p>To begin, please select add a question below and set it with order 0. Next,
+                you can add answers to that question which can: Change your assessment variables & Lead to different
+                questions depending on the a order selected.</p>
+
 
             </div>
 
