@@ -4,7 +4,6 @@
 
 @import "variables";
 form:before {
-  background-color: $body-bg !important;
 }
 
 body#overboot {
@@ -90,7 +89,6 @@ h1, h2, h3, h4, h5 {
     width: 100%;
     position: relative;
     z-index: 1;
-    background-color: rgba(0,0,0,0.9);
 }
 
 /* only used for background overlay not needed for centering */
@@ -102,7 +100,6 @@ form:before {
     top: 0;
     width: 100%;
     color: white;
-    background-color: rgba(0,0,0,0.3);
     z-index: -1;
     border-radius: 10px;
 }
@@ -120,7 +117,6 @@ form:before {
       font-size:  12.5px;
       font-weight:  400;
       color: white;
-      opacity:  .85;
 
     }
     text-align: center;
