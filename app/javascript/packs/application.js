@@ -13,6 +13,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
 import "./erb_form_functions";
+import "./alert_handling";
 
 Rails.start()
 Turbolinks.start()

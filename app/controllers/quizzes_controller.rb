@@ -2,14 +2,11 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[show update destroy]
   before_action :require_admin, only: %i[new create edit update delete]
+  before_action :create_variables_hstore, only: %i[create update]
 
   # GET /quizzes
   def index
-    @quizzes = if current_user.admin?
-                 current_user.organisation.quizzes
-               else
-                 current_user.organisation.quizzes.available
-               end
+    @quizzes = set_quizzes
 
     respond_to do |format|
       format.html
@@ -24,6 +21,7 @@ class QuizzesController < ApplicationController
            else
              @quiz
            end
+    @quiz_attempts = user_quiz_attempts
     respond_to do |format|
       format.html
       format.json { json_response(quiz) }
@@ -37,7 +35,7 @@ class QuizzesController < ApplicationController
 
   # POST /quizzes
   def create
-    if (@quiz = current_user.quizzes.create!(quiz_params))
+    if (@quiz = current_user.quizzes.create!(quiz_params.merge(variables_with_initial_values: create_variables_hstore)))
       respond_to do |format|
         format.html { redirect_to(@quiz) }
         format.json { json_response(@quiz, :created) }
@@ -54,6 +52,7 @@ class QuizzesController < ApplicationController
 
   # PUT /quizzes/:id
   def update
+    quiz_params.merge(variables_with_initial_values: create_variables_hstore) unless create_variables_hstore.nil?
     if @quiz.update(quiz_params)
       respond_to do |format|
         format.html { redirect_to(@quiz) }
@@ -76,6 +75,14 @@ class QuizzesController < ApplicationController
 
   private
 
+  def set_quizzes
+    if current_user.admin?
+      current_user.organisation.quizzes
+    else
+      current_user.organisation.quizzes.available
+    end
+  end
+
   def set_quiz
     @quiz = if current_user.admin?
               current_user.organisation.quizzes.find(params[:id])
@@ -84,8 +91,22 @@ class QuizzesController < ApplicationController
             end
   end
 
+  def user_quiz_attempts
+    @quiz.quiz_attempts.where(user_id: current_user.id).order(:id)
+  end
+
+  def create_variables_hstore
+    return unless params['quiz'].present?
+
+    return unless params['quiz']['variables'].present? && params['quiz']['variable_initial_values'].present?
+
+    vars = params['quiz']['variables']
+    vals = params['quiz']['variable_initial_values']
+    vars.zip(vals).to_h
+  end
+
   def quiz_params
     # whitelist params
-    params.require(:quiz).permit(:name, :description, :available, { variables: [] }, { variable_initial_values: [] })
+    params.require(:quiz).permit(:name, :description, :available, { variables: [] }, { variable_initial_values: [] }, variables_with_initial_values: {})
   end
 end

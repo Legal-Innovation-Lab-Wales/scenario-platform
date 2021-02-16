@@ -15,6 +15,11 @@
 </head>
 
 <body id="overboot">
+<% flash.each do |type, msg| %>
+  <section class="alert alert-info">
+    <%= msg %>
+  </section>
+<% end %>
 <%= yield %>
 </body>
 </html>

@@ -6,7 +6,7 @@
     </div>
 
     <% @question.answers.each do |answer| %>
-      <a class="text-decoration-none" href="<%= quiz_question_path(@quiz, answer.next_question_id) if answer.next_question_id.present? %>">
+      <a class="text-decoration-none" data-method="put" href="<%= select_answer_url(answer_id: answer.id) %>">
         <div class="row justify-content-md-center answer-row">
           <div class="col question-answer">
             <p> <%= answer.text %> </p>

@@ -78,6 +78,7 @@ Quiz.create!(
   user_id: 1,
   variables: ['health', 'stamina', 'experience', 'coin'],
   variable_initial_values: [100, 100, 0, 10],
+  variables_with_initial_values: { health: 100, stamina: 100, experience: 0, coin: 10 },
   name: 'First test adventure quiz',
   description: 'This is the first adventure quiz, it probably won\'t make a huge amount of sense but should have clickable options',
   available: true
@@ -315,8 +316,9 @@ Answer.create!(
 # Second Quiz
 Quiz.create!(
   user_id: 1,
-  variables: ['Knowledge', 'helpfulness', 'Compassion', 'Detail'],
+  variables: ['knowledge', 'helpfulness', 'compassion', 'detail'],
   variable_initial_values: [0, 0, 0, 0],
+  variables_with_initial_values: { knowledge: 0, helpfulness: 0, compassion: 0, detail: 0 },
   name: 'Quiz on retail secret shoppers',
   description: 'This is the quiz to test employees through online secret shoppers',
   available: false
@@ -398,87 +400,222 @@ Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'Wait patiently until they approach',
-  variable_mods: { Knowledge: 0, helpfulness: 0, Compassion: 0, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: 0, compassion: 0, detail: 0 },
   next_question_order: 2
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'finish your current task and ignore the customer',
-  variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: -1, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: -2, compassion: -1, detail: 0 },
   next_question_order: 3
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'Approach the customer with a compliment and a hello',
-  variable_mods: { Knowledge: 0, helpfulness: 0, Compassion: 2, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: 0, compassion: 2, detail: 0 },
   next_question_order: 1
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You know it isn\'t in stock so you reply "sorry, we don\'t stock that item"',
-  variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: 0, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: -2, compassion: 0, detail: 0 },
   next_question_order: 4
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You know it isn\'t in stock but you offer some stores nearby',
-  variable_mods: { Knowledge: 0, helpfulness: 1, Compassion: -1, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: 1, compassion: -1, detail: 0 },
   next_question_order: 6
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You know it isn\'t in stock but you offer a apologise, and an offer to call when it next comes in stock',
-  variable_mods: { Knowledge: 0, helpfulness: 0, Compassion: 2, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: 0, compassion: 2, detail: 0 },
   next_question_order: 5
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: '"sorry, but that\'s not much I can do"',
-  variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: -1, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: -2, compassion: -1, detail: 0 },
   next_question_order: 7
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You offer some apologies and offer some similar products in stock',
-  variable_mods: { Knowledge: 2, helpfulness: 1, Compassion: 0, Detail: 0 },
+  variable_mods: { knowledge: 2, helpfulness: 1, compassion: 0, detail: 0 },
   next_question_order: 6
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You shrug your shoulders and reply "Not much I can do if it isn\'t here"',
-  variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: -2, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: -2, compassion: -2, detail: 0 },
   next_question_order: 7
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You refuse to give it "I don\'t have to do that"',
-  variable_mods: { Knowledge: 0, helpfulness: -2, Compassion: -2, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: -2, compassion: -2, detail: 0 },
   next_question_order: 8
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You apologise and offer some resolution of similar products and some details of when next stock comes in"',
-  variable_mods: { Knowledge: 1, helpfulness: 1, Compassion: 1, Detail: 0 },
+  variable_mods: { knowledge: 1, helpfulness: 1, compassion: 1, detail: 0 },
   next_question_order: 8
 )
 Answer.create!(
   user_id: 1,
   question_id: 11,
   text: 'You offer your name',
-  variable_mods: { Knowledge: 0, helpfulness: 0, Compassion: 0, Detail: 0 },
+  variable_mods: { knowledge: 0, helpfulness: 0, compassion: 0, detail: 0 },
   next_question_order: 8
 )
 
-
+QuizAttempt.create!(
+  user_id: 1,
+  quiz_id: 1,
+  attempt_number: 1,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 1
+    }, {
+      "question_id": 2,
+      "answer_id": 4
+    }, {
+      "question_id": 5,
+      "answer_id": 11
+    }],
+  scores: { health: 0, stamina: 0, experience: 0, coin: 10 }
+)
+QuizAttempt.create!(
+  user_id: 1,
+  quiz_id: 1,
+  attempt_number: 2,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 1
+    }, {
+      "question_id": 2,
+      "answer_id": 6
+    }, {
+      "question_id": 7,
+      "answer_id": 13
+    }],
+  scores: { health: 100, stamina: 100, experience: 50, coin: 10 }
+)
+QuizAttempt.create!(
+  user_id: 1,
+  quiz_id: 1,
+  attempt_number: 3,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
+QuizAttempt.create!(
+  user_id: 1,
+  quiz_id: 1,
+  attempt_number: 4,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 8
+    }, {
+      "question_id": 9,
+      "answer_id": 15
+    }],
+  scores: { health: 100, stamina: 100, experience: 100, coin: 100000010 }
+)
+QuizAttempt.create!(
+  user_id: 2,
+  quiz_id: 1,
+  attempt_number: 1,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
+QuizAttempt.create!(
+  user_id: 3,
+  quiz_id: 1,
+  attempt_number: 1,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
+QuizAttempt.create!(
+  user_id: 3,
+  quiz_id: 1,
+  attempt_number: 2,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
+QuizAttempt.create!(
+  user_id: 3,
+  quiz_id: 1,
+  attempt_number: 3,
+  question_answers:
+    [{
+      "question_id": 1,
+      "answer_id": 2
+    }, {
+      "question_id": 3,
+      "answer_id": 7
+    }, {
+      "question_id": 8,
+      "answer_id": 14
+    }],
+  scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
+)
 
 

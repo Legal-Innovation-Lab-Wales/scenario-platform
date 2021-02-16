@@ -64,12 +64,12 @@ class OrganisationsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions.
   def set_organisation
     @organisation = Organisation.find(params[:id])
   end
 
-    # Only allow a list of trusted parameters through.
+  # Only allow a list of trusted parameters through.
   # def organisation_params
   #   params.require(:organisation).permit(:name)
   # end

@@ -6,6 +6,7 @@ FactoryBot.define do
     description { 'MyText' }
     variables { ['health', 'stamina', 'experience', 'coin'] }
     variable_initial_values { [100, 100, 0, 10] }
+    variables_with_initial_values { { health: 100, stamina: 100, experience: 0, coin: 10 } }
     available { true }
   end
 

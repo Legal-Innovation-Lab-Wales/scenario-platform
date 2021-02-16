@@ -83,60 +83,6 @@ RSpec.describe 'Questions', type: :request do
       end
     end
 
-    context 'when any user signed in' do
-      before { sign_in user }
-      before { get "/quizzes/#{quiz_id}/questions/#{question_id}", headers: headers }
-
-      context 'when the record exits' do
-        it 'returns the question' do
-          expect(json).not_to be_empty
-          expect(json['id']).to eq(question_id)
-        end
-
-        it 'includes answers with the question' do
-          expect(json['answers']).not_to be_empty
-          expect(json['answers'].size).to eq(10)
-        end
-
-        it 'returns http status success' do
-          expect(response).to have_http_status(:success)
-        end
-
-        it 'returns json content' do
-          expect(response.content_type).to include('application/json')
-        end
-
-        it 'expects the question to be for the right quiz' do
-          expect(json['quiz_id']).to eq(quiz_id)
-        end
-      end
-
-      context 'when the record does not exist' do
-        let(:question_id) { 100 }
-
-        it 'returns status code 404' do
-          expect(response).to have_http_status(404)
-        end
-
-        it 'returns a not found message' do
-          expect(response.body).to match(/Couldn't find Question/)
-        end
-      end
-
-      context 'when the request is invalid' do
-        # question is not part of this quiz
-        let(:quiz_id) { quizzes.second.id }
-
-        it 'returns status code 404' do
-          expect(response).to have_http_status(404)
-        end
-
-        it 'returns a not found message' do
-          expect(response.body).to match(/Couldn't find Question/)
-        end
-      end
-
-    end
   end
 
   describe 'create question (POST quiz_questions)' do

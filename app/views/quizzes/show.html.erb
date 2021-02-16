@@ -5,16 +5,32 @@
         <p> <%= @quiz.description %> </p>
 
         <% if @quiz.questions.find_by(order: 0).present? %>
-          <div class="text-center">
-            <%= link_to "Start Assessment", quiz_question_path(@quiz, @quiz.questions.find_by(order: 0)), class: "btn btn-success btn-lg" %></div>
+
+          <div class="text-center"><%= link_to "Start Assessment", start_quiz_url(quiz_id: @quiz), method: "post", class: "btn btn-success btn-lg" %></div>
         <% elsif current_user.admin? %>
         <% else %>
           <div class="text-center"><button class="btn btn-primary btn-large disabled">Start Quiz</button></div>
         <% end %>
       </div>
     </div>
+  <% if @quiz_attempts.present? %>
+    <div class="container quiz-show-container shadow rounded-3">
+      <div class="row">
+        <h1 class="quiz-heading"> Previous Attempts </h1>
+        <% @quiz_attempts.each do |quiz_attempt| %>
+          <p class="mb-0"><strong><%= quiz_attempt.attempt_number.ordinalize %> Attempt.</strong></p>
+          <% if quiz_attempt.scores.present? %>
+            <p class="mb-0"><em>Scores: </em>
+            <p><% quiz_attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %>, <% end %></p>
+          <% else %>
+            <p>This attempt has not been completed.</p>
+            <div class="text-center"><%= link_to "Resume Attempt", resume_quiz_url(quiz_attempt_id: quiz_attempt), method: "put", class: "btn btn-success btn-md" %></div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </section>
-
 
 <% if current_user.admin? %>
   <section class="admin-view">
@@ -23,19 +39,17 @@
         <div class="col-md-6 col-sm-10 admin-header align-self-center">
           <div class="card">
             <div class="card-body">
-
-
               <h2 class="text-danger text-center">Admin Only View</h2>
-
               <h2 class="text-center"><%= link_to "Edit Assessment", edit_quiz_path, class: "btn btn-secondary btn-sm" %>
                 <%= link_to "Help", guide_path, class: "btn btn-secondary btn-sm", target: :_blank %></h2>
+
                 <table class="mx-auto">
                   <tr>
                     <th colspan="2"><h5>Variables & Starting Values </h5> </th>
                   </tr>
 
                     <% @quiz.variables.zip(@quiz.variable_initial_values) do |variable, variable_initial_value| %>
-                    <tr>
+                    <tr class="text-start">
                       <td><%= variable %>: </td><td><%= variable_initial_value %></td>
                     </tr>
                     <% end %>
@@ -44,18 +58,34 @@
               <p>To begin, please select add a question below and set it with order 0. Next,
                 you can add answers to that question which can: Change your assessment variables & Lead to different
                 questions depending on the a order selected.</p>
-
-
+              <h2><button class="btn btn-sm btn-secondary" onclick="toggleQuizAttempts()">Show Quiz Attempts</button></h2>
             </div>
-
           </div>
         </div>
+      </div>
+    </div>
+
+    <div id="quiz-attempts" class="container">
+      <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded text-center">
+        <h3>Quiz Attempts</h3>
+        <p>Total Attempts: <%= @quiz.quiz_attempts.count %></p>
+        <p>by <%= @quiz.quiz_attempts.map { |u| [u.user_id] }.uniq.count %> Users</p>
+        <h2 class="text-danger">Do some other stuff here</h2>
+        <p>Completed By</p>
+        <% @quiz.quiz_attempts.map { |qa| [qa.user] }.uniq.each do |user| %>
+          <p class="mb-0"><%= user[0].first_name %> <%= user[0].last_name %></p>
+        <% end %>
+        <hr>
+        <ul>TODO List
+          <li>count of how many times each user has completed quiz</li>
+          <li>summary of scores</li>
+          <li>best score?</li>
+        </ul>
 
       </div>
     </div>
 
     <div class="container">
-
       <% @quiz.questions.each do |question| %>
         <div id="question_order_<%= question.order %>" class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
           <h5>Question Order: <%= question.order %></h5>
@@ -124,3 +154,10 @@
     </div>
   </section>
 <% end %>
+
+<script>
+    function toggleQuizAttempts() {
+        const el = document.getElementById('quiz-attempts');
+        el.style.display = (el.style.display === 'block' ? 'none' : 'block');
+    }
+</script>
