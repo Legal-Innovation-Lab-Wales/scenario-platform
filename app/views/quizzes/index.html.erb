@@ -12,12 +12,14 @@
     <div class="row py-lg-5">
       <div class="grey-transparent-bg col-lg-6 col-md-8 mx-auto">
 
-        <h1>Quizzes</h1>
-        <h3>Quiz Count: <%= @quizzes.count %></h3>
-        <p>This is the quiz index page. There needs to be some text here about what this page is and what people can do on it. They can view all the quizzes that are available to them and click on them I guess. This doesnt need to make sense but just needs to look like a block of content/</p>
+        <h1>Interactive Assessments</h1>
+        <h3>Assessment Count: <%= @quizzes.count %></h3>
+        <p>This is the interactive assessment homepage. Here you can view all the scenario assessments that are
+        available to you. To view your past scores or to see more infomation about an assessment click on view</p>
 
         <% if current_user.admin? %>
-          <td><%= link_to 'Create New Quiz', new_quiz_path, class: "btn btn-lg btn-success" %></td>
+          <p>You can also create a new assessment here or edit an existing assessment below </p>
+          <td><%= link_to 'Create New Assessment', new_quiz_path, class: "btn btn-lg btn-success" %></td>
         <% end %>
       </div>
 
