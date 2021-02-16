@@ -23,6 +23,8 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 # Use Devise for user authentication
 gem 'devise'
+# User SendGrid for emails
+gem 'sendgrid-ruby'
 
 gem 'bootstrap', '~> 5.0.0.beta1'
 gem 'jquery-rails'
