@@ -1,0 +1,37 @@
+.admin-page {
+  margin: 15px;
+
+  .hidden {
+    display: none;
+  }
+
+  #organisation {
+    input {
+      width: 300px;
+    }
+
+    i {
+      line-height: 24px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  table {
+    th, td {
+      &:last-child {
+        text-align: center;
+      }
+    }
+
+    .fa-check-circle {
+      color: green;
+    }
+
+    .fa-times-circle {
+      color: darkred;
+    }
+  }
+}

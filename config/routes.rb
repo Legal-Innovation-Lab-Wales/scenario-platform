@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   namespace :admin do
+    root 'pages#main'
+    put 'organisation', to: 'organisation#update_name'
     resources :users
   end
 

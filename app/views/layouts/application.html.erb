@@ -13,12 +13,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
 
 </head>
-
 <body id="overboot">
 <% flash.each do |type, msg| %>
-  <section class="alert alert-info">
-    <%= msg %>
-  </section>
+<section class="alert alert-info">
+  <%= msg %>
+</section>
 <% end %>
 <%= yield %>
 </body>
