@@ -96,3 +96,12 @@ admin_markers.forEach(marker => {
     })
   })
 })
+
+const users = document.querySelectorAll('#users table tr')
+
+users.forEach(user => {
+  user.addEventListener('click', () => {
+    const id = parseInt(user.querySelector('.hidden').innerText)
+    location.pathname = `/admin/users/${id}/scores`
+  })
+})
