@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/app', to: 'pages#app', as: 'app'
   get '/guide', to: 'pages#guide', as: 'guide'
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => 'users/registrations'}
 
   namespace :admin do
     root 'pages#main'

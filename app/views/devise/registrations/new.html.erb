@@ -19,6 +19,11 @@
       </div>
 
       <div class="field">
+        <%= f.label :organisation %><br />
+        <%= f.select :organisation_id, options_for_select(@organisations) %>
+      </div>
+
+      <div class="field">
         <%= f.label :bio%><br />
         <%= f.text_field :bio, autocomplete: "bio" %>
       </div>
@@ -41,9 +46,8 @@
         <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       </div>
 
-        <%= f.hidden_field :organisation_id,  value: params[:organisation] %>
-
-        <div class="actions">
+      <br />
+      <div class="actions">
         <%= f.submit "Sign up" %>
       </div>
     <% end %>
