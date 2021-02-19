@@ -1,8 +1,13 @@
 .admin-page {
-  margin: 15px;
-
   .hidden {
     display: none;
+  }
+
+  .row {
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    margin-bottom: 15px;
+    padding: 15px;
   }
 
   #organisation {

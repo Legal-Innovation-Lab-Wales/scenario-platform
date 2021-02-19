@@ -1,27 +1,26 @@
-<section class="admin-page">
+<section id="cover" class="admin-page min-vh-100">
   <div class="container">
     <div class="row" id="organisation">
       <h2>Organisation</h2>
-      <div class="col-sm-auto">
+      <div class="col">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">Name</span>
-          <input type="text" class="form-control" placeholder="Organisation Name" value="<%= @organisation.name %>" disabled />
+          <input type="text" class="form-control" value="<%= @organisation.name %>" disabled />
           <i class="input-group-text fas fa-edit"></i>
         </div>
       </div>
-      <div class="col-sm-auto">
+      <div class="col">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1"><i class="fas fa-users"></i></span>
           <input type="text" class="form-control" value="<%= @approved_users.length %>" disabled />
         </div>
       </div>
     </div>
-    <hr/>
     <% if @unapproved_users.length > 0 %>
       <div class="row" id="requested-users">
         <h2>Requested Users</h2>
         <div class="col">
-          <table class="table table-hover">
+          <table class="table table-light table-hover">
             <thead>
             <tr>
               <th scope="col">
@@ -50,12 +49,11 @@
           <button type="button" class="btn btn-primary btn-md" id="approve">Approve</button>
         </div>
       </div>
-      <hr/>
     <% end %>
     <div class="row">
       <h2>Users</h2>
       <div class="col">
-        <table class="table table-hover">
+        <table class="table table-light table-hover">
           <thead>
             <tr>
               <th scope="col" class="hidden"></th>

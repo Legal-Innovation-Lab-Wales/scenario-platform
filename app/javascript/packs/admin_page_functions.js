@@ -6,6 +6,14 @@ function toggleName(disabled) {
   name.disabled = disabled
   icon.classList.remove(disabled ? 'fa-check-square' : 'fa-edit')
   icon.classList.add(disabled ? 'fa-edit' : 'fa-check-square')
+
+  if (disabled) {
+    name.classList.remove('is-invalid')
+    name.blur()
+  } else {
+    name.value = ''
+    name.focus()
+  }
 }
 
 function updateOrgName() {
@@ -14,7 +22,6 @@ function updateOrgName() {
       method: 'put'
     }).then(response => {
       if (response.ok) {
-        name.classList.remove('is-invalid')
         org_name = name.value
         toggleName(true)
       } else {
