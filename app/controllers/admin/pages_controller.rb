@@ -1,7 +1,7 @@
 # app/controllers/admin/pages_controller.rb
 class Admin::PagesController < ApplicationController
   before_action :require_admin
-  before_action :set_users, :set_organisation, only: :main
+  before_action :set_approved_users, :set_unapproved_users, :set_organisation, only: :main
 
   # GET /admin
   def main
@@ -10,8 +10,12 @@ class Admin::PagesController < ApplicationController
 
   private
 
-  def set_users
-    @users = User.all.where(organisation: current_user.organisation)
+  def set_unapproved_users
+    @unapproved_users = User.all.where(organisation: current_user.organisation, approved: false)
+  end
+
+  def set_approved_users
+    @approved_users = User.all.where(organisation: current_user.organisation, approved: true)
   end
 
   def set_organisation

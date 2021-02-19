@@ -21,6 +21,7 @@ user = User.new(
   bio: 'Hello World',
   organisation_id: 1,
   admin: true,
+  approved: true,
   password: 'test1234'
 )
 user.skip_confirmation!
@@ -33,6 +34,19 @@ user = User.new(
   bio: 'Hello World',
   organisation_id: 1,
   admin: true,
+  approved: true,
+  password: 'test1234'
+)
+user.skip_confirmation!
+user.save!
+
+user = User.new(
+  first_name: 'Ieuan',
+  last_name: 'Skinner',
+  email: 'ieuan.skinner@email.com',
+  bio: 'Hello World',
+  organisation_id: 1,
+  approved: false,
   password: 'test1234'
 )
 user.skip_confirmation!
@@ -44,6 +58,7 @@ user = User.new(
   email: 'NoAdmin@purpleriver.dev',
   bio: 'Hello World',
   organisation_id: 1,
+  approved: true,
   password: 'test1234'
 )
 user.skip_confirmation!
@@ -55,6 +70,7 @@ user = User.new(
   email: 'test1@email.com',
   bio: 'I am test',
   organisation_id: 1,
+  approved: true,
   password: 'testpass'
 )
 user.skip_confirmation!
@@ -69,6 +85,7 @@ u = 1
     email: 'test'+u.to_s+'@purpleriver.dev',
     bio: Faker::Movie.quote,
     organisation_id: 1,
+    approved: true,
     password: 'testpass'
   )
   user.skip_confirmation!

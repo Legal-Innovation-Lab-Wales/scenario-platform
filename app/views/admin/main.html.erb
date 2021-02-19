@@ -12,13 +12,46 @@
       <div class="col-sm-auto">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1"><i class="fas fa-users"></i></span>
-          <input type="text" class="form-control" value="<%= @users.length %>" disabled />
+          <input type="text" class="form-control" value="<%= @approved_users.length %>" disabled />
         </div>
       </div>
     </div>
     <hr/>
+    <div class="row" id="requested-users">
+      <h2>Requested Users</h2>
+      <div class="col">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">
+              <input class="form-check-input" type="checkbox" id="main-checkbox" checked>
+            </th>
+            <th scope="col" class="hidden"></th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @unapproved_users.each do |user| %>
+            <tr>
+              <td>
+                <input class="form-check-input user-checkbox" type="checkbox" checked>
+              </td>
+              <td class="hidden"><%= user.id %></td>
+              <td><%= user.first_name %></td>
+              <td><%= user.last_name %></td>
+              <td><%= user.email %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-primary btn-md" id="approve">Approve</button>
+      </div>
+    </div>
+    <hr/>
     <div class="row">
-      <h2>User Management</h2>
+      <h2>Users</h2>
       <div class="col">
         <table class="table table-hover">
           <thead>
@@ -30,7 +63,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @users.each do |user| %>
+            <% @approved_users.each do |user| %>
               <tr>
                 <td><%= user.first_name %></td>
                 <td><%= user.last_name %></td>

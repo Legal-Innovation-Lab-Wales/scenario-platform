@@ -9,8 +9,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'pages#main'
-    put 'organisation', to: 'organisation#update_name'
-    resources :users
+    put '/organisation', to: 'organisation#update_name'
+    put '/users/:id/approve', to: 'users#approve'
+    put '/users/:id/admin', to: 'users#admin'
   end
 
   resources :quizzes do

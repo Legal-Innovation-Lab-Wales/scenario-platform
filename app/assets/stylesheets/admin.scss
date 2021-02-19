@@ -15,6 +15,22 @@
     }
   }
 
+  #requested-users {
+    button {
+      float: right;
+
+      &.btn-primary {
+        background-color: green;
+        border-color: green;
+
+        &:hover {
+          background-color: darkgreen;
+          border-color: darkgreen;
+        }
+      }
+    }
+  }
+
   table {
     th, td {
       &:last-child {

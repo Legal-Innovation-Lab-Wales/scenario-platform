@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   include ExceptionHandler
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :require_organisation_approval
 
   protected
 
@@ -18,6 +19,14 @@ class ApplicationController < ActionController::Base
       respond_to do |format|
         format.html { redirect_to root }
         format.json { json_response('', :forbidden) }
+      end
+    end
+  end
+
+  def require_organisation_approval
+    if current_user.present? && !current_user.approved?
+      respond_to do |format|
+        format.html { render 'pages/approval' }
       end
     end
   end
