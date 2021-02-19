@@ -1,7 +1,7 @@
 # app/controllers/admin/users_controller.rb
 class Admin::UsersController < ApplicationController
   before_action :require_admin
-  before_action :set_user, only: :approve
+  before_action :set_user, only: [:approve, :admin]
 
   # PUT /admin/users/:id/approve
   def approve
@@ -13,7 +13,7 @@ class Admin::UsersController < ApplicationController
   # PUT /admin/users/:id/admin
   def admin
     respond_to do |format|
-      format.html { render html: '', status: (@user.update(admin: !@user.admin?) ? :ok : :bad_request)}
+      format.html { render html: '', status: (@user.update(admin: !@user.admin) ? :ok : :bad_request)}
     end
   end
 

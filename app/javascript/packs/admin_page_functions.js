@@ -37,38 +37,55 @@ name.addEventListener('keyup', e => {
   }
 })
 
-const main_checkbox = document.querySelector('#main-checkbox');
-const user_checkboxes = document.querySelectorAll('.user-checkbox');
+const requested_users = document.querySelector('#requested-users')
 
-main_checkbox.addEventListener('change', () => {
-  user_checkboxes.forEach(checkbox => {
-    checkbox.checked = main_checkbox.checked
+if (requested_users) {
+  const main_checkbox = requested_users.querySelector('#main-checkbox');
+  const user_checkboxes = requested_users.querySelectorAll('.user-checkbox');
+
+  main_checkbox.addEventListener('change', () => {
+    user_checkboxes.forEach(checkbox => {
+      checkbox.checked = main_checkbox.checked
+    })
   })
-})
 
+  const approve_btn = requested_users.querySelector('button#approve')
 
-const approve_btn = document.querySelector('button#approve')
+  approve_btn.addEventListener('click', () => {
+    const approved_users = []
 
-approve_btn.addEventListener('click', () => {
-  const approved_users = []
+    user_checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+        approved_users.push(parseInt(checkbox.closest('tr').querySelector('.hidden').innerText))
+      }
+    })
 
-  user_checkboxes.forEach(checkbox => {
-    if (checkbox.checked) {
-      approved_users.push(parseInt(checkbox.closest('tr').querySelector('.hidden').innerText))
+    if (approved_users.length > 0) {
+      const updates = []
+
+      approved_users.forEach(user => {
+        updates.push(fetch(`/admin/users/${user}/approve`, {method: 'put'}))
+      })
+
+      Promise.all(updates).then(values => {
+        values.forEach(value => {
+          if (value.ok) location.reload()
+        })
+      })
     }
   })
+}
 
-  if (approved_users.length > 0) {
-    const updates = []
+const admin_markers = document.querySelectorAll('i.admin-marker')
 
-    approved_users.forEach(user => {
-      updates.push(fetch(`/admin/users/${user}/approve`, { method: 'put' }))
+admin_markers.forEach(marker => {
+  marker.addEventListener('click', () => {
+    const user = parseInt(marker.closest('tr').querySelector('.hidden').innerText)
+
+    fetch(`/admin/users/${user}/admin`, {
+      method: 'put'
+    }).then(response => {
+      if (response.ok) location.reload()
     })
-
-    Promise.all(updates).then(values => {
-      values.forEach(value => {
-        if (value.ok) location.reload()
-      })
-    })
-  }
+  })
 })

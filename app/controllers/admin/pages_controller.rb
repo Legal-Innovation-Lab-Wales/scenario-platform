@@ -11,11 +11,11 @@ class Admin::PagesController < ApplicationController
   private
 
   def set_unapproved_users
-    @unapproved_users = User.all.where(organisation: current_user.organisation, approved: false)
+    @unapproved_users = User.all.where(organisation: current_user.organisation, approved: false).order(:id)
   end
 
   def set_approved_users
-    @approved_users = User.all.where(organisation: current_user.organisation, approved: true)
+    @approved_users = User.all.where(organisation: current_user.organisation, approved: true).order(:id)
   end
 
   def set_organisation
