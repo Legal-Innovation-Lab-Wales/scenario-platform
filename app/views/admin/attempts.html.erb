@@ -7,17 +7,17 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-6 offset-3">
+      <div class="col-6 offset-3" id="attempts">
         <h2>Attempts</h2>
         <% @attempts.each do |attempt| %>
-          <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= @user.id %>/attempts/<%= attempt.id %>">
-            <p class="mb-0"><strong><%= attempt.attempt_number.ordinalize %> Attempt.</strong></p>
+          <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= @user.id %>/results/<%= attempt.id %>">
+            <p class="mb-0"><strong><%= attempt.attempt_number.ordinalize %> Attempt: </strong>
             <% if attempt.scores.present? %>
-              <p class="mb-0"><em>Scores: </em>
-              <p><% attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %> <% end %></p>
+              <% attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %> <% end %>
             <% else %>
-              <p>This attempt has not been completed.</p>
+              This attempt has not been completed.
             <% end %>
+            </p>
           </a>
         <% end %>
       </div>

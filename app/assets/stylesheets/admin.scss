@@ -55,4 +55,28 @@
       }
     }
   }
+
+   #attempts {
+     a {
+       display: block;
+       border: 1px solid white;
+       color: white;
+       margin-bottom: 15px;
+       text-decoration: none;
+       padding: 0.5rem 0.5rem;
+       border-radius: 10px;
+
+       &:hover {
+         background-color: white;
+         color: black;
+       }
+     }
+   }
+
+  .question-answer {
+    border: 1px solid white;
+    margin-bottom: 15px;
+    padding: 0.5rem 0.5rem;
+    border-radius: 10px;
+  }
 }

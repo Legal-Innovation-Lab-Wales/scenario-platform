@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     put '/organisation', to: 'organisation#update_name'
     get '/quizzes/:id', to: 'quizzes#get_quiz'
     get '/quizzes/:quiz_id/users/:user_id', to: 'attempts#get_attempts'
+    get '/quizzes/:quiz_id/users/:user_id/results/:id', to: 'results#get_result'
     get '/users/:id', to: 'users#get_user', as: 'user'
     put '/users/:id/approve', to: 'users#approve', as: 'approve'
     put '/users/:id/admin', to: 'users#admin', as: 'admin'
