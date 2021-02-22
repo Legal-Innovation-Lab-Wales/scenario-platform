@@ -1,24 +1,38 @@
-<section id="cover" class="min-vh-100 user-scores-page">
+<section id="cover" class="admin-page min-vh-100">
   <div class="container min-vh-100">
     <div class="row">
-      <div class="col-6 offset-3">
-        <h1>Scores for user <%= @user.first_name %> <%= @user.last_name %></h1>
+      <div class="col">
+        <h1><%= @user.first_name %> <%= @user.last_name %></h1>
       </div>
     </div>
-    <% @quiz_attempts.each do |attempt| %>
-      <div class="row">
-        <div class="col-4 offset-4">
-          <h5><%= Quiz.find(attempt.quiz_id).name %></h5>
-          <table class="table table-light table-hover">
-            <% attempt.scores.each do |key, value| %>
-              <tr>
-                <td><%= key.capitalize %></td>
-                <td><%= value %></td>
-              </tr>
-            <% end %>
-          </table>
-        </div>
+    <div class="row">
+      <div class="col">
+        <h2>Quizzes</h2>
+        <table class="table table-light table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Quiz</th>
+              <th scope="col">No. of Attempts</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @quizzes.each do |quiz| %>
+            <tr>
+              <td>
+                <a href="/admin/quizzes/<%= quiz[:id] %>/users/<%= @user.id %>">
+                  <%= quiz[:name] %>
+                </a>
+              </td>
+              <td>
+                <a href="/admin/quizzes/<%= quiz[:id] %>/users/<%= @user.id %>/quizzes/<%= quiz[:id] %>">
+                  <%= quiz[:count] %>
+                </a>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
       </div>
-    <% end %>
+    </div>
   </div>
 </section>

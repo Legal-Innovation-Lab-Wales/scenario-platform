@@ -1,0 +1,26 @@
+<section id="cover" class="admin-page min-vh-100">
+  <div class="container min-vh-100">
+    <div class="row">
+      <div class="col-6 offset-3">
+        <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+        <h1><%= @quiz.name %></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6 offset-3">
+        <h2>Attempts</h2>
+        <% @attempts.each do |attempt| %>
+          <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= @user.id %>/attempts/<%= attempt.id %>">
+            <p class="mb-0"><strong><%= attempt.attempt_number.ordinalize %> Attempt.</strong></p>
+            <% if attempt.scores.present? %>
+              <p class="mb-0"><em>Scores: </em>
+              <p><% attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %> <% end %></p>
+            <% else %>
+              <p>This attempt has not been completed.</p>
+            <% end %>
+          </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

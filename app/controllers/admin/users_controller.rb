@@ -1,7 +1,12 @@
 # app/controllers/admin/users_controller.rb
 class Admin::UsersController < ApplicationController
-  before_action :require_admin
-  before_action :set_user
+  before_action :require_admin, :set_user, :require_organisation
+  before_action :set_quizzes, only: :get_user
+
+  # GET /admin/users/:id
+  def get_user
+    render template: 'admin/user'
+  end
 
   # PUT /admin/users/:id/approve
   def approve
@@ -17,13 +22,24 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  # GET /admin/users/:id/scores
-  def scores
-    @quiz_attempts = QuizAttempt.all.where(user_id: @user)
-    render template: 'admin/user'
+  private
+
+  def require_organisation
+    if current_user.organisation != @user.organisation then redirect_to '/', notice: 'You do not belong to this organisation!' end
   end
 
-  private
+  def set_quizzes
+    @quizzes = []
+    QuizAttempt.all.where(user_id: @user).each do |attempt|
+      quiz = @quizzes.find { |i| i[:id] == attempt.quiz.id }
+
+      if quiz.nil?
+        @quizzes << { id: attempt.quiz.id, name: attempt.quiz.name, count: 1 }
+      else
+        quiz[:count] = quiz[:count] + 1
+      end
+    end
+  end
 
   def set_user
     @user = User.find(params[:id])

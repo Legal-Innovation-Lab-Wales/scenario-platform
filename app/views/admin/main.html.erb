@@ -28,7 +28,6 @@
         <table class="table table-light table-hover">
           <thead>
           <tr>
-            <th scope="col" class="hidden"></th>
             <th scope="col">Name</th>
             <th scope="col">No. of Attempts</th>
           </tr>
@@ -36,9 +35,16 @@
           <tbody>
           <% @quizzes.each do |quiz| %>
             <tr>
-              <td class="hidden"><%= quiz[:id] %></td>
-              <td><%= quiz[:name] %></td>
-              <td><%= quiz[:attempts] %></td>
+              <td>
+                <a href="/admin/quizzes/<%= quiz[:id] %>">
+                  <%= quiz[:name] %>
+                </a>
+              </td>
+              <td>
+                <a href="/admin/quizzes/<%= quiz[:id] %>">
+                  <%= quiz[:attempts] %>
+                </a>
+              </td>
             </tr>
           <% end %>
           </tbody>
@@ -95,17 +101,17 @@
             <% @users.all.where(approved: true).each do |user| %>
               <tr>
                 <td>
-                  <a href="/admin/users/<%= user.id %>/scores">
+                  <a href="/admin/users/<%= user.id %>">
                     <%= user.first_name %>
                   </a>
                 </td>
                 <td>
-                  <a href="/admin/users/<%= user.id %>/scores">
+                  <a href="/admin/users/<%= user.id %>">
                     <%= user.last_name %>
                   </a>
                 </td>
                 <td>
-                  <a href="/admin/users/<%= user.id %>/scores">
+                  <a href="/admin/users/<%= user.id %>">
                     <%= user.email %>
                   </a>
                 </td>

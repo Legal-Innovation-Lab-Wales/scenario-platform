@@ -9,6 +9,9 @@
       <div style="text-align: center;">
         <% if user_signed_in? %>
           <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+          <% if current_user.admin? %>
+            <a href="/admin">Admin</a>
+          <% end %>
           <%= link_to('Edit Profile', edit_user_registration_path) %>
           <%= link_to "Check out the app", app_path %>
           <%= link_to "Scenario Guide ", guide_path %>

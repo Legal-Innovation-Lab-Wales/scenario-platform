@@ -19,6 +19,6 @@ class Admin::PagesController < ApplicationController
   end
 
   def set_quizzes
-    @quizzes = current_user.organisation.quizzes.order(:id).map { |quiz| {id: quiz.id, name: quiz.name, attempts: QuizAttempt.count("quiz_id=#{quiz.id}")} }
+    @quizzes = current_user.organisation.quizzes.order(:id).map { |quiz| {id: quiz.id, name: quiz.name, attempts: QuizAttempt.all.where(quiz_id: quiz.id).length } }
   end
 end
