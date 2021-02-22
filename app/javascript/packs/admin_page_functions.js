@@ -83,25 +83,9 @@ if (requested_users) {
   })
 }
 
-const admin_markers = document.querySelectorAll('i.admin-marker')
-
-admin_markers.forEach(marker => {
-  marker.addEventListener('click', () => {
-    const user = parseInt(marker.closest('tr').querySelector('.hidden').innerText)
-
-    fetch(`/admin/users/${user}/admin`, {
-      method: 'put'
-    }).then(response => {
-      if (response.ok) location.reload()
-    })
-  })
-})
-
-const users = document.querySelectorAll('#users table tr')
-
-users.forEach(user => {
-  user.addEventListener('click', () => {
-    const id = parseInt(user.querySelector('.hidden').innerText)
-    location.pathname = `/admin/users/${id}/scores`
+document.querySelectorAll('a.admin-marker').forEach(marker => {
+  marker.addEventListener('click', e => {
+    e.preventDefault()
+    fetch(marker.href, { method: 'put' }).then(response => { if (response.ok) location.reload() })
   })
 })

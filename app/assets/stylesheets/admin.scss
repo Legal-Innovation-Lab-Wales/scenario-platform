@@ -36,31 +36,31 @@
     }
   }
 
-  table {
-    th, td {
-      &:last-child {
-        text-align: center;
-      }
-    }
-
-    .admin-marker:hover {
-      cursor: pointer;
-    }
-
-    .fa-check-circle {
-      color: green;
-    }
-
-    .fa-times-circle {
-      color: darkred;
-    }
-  }
-
   #users {
     table {
       tr {
         &:hover {
           cursor: pointer;
+        }
+
+        td {
+          padding: 0;
+
+          a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            padding: 0.5rem 0.5rem;
+
+
+            .fa-check-circle {
+              color: green;
+            }
+
+            .fa-times-circle {
+              color: darkred;
+            }
+          }
         }
       }
     }
