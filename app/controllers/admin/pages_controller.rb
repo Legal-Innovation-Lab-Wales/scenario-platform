@@ -1,7 +1,7 @@
 # app/controllers/admin/pages_controller.rb
 class Admin::PagesController < ApplicationController
   before_action :require_admin
-  before_action :set_approved_users, :set_unapproved_users, :set_organisation, only: :main
+  before_action :set_users, :set_organisation, :set_quizzes, only: :main
 
   # GET /admin
   def main
@@ -10,15 +10,15 @@ class Admin::PagesController < ApplicationController
 
   private
 
-  def set_unapproved_users
-    @unapproved_users = User.all.where(organisation: current_user.organisation, approved: false).order(:id)
-  end
-
-  def set_approved_users
-    @approved_users = User.all.where(organisation: current_user.organisation, approved: true).order(:id)
+  def set_users
+    @users = User.all.where(organisation: current_user.organisation).order(:id)
   end
 
   def set_organisation
     @organisation = current_user.organisation
+  end
+
+  def set_quizzes
+    @quizzes = current_user.organisation.quizzes.order(:id).map { |quiz| {id: quiz.id, name: quiz.name, attempts: QuizAttempt.count("quiz_id=#{quiz.id}")} }
   end
 end

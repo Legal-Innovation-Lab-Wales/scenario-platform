@@ -1,22 +1,51 @@
 <section id="cover" class="admin-page min-vh-100">
-  <div class="container">
+  <div class="container min-vh-100">
     <div class="row" id="organisation">
       <h2>Organisation</h2>
       <div class="col">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">Name</span>
           <input type="text" class="form-control" value="<%= @organisation.name %>" disabled />
-          <i class="input-group-text fas fa-edit"></i>
+          <i class="input-group-text name-marker fas fa-edit"></i>
         </div>
       </div>
       <div class="col">
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1"><i class="fas fa-users"></i></span>
-          <input type="text" class="form-control" value="<%= @approved_users.length %>" disabled />
+          <span class="input-group-text" id="basic-addon1">Quiz Count</span>
+          <input type="text" class="form-control" value="<%= @quizzes.length %>" disabled />
+        </div>
+      </div>
+      <div class="col">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">User Count</span>
+          <input type="text" class="form-control" value="<%= @users.all.where(approved: true).length %>" disabled />
         </div>
       </div>
     </div>
-    <% if @unapproved_users.length > 0 %>
+    <div class="row" id="quizzes">
+      <h2>Quizzes</h2>
+      <div class="col">
+        <table class="table table-light table-hover">
+          <thead>
+          <tr>
+            <th scope="col" class="hidden"></th>
+            <th scope="col">Name</th>
+            <th scope="col">No. of Attempts</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @quizzes.each do |quiz| %>
+            <tr>
+              <td class="hidden"><%= quiz[:id] %></td>
+              <td><%= quiz[:name] %></td>
+              <td><%= quiz[:attempts] %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% if @users.all.where(approved: false).length > 0 %>
       <div class="row" id="requested-users">
         <h2>Requested Users</h2>
         <div class="col">
@@ -33,7 +62,7 @@
             </tr>
             </thead>
             <tbody>
-            <% @unapproved_users.each do |user| %>
+            <% @users.all.where(approved: false).each do |user| %>
               <tr>
                 <td>
                   <input class="form-check-input user-checkbox" type="checkbox" checked>
@@ -64,7 +93,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @approved_users.each do |user| %>
+            <% @users.all.where(approved: true).each do |user| %>
               <tr>
                 <td class="hidden"><%= user.id %></td>
                 <td><%= user.first_name %></td>
