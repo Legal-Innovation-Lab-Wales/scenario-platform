@@ -6,49 +6,57 @@
       </div>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="field">
-        <%= f.label :first_name %><br />
-        <%= f.text_field :first_name, autofocus: true, autocomplete: "First Name" %>
+      <div class="form-group">
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <p class="text-danger">
+          <% if flash[:alert] %>
+            <%= flash[:alert] %>
+          <% end %>
+        </p>
+      </div>
+
+      <div class="form-group floating-label">
+        <%= f.label :first_name, "First Name"%><br />
+        <%= f.text_field :first_name, autofocus: true, class: 'form-control', placeholder: 'First Name' %>
       </div>
 
       <div class="field">
-        <%= f.label :last_name%><br />
-        <%= f.text_field :last_name, autocomplete: "Last Name" %>
+        <%= f.label :last_name, "Last Name"%><br />
+        <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
       </div>
 
       <div class="field">
-        <%= f.label :organisation %><br />
-        <%= f.select :organisation_id, options_for_select(@organisations) %>
+        <%= f.label :organisation, "Organisation"%><br />
+        <%= f.select :organisation_id, options_for_select(@organisations), {}, { :class => 'form-select'} %>
       </div>
 
       <div class="field">
-        <%= f.label :bio%><br />
-        <%= f.text_field :bio, autocomplete: "bio" %>
+        <%= f.label :bio, "Bio" %><br />
+        <%= f.text_field :bio, class: 'form-control', placeholder: 'Bio' %>
       </div>
 
       <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autocomplete: "email" %>
+        <%= f.label :email, "Email" %><br />
+        <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
       </div>
 
       <div class="field">
-        <%= f.label :password %>
+        <%= f.label :password, "Password" %>
         <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
         <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
+        <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
       </div>
 
       <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+        <%= f.label :password_confirmation, "Confirm Password" %><br />
+        <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Confirm Password' %>
       </div>
 
       <br />
       <div class="actions">
-        <%= f.submit "Sign up" %>
+        <%= f.submit "Sign up", class: 'btn btn-primary'%>
       </div>
     <% end %>
 
