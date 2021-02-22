@@ -84,6 +84,14 @@ h1, h2, h3, h4, h5 {
     align-items: center;
     position: relative;
     opacity: 0.85;
+
+    form:before {
+      display: none;
+    }
+
+    #sign-up.vs-form {
+      margin-top: 21.5px;
+    }
 }
 
 #cover-caption {
