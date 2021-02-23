@@ -1,0 +1,29 @@
+@import "variables";
+
+#email-wrapper {
+  background: $email-background;
+  padding-top: 1px;
+  padding-bottom: 1px;
+
+  #header {
+    background: $email-header-bg;
+    margin: 30px 30px 0 30px;
+    padding: 5px 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    .logo {
+      width: 30px;
+      height: auto;
+    }
+  }
+
+  #body {
+    background: white;
+    margin: 0 30px 30px;
+    padding: 10px 30px 15px;
+    border: 1px solid $email-header-bg;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}

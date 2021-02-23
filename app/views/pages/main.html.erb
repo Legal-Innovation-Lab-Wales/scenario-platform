@@ -1,23 +1,21 @@
-<section id="cover" class="min-vh-100">
-  <div class="vs-form">
+<section id="cover" class="homepage">
+  <div class="sp-form">
     <div class="row text-white">
       <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
-        <h1>Quiz Tool</h1>
+        <h1>Scenario Platform</h1>
       </div>
 
       <p>An Application written by the Legal Innovation Lab Wales for developing interactive applications</p>
-      <div style="text-align: center;">
+      <div class="text-center">
         <% if user_signed_in? %>
-          <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
           <% if current_user.admin? %>
             <a href="/admin">Admin</a>
           <% end %>
-          <%= link_to('Edit Profile', edit_user_registration_path) %>
-          <%= link_to "Check out the app", app_path %>
-          <%= link_to "Scenario Guide ", guide_path %>
+          <%= link_to "Check out the app", app_path, class: "btn btn-sm btn-primary" %>
+          <%= link_to "Scenario Guide", guide_path, class: "btn btn-sm btn-secondary"  %>
         <% else %>
-          <%= link_to('Login', new_user_session_path) %> |
-          <%= link_to('Sign Up', new_user_registration_path) %>
+          <%= link_to 'Login', new_user_session_path, class: "btn btn-sm btn-primary" %>
+          <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-sm btn-info" %>
         <% end %>
       </div>
     </div>

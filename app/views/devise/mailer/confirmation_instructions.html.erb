@@ -1,7 +1,17 @@
-
-
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<div id="email-wrapper">
+  <div id="header">
+    <table>
+      <tbody>
+      <tr>
+        <td>
+          <h3>Welcome <%= @email %>!</h3>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="body">
+    You can confirm your account with this link:
+    <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %>
+  </div>
+</div>

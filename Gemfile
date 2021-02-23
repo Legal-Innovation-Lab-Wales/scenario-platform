@@ -72,3 +72,7 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+#Two gems used for styling the emails
+gem 'nokogiri'
+gem 'premailer-rails'
