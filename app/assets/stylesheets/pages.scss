@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5 {
 }
 
 #cover {
-    background-image: image-url('LILW4.jpg');
+    background-image: $brand-lab-background;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
