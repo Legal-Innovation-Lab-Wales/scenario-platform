@@ -28,6 +28,10 @@ h1, h2, h3, h4, h5 {
     align-items: center;
     position: relative;
     opacity: 0.85;
+
+  &.homepage{
+    height: calc(100vh - 56px)
+  }
 }
 
 #cover-caption {
