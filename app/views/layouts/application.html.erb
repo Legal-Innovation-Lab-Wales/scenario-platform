@@ -15,12 +15,13 @@
 </head>
 <% if user_signed_in? %>
   <header class='clearfix'>
-    <nav class="navbar navbar-light bg-light">
-      <h1 class="navbar-brand" href="/">Scenario Platform</h1>
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Scenario Platform</a>
       <form class="form-inline">
-          <%= link_to 'Scenarios', app_path, class: "btn btn-outline-secondary" %>
-          <%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-outline-secondary" %>
-          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-warning" %>
+          <%= link_to 'Scenarios', app_path, class: "btn btn-primary" %>
+          <%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-success" %>
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
+        <i class="fas fa-sign-out-alt"></i>
       </form>
     </nav>
   </header>
