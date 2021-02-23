@@ -49,7 +49,7 @@ user = User.new(
 user.skip_confirmation!
 user.save!
 
-User.create!(
+user = User.new(
   first_name: 'test',
   last_name: 'surname',
   email: 'test1@email.com',
@@ -57,11 +57,13 @@ User.create!(
   organisation_id: 1,
   password: 'testpass'
 )
+user.skip_confirmation!
+user.save!
 # Create 8 more users
 u = 1
 8.times do
   u += 1
-  User.create!(
+  user = User.new(
     first_name: 'test'+u.to_s ,
     last_name: 'surname'+u.to_s,
     email: 'test'+u.to_s+'@purpleriver.dev',
@@ -69,6 +71,8 @@ u = 1
     organisation_id: 1,
     password: 'testpass'
   )
+  user.skip_confirmation!
+  user.save!
 end
 
 ## Create example quizzes
