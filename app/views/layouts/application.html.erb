@@ -15,7 +15,6 @@
 </head>
 
 <header class='clearfix'>
-  <nav>
 
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="/">Scenario Platform</a>
@@ -29,18 +28,21 @@
           <%= link_to 'Login', new_user_session_path, class: "btn btn-outline-primary"  %>
           <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-outline-info"  %>
         <% end %>
-        </div>
+
       </form>
     </nav>
-  </nav>
+
 </header>
 
 <body id="overboot">
-<% flash.each do |type, msg| %>
-  <section class="alert alert-info position-absolute top-0 start-50 translate-middle-x">
-    <%= type %>: <%= msg %>
-  </section>
-<% end %>
-<%= yield %>
+
+  <% flash.each do |type, msg| %>
+    <div class="alert <%= alert_class_for(type) %> position-absolute top-0 start-50 translate-middle-x">
+      <%= type.capitalize %>: <%= msg %>
+    </div>
+  <% end %>
+
+  <%= yield %>
+
 </body>
 </html>
