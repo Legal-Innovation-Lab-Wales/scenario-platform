@@ -22,12 +22,12 @@
       <form class="form-inline">
 
         <% if user_signed_in? %>
-            <%= link_to 'Scenarios', app_path, class: "btn btn-outline-secondary" %>
+          <%= link_to 'Scenarios', app_path, class: "btn btn-outline-secondary" %>
           <%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-outline-secondary" %>
-          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-primary" %>
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-warning" %>
         <% else %>
-          <%= link_to('Login', new_user_session_path) %> |
-          <%= link_to('Sign Up', new_user_registration_path) %>
+          <%= link_to 'Login', new_user_session_path, class: "btn btn-outline-primary"  %>
+          <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-outline-info"  %>
         <% end %>
         </div>
       </form>
