@@ -1,38 +1,57 @@
 <section id="cover" class="min-vh-100">
-	<div class="scenario-guide">
+  <div class="scenario-guide">
     <div class="row text-white">
       <div class="col-xl-75 col-lg-78 col-md-86 col-sm-45 mx-auto text-center form p-14">
         <h1>Scenario Guide</h1>
       </div>
 
-<p>The Quiz is the overall parent structure for the scenario, it will need a name and a description. This description should be used to talk about the scenario and provide an introduction. <p> 
-<p>The quiz will also need a set of global variables which will be influenced by the participants chosen answers, there is no limit to how many there can be, but generally it's better to try and keep things as simple as possible. For example, these could contain values to represent how a character is feeling such as anger, fear, happiness, trust, and patience. All of these could be influenced in different ways by a participant’s chosen answers. Another example could be to represent stats relating to the participant such as health, strength, stamina, hunger, thirst and so on. </p>
-<h4>Question </h4>
-<p>A quiz will be comprised of a set of questions. Each question will have the option of either a long description, or a short question sentence or both. The description will be displayed before or above the text so could be used to provide more exposition or scene setting before asking the specific question which the participant will need to answer. 
-<p>A question can be multiple choice (select all where apply) or single answer. </p>
-Each question will also hold a reference number. This is used to uniquely identify questions within the flow of the scenario. Based on the participants previous answer, there will be a corresponding follow up question reference number to link to. This enables branching off and a more interactive experience where participants are lead them down different paths so the order of which they encounter the questions will likely be different for each user. </p>
-<p>Depending on the scenario you are building, there could be one or many final questions which act as the outcome of the scenario. These will be displayed with the final variable scores. Please give the order number for this as “End” </p>
-<h4>Answer </h4>
-<p>Each question can have as many answer choices as required.  
-Each answer needs three things: 
-some text to describe the choice,  
-the changes to any variables as a consequence of selecting the answer, 
-what the next question in the order will be. 
-Reference number of next question 
-The variable changes and the next question in the order will not be visible to the participant </p>
- 
- 
-<p>Example:
- 
-You have a 10.00 am appointment. At 10.00 am, there is a knock at the door while you are working on a different case file. You respond by: 
- 
-Ignoring the person at the door until you have finished the work you are doing (No change to any of the barometers) [Question 1a] 
-Answering the door, explaining that you are finishing up another case, and telling them that you will be with them at 10.15 am (No change to any of the barometers) [Question 2] 
-Calling out to come in (Fear rises by 1 point) [Question 2] 
-Answering the door and asking them to come in (No change to any of the barometers)</p>
+      <p>The Quiz is the overall parent structure for the scenario, it will need a name and a description. This
+        description should be used to talk about the scenario and provide an introduction.
+      <p>
+      <p>The quiz will also need a set of global variables which will be influenced by the participants chosen answers,
+        there is no limit to how many there can be, but generally it's better to try and keep things as simple as
+        possible. For example, these could contain values to represent how a character is feeling such as anger, fear,
+        happiness, trust, and patience. All of these could be influenced in different ways by a participant’s chosen
+        answers. Another example could be to represent stats relating to the participant such as health, strength,
+        stamina, hunger, thirst and so on. </p>
+      <h4>Question </h4>
+      <p>A quiz will be comprised of a set of questions. Each question will have the option of either a long
+        description, or a short question sentence or both. The description will be displayed before or above the text so
+        could be used to provide more exposition or scene setting before asking the specific question which the
+        participant will need to answer.
+      <p>A question can be multiple choice (select all where apply) or single answer. </p>
+      Each question will also hold a reference number. This is used to uniquely identify questions within the flow of
+      the scenario. Based on the participants previous answer, there will be a corresponding follow up question
+      reference number to link to. This enables branching off and a more interactive experience where participants are
+      lead them down different paths so the order of which they encounter the questions will likely be different for
+      each user. </p>
+      <p>Depending on the scenario you are building, there could be one or many final questions which act as the outcome
+        of the scenario. These will be displayed with the final variable scores. Please give the order number for this
+        as “End” </p>
+      <h4>Answer </h4>
+      <p>Each question can have as many answer choices as required.
+        Each answer needs three things:
+        some text to describe the choice,
+        the changes to any variables as a consequence of selecting the answer,
+        what the next question in the order will be.
+        Reference number of next question
+        The variable changes and the next question in the order will not be visible to the participant </p>
 
-</p>
-</p>
-</div>
-</div>
+
+      <p>Example:
+
+        You have a 10.00 am appointment. At 10.00 am, there is a knock at the door while you are working on a different
+        case file. You respond by:
+
+        Ignoring the person at the door until you have finished the work you are doing (No change to any of the
+        barometers) [Question 1a]
+        Answering the door, explaining that you are finishing up another case, and telling them that you will be with
+        them at 10.15 am (No change to any of the barometers) [Question 2]
+        Calling out to come in (Fear rises by 1 point) [Question 2]
+        Answering the door and asking them to come in (No change to any of the barometers)</p>
+
+      </p>
+      </p>
+    </div>
+  </div>
 </section>

@@ -1,23 +1,17 @@
-<nav style="text-align: right">
-  <% if user_signed_in? %>
-    <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-sm btn-danger" %>
-  <% else %>
-    <%= link_to('Login', new_user_session_path) %> |
-    <%= link_to('Sign Up', new_user_registration_path) %>
-  <% end %>
-</nav>
-
 <section class="quiz-header quiz-index">
   <div class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="grey-transparent-bg col-lg-6 col-md-8 mx-auto">
 
-        <h1>Quizzes</h1>
-        <h3>Quiz Count: <%= @quizzes.count %></h3>
-        <p>This is the quiz index page. There needs to be some text here about what this page is and what people can do on it. They can view all the quizzes that are available to them and click on them I guess. This doesnt need to make sense but just needs to look like a block of content/</p>
+        <h1>Scenarios</h1>
+        <h4>Your organisation currently has <%= @quizzes.count %> scenarios</h4>
+        <p>This is the interactive scenario homepage. Here you can view all the scenarios that are
+          available to you. To view your past scores or to see more information about an scenario click the view
+          button</p>
 
         <% if current_user.admin? %>
-          <td><%= link_to 'Create New Quiz', new_quiz_path, class: "btn btn-lg btn-success" %></td>
+          <p>You can also create a new scenario here or edit an existing scenario below </p>
+          <td><%= link_to 'Create New Scenario', new_quiz_path, class: "btn btn-lg btn-success" %></td>
         <% end %>
       </div>
 
@@ -26,7 +20,9 @@
 </section>
 
 <section class="quiz-album album py-5">
+
   <div class="container">
+    <h1 class="text-center">All Scenarios</h1>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
       <% @quizzes.each do |quiz| %>
@@ -35,15 +31,23 @@
             <div class="card-body">
               <h3 class="text-center"><%= quiz.name %></h3>
               <p><%= quiz.description %></p>
+
             </div>
 
             <div class="card-footer  text-center">
+              <% if current_user.admin? %>
+                <p>Number of Attempts: <%= quiz.quiz_attempts.count %></p>
+                <p>Available: <%= quiz.available %> </p>
+              <% end %>
+
               <div class="btn-group">
 
                 <%= link_to 'View', quiz_path(quiz), class: "btn btn-sm btn-info" %>
                 <% if current_user.admin? %>
                   <%= link_to 'Edit', edit_quiz_path(quiz), class: "btn btn-sm btn-warning" %>
+
                 <% else %>
+
                   <!--<button type="button" class="btn btn-sm btn-outline-secondary">Attempt</button>-->
                 <% end %>
 

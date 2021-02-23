@@ -1,3 +1,23 @@
 // Place all the styles related to the Answers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import "variables";
+
+.answer-row{
+  .question-answer {
+    background-color: $section-bg-navy;
+    border: 2px solid $ink-orange;
+    border-radius: 10px;
+    transition: 0.2s;
+    margin: 6px 50px;
+    p {
+      color: $ink-orange;
+      //text-decoration: none;
+      text-decoration-line: none;
+      margin: 5px 0;
+    }
+    &:hover {
+      background-color: $answer-hover-background;
+    }
+  }
+}

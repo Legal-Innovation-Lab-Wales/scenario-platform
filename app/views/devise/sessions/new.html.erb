@@ -1,9 +1,9 @@
 <section id="cover" class="min-vh-100">
-  <div class="vs-form">
+  <div class="sp-form">
 
-    <div class="row text-white">
-      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-        <h2>Log in</h2>
+    <div class="row">
+      <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
+        <h1 class="text-white">Log in</h1>
       </div>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -16,25 +16,26 @@
             <% end %>
           </p>
         </div>
-        <div class="form-group floating-label">
-          <%= f.label :login, "Email" %>
-          <%= f.text_field :email, autofocus: true, class: 'form-control', placeholder: 'Email' %>
+
+        <div class="form-floating mb-3">
+          <%= f.text_field :email, autocomplete: "email", autofocus: true, class: 'form-control', placeholder: 'Email', type: 'email' %>
+          <%= f.label :email %>
         </div>
 
-        <div class="form-group floating-label">
+        <div class="form-floating">
+          <%= f.password_field :password, autocomplete: "password", class: 'form-control', placeholder: 'Password' %>
           <%= f.label :password %>
-          <%= f.password_field :password, autocomplete: "current-password", class: 'form-control', placeholder: 'Password' %>
         </div>
 
         <% if devise_mapping.rememberable? -%>
-          <div class="form-group">
+          <div class="form-group text-white">
             <%= f.check_box :remember_me %>
             <%= f.label :remember_me %>
           </div>
         <% end -%>
 
         <div class="actions form-group">
-          <%= f.submit "Log in", class: 'btn btn-primary' %>
+          <%= f.submit "Log in", class: 'btn btn-primary mb-2' %>
         </div>
       <% end %>
 
@@ -42,6 +43,6 @@
         <%= render "devise/shared/links" %>
       </div>
     </div>
+
   </div>
 </section>
-

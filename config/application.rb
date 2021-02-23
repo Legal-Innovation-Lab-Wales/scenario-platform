@@ -1,6 +1,6 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -18,5 +18,10 @@ module QuizBuilder
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Change rails form error behaviour for bootstrap
+    ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+      html_tag.gsub('form-control', 'form-control is-invalid').html_safe
+    end
   end
 end

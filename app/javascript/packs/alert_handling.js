@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
-  const alerts = document.querySelectorAll('section.alert');
+  const alerts = document.querySelectorAll('div.alert');
 
   alerts.forEach(alert => {
     setTimeout(() => {

@@ -1,3 +1,41 @@
 // Place all the styles related to the Quizzes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import "variables";
+
+section {
+  &.quiz-header, &.quiz-album {
+    .quiz-show-container {
+      background-color: $section-bg-navy;
+      color: $ink-orange;
+    }
+  }
+
+  &.quiz-header {
+    .quiz-show-container {
+      padding: 1rem;
+      margin-top: 5rem;
+      margin-bottom: 5rem;
+    }
+  }
+
+  &.quiz-album {
+    background-color: $section-bg;
+  }
+
+  &.quiz-index {
+    background-image: $brand-lab-background;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+    .grey-transparent-bg {
+      background-color: $section-bg-transparent;
+      padding: 0.6rem;
+      border-radius: 0.4rem;
+    }
+  }
+}
+#quiz-attempts, #hints {
+  display: none;
+}
