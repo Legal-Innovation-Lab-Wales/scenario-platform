@@ -1,11 +1,11 @@
-<section id="cover" class="admin-page min-vh-100">
+<section class="admin-page min-vh-100">
   <div class="container min-vh-100">
     <div class="row">
       <div class="col">
         <h1><%= @quiz.name %></h1>
       </div>
     </div>
-    <div class="row">
+    <div class="row flex-grow-1">
       <div class="col">
         <% if @quiz.users.length > 0 %>
           <h2>Users</h2>

@@ -1,6 +1,6 @@
 # app/controllers/admin/pages_controller.rb
 class Admin::PagesController < ApplicationController
-  before_action :require_admin, :set_organisation
+  before_action :require_admin
   before_action :set_users, :set_quizzes, only: :main
   before_action :set_quiz, :require_quiz_organisation, only: [:get_quiz, :get_attempts, :get_result]
   before_action :set_user, :require_user_organisation, only: [:get_attempts, :get_user, :set_admin, :approve_user, :get_result]
@@ -14,10 +14,10 @@ class Admin::PagesController < ApplicationController
 
   # PUT /admin/organisation?name=foo
   def update_organisation_name
-    @organisation.name = params[:name]
+    current_user.organisation.name = params[:name]
 
     respond_to do |format|
-      format.html { render html: '', status: (@organisation.save ? :ok : :bad_request)}
+      format.html { render html: '', status: (current_user.organisation.save ? :ok : :bad_request)}
     end
   end
 
@@ -58,12 +58,11 @@ class Admin::PagesController < ApplicationController
   private
 
   def require_quiz_organisation
-    redirect_to root, notice: 'You do not belong to this quizzes organisation!' unless @organisation == @quiz.organisation
+    redirect_to root, error: 'You do not belong to this quizzes organisation!' unless current_user.organisation == @quiz.organisation
   end
 
-
   def require_user_organisation
-    redirect_to root, notice: 'This user does not belong to your organisation!' unless @organisation == @user.organisation
+    redirect_to root, error: 'This user does not belong to your organisation!' unless current_user.organisation == @user.organisation
   end
 
   def set_attempt
@@ -82,15 +81,11 @@ class Admin::PagesController < ApplicationController
     @users = User.all.where(organisation: current_user.organisation).order(:id)
   end
 
-  def set_organisation
-    @organisation = current_user.organisation
-  end
-
   def set_quiz
     @quiz = Quiz.find(params[:quiz_id])
   end
 
   def set_quizzes
-    @quizzes = @organisation.quizzes.order(:id)
+    @quizzes = current_user.organisation.quizzes.order(:id)
   end
 end

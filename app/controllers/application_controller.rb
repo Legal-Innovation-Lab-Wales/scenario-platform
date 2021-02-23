@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   def require_admin
     unless current_user.admin?
       respond_to do |format|
-        format.html { redirect_to root, notice: 'You are not an admin!' }
+        format.html { redirect_to root, error: 'You are not an admin!' }
         format.json { json_response('', :forbidden) }
       end
     end

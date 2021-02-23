@@ -1,11 +1,15 @@
+@import "variables";
+
 .admin-page {
+  text-align: center;
+  color: $ink-orange;
+
   .hidden {
     display: none;
   }
 
   .row {
-    background-color: rgba(0, 0, 0, 0.9);
-    color: white;
+    background-color: $section-bg-navy;
     margin-bottom: 15px;
     padding: 15px;
   }
@@ -54,14 +58,14 @@
       text-decoration: none;
       color: black;
       padding: 0.5rem 0.5rem;
+    }
 
-      .fa-check-circle {
-        color: green;
-      }
+    .fa-check-circle {
+      color: green;
+    }
 
-      .fa-times-circle {
-        color: darkred;
-      }
+    .fa-times-circle {
+      color: darkred;
     }
   }
 
