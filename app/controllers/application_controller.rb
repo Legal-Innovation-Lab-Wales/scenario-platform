@@ -25,9 +25,8 @@ class ApplicationController < ActionController::Base
 
   def require_organisation_approval
     if current_user.present? && !current_user.approved?
-      respond_to do |format|
-        format.html { render 'pages/approval' }
-      end
+      sign_out_and_redirect(current_user)
+      session[:awaiting_approval_notice] = 'Your organisation admin needs to approve you before you can start completing scenarios!'
     end
   end
 end

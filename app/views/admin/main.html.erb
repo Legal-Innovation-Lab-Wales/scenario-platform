@@ -1,5 +1,5 @@
-<section class="admin-page min-vh-100">
-  <div class="container min-vh-100">
+<section class="admin-page">
+  <div class="container-fluid">
     <div class="row" id="organisation">
       <h2>Organisation</h2>
       <div class="col">
@@ -11,7 +11,7 @@
       </div>
       <div class="col">
         <div class="input-group mb-3">
-          <span class="input-group-text" id="basic-addon1">Quiz Count</span>
+          <span class="input-group-text" id="basic-addon1">Scenario Count</span>
           <input type="text" class="form-control" value="<%= @quizzes.length %>" disabled />
         </div>
       </div>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <div class="row" id="quizzes">
-      <h2>Quizzes</h2>
+      <h2>Scenarios</h2>
       <div class="col">
         <% if @quizzes.length > 0 %>
           <table class="table table-light table-hover">
@@ -57,7 +57,7 @@
             </tbody>
           </table>
         <% else %>
-          <h3>This organisation has no quizzes</h3>
+          <h3>This organisation has no scenarios</h3>
         <% end %>
       </div>
     </div>
@@ -101,7 +101,7 @@
             <% end %>
             </tbody>
           </table>
-          <button type="button" class="btn btn-primary btn-md" id="approve">Approve Selected</button>
+          <button type="button" class="btn btn-success btn-md" id="approve">Approve Selected</button>
         </div>
       </div>
     <% end %>

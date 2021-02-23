@@ -1,5 +1,5 @@
-<section class="admin-page min-vh-100">
-  <div class="container min-vh-100">
+<section class="admin-page">
+  <div class="container-fluid">
     <div class="row">
       <div class="col">
         <h1><%= @user.first_name %> <%= @user.last_name %></h1>
@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col">
         <% if @user.quizzes_attempted.length > 0 %>
-          <h2>Quizzes</h2>
+          <h2>Scenarios</h2>
           <table class="table table-light table-hover">
             <thead>
               <tr>
@@ -34,7 +34,7 @@
             </tbody>
           </table>
         <% else %>
-          <h2>This user has attempted no quizzes</h2>
+          <h2>This user has attempted no scenarios</h2>
         <% end %>
       </div>
     </div>

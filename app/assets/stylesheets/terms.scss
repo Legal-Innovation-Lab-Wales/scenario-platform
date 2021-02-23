@@ -1,8 +1,10 @@
+@import "variables";
+
 .terms {
-  color: white;
+  color: $ink-white;
 
   .container {
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: $black-bg-transparent;
     padding: 15px;
   }
 }

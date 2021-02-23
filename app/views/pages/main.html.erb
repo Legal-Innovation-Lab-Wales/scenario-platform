@@ -1,4 +1,4 @@
-<section id="cover" class="homepage">
+<section id="cover" class="<% if user_signed_in? %>homepage<% else %>min-vh-100<% end %>">
   <div class="sp-form">
     <div class="row text-white">
       <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
@@ -8,9 +8,6 @@
       <p>An Application written by the Legal Innovation Lab Wales for developing interactive applications</p>
       <div class="text-center">
         <% if user_signed_in? %>
-          <% if current_user.admin? %>
-            <a href="/admin">Admin</a>
-          <% end %>
           <%= link_to "Check out the app", app_path, class: "btn btn-sm btn-primary" %>
           <%= link_to "Scenario Guide", guide_path, class: "btn btn-sm btn-secondary"  %>
         <% else %>

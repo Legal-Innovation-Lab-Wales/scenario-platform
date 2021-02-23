@@ -10,8 +10,9 @@
 
   .row {
     background-color: $section-bg-navy;
-    margin-bottom: 15px;
+    margin: 10px 0;
     padding: 15px;
+    border-radius: 0.25rem;
   }
 
   #organisation {
@@ -37,16 +38,6 @@
 
     button {
       float: right;
-
-      &.btn-primary {
-        background-color: green;
-        border-color: green;
-
-        &:hover {
-          background-color: darkgreen;
-          border-color: darkgreen;
-        }
-      }
     }
   }
 
