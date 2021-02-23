@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :answers, foreign_key: :user_id
 
   has_many :quiz_attempts, foreign_key: :user_id
+  has_many :quizzes_attempted, -> { distinct }, through: :quiz_attempts, source: :quiz
 
   private
 

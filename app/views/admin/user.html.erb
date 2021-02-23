@@ -16,16 +16,16 @@
             </tr>
           </thead>
           <tbody>
-          <% @quizzes.each do |quiz| %>
+          <% @user.quizzes_attempted.each do |quiz| %>
             <tr>
               <td>
-                <a href="/admin/quizzes/<%= quiz[:id] %>/users/<%= @user.id %>">
-                  <%= quiz[:name] %>
+                <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
+                  <%= quiz.name %>
                 </a>
               </td>
               <td>
-                <a href="/admin/quizzes/<%= quiz[:id] %>/users/<%= @user.id %>/quizzes/<%= quiz[:id] %>">
-                  <%= quiz[:count] %>
+                <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
+                  <%= QuizAttempt.where('user_id = ? and quiz_id = ?', @user.id, quiz.id).count %>
                 </a>
               </td>
             </tr>

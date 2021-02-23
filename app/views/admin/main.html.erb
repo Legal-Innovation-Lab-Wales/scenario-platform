@@ -36,13 +36,13 @@
           <% @quizzes.each do |quiz| %>
             <tr>
               <td>
-                <a href="/admin/quizzes/<%= quiz[:id] %>">
-                  <%= quiz[:name] %>
+                <a href="/admin/quizzes/<%= quiz.id %>">
+                  <%= quiz.name %>
                 </a>
               </td>
               <td>
-                <a href="/admin/quizzes/<%= quiz[:id] %>">
-                  <%= quiz[:attempts] %>
+                <a href="/admin/quizzes/<%= quiz.id %>">
+                  <%= QuizAttempt.all.where(quiz_id: quiz.id).count %>
                 </a>
               </td>
             </tr>

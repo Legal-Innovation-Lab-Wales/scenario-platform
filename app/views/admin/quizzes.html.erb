@@ -18,26 +18,26 @@
           </tr>
           </thead>
           <tbody>
-          <% @users.each do |user| %>
+          <% @quiz.users.each do |user| %>
             <tr>
               <td>
-                <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user[:id] %>">
-                  <%= user[:first_name] %>
+                <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user.id %>">
+                  <%= user.first_name %>
                 </a>
               </td>
               <td>
-                <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user[:id] %>">
-                  <%= user[:last_name] %>
+                <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user.id %>">
+                  <%= user.last_name %>
                 </a>
               </td>
               <td>
-                <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user[:id] %>">
-                  <%= user[:email] %>
+                <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user.id %>">
+                  <%= user.email %>
                 </a>
               </td>
               <td>
-                <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user[:id] %>">
-                  <%= user[:count] %>
+                <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user.id %>">
+                  <%= QuizAttempt.where('quiz_id = ? and user_id = ?', @quiz.id, user.id).count %>
                 </a>
               </td>
             </tr>
