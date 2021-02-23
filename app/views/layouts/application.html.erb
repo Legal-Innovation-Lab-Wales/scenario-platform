@@ -15,7 +15,7 @@
 </head>
 
 <header class='clearfix'>
-  <nav style="text-align: right">
+  <nav>
 
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="/">Scenario Platform</a>
@@ -37,8 +37,8 @@
 
 <body id="overboot">
 <% flash.each do |type, msg| %>
-  <section class="alert alert-info">
-    <%= msg %>
+  <section class="alert alert-info position-absolute top-0 start-50 translate-middle-x">
+    <%= type %>: <%= msg %>
   </section>
 <% end %>
 <%= yield %>
