@@ -43,6 +43,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.boolean :admin, default: false
 
       t.boolean :approved, default: false
+      t.boolean :terms, default: false
 
       t.timestamps null: false
     end

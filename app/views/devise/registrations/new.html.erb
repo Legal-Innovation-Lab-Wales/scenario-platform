@@ -1,7 +1,7 @@
 <section id="cover" class="min-vh-100">
   <div id="sign-up" class="vs-form">
     <div class="row text-white">
-      <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
+      <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form">
         <h1>Sign up</h1>
       </div>
 
@@ -21,27 +21,27 @@
         <%= f.text_field :first_name, autofocus: true, class: 'form-control', placeholder: 'First Name' %>
       </div>
 
-      <div class="field">
+      <div class="form-group">
         <%= f.label :last_name, "Last Name"%><br />
         <%= f.text_field :last_name, class: 'form-control', placeholder: 'Last Name' %>
       </div>
 
-      <div class="field">
+      <div class="form-group">
         <%= f.label :organisation, "Organisation"%><br />
         <%= f.select :organisation_id, options_for_select(@organisations), {}, { :class => 'form-select'} %>
       </div>
 
-      <div class="field">
+      <div class="form-group">
         <%= f.label :bio, "Bio" %><br />
         <%= f.text_field :bio, class: 'form-control', placeholder: 'Bio' %>
       </div>
 
-      <div class="field">
+      <div class="form-group">
         <%= f.label :email, "Email" %><br />
         <%= f.email_field :email, class: 'form-control', placeholder: 'Email' %>
       </div>
 
-      <div class="field">
+      <div class="form-group">
         <%= f.label :password, "Password" %>
         <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -49,12 +49,16 @@
         <%= f.password_field :password, class: 'form-control', placeholder: 'Password' %>
       </div>
 
-      <div class="field">
+      <div class="form-group">
         <%= f.label :password_confirmation, "Confirm Password" %><br />
         <%= f.password_field :password_confirmation, class: 'form-control', placeholder: 'Confirm Password' %>
       </div>
 
-      <br />
+      <div class="form-group terms-input">
+        <%= f.check_box :terms, class: 'form-check-input' %> I have read and agree to the sites
+        <a href="/terms">Terms and Conditions</a>
+      </div>
+
       <div class="actions">
         <%= f.submit "Sign up", class: 'btn btn-primary'%>
       </div>

@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 5) do
     t.text "bio"
     t.boolean "admin", default: false
     t.boolean "approved", default: false
+    t.boolean "terms", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

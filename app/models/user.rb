@@ -22,5 +22,6 @@ class User < ApplicationRecord
                         :email,
                         :organisation_id
   validates :email, uniqueness: { case_sensitive: false }
+  validates :terms, presence: true, on: :create
 
 end

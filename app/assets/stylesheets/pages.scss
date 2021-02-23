@@ -91,6 +91,18 @@ h1, h2, h3, h4, h5 {
 
     #sign-up.vs-form {
       margin-top: 21.5px;
+
+      .terms-input {
+        margin: 15px 0;
+
+        .form-check-input {
+          margin-right: 5px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
     }
 }
 

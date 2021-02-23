@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'pages#main'
   get '/app', to: 'pages#app', as: 'app'
   get '/guide', to: 'pages#guide', as: 'guide'
+  get '/terms', to: 'pages#terms'
 
   devise_for :users, :controllers => {:registrations => 'users/registrations'}
 
