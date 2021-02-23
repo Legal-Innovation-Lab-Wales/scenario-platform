@@ -24,11 +24,13 @@ section.quiz-index {
   background-position: center;
   background-repeat: no-repeat;
 
-
   .grey-transparent-bg {
     background-color: $section-bg-transparent;
     padding: 0.6rem;
     border-radius: 0.4rem;
 
   }
+}
+#quiz-attempts, #hints {
+  display: none;
 }

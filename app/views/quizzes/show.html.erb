@@ -6,10 +6,10 @@
 
         <% if @quiz.questions.find_by(order: 0).present? %>
 
-          <div class="text-center"><%= link_to "Start Assessment", start_quiz_url(quiz_id: @quiz), method: "post", class: "btn btn-success btn-lg" %></div>
+          <div class="text-center"><%= link_to "Start Scenario", start_quiz_url(quiz_id: @quiz), method: "post", class: "btn btn-success btn-lg" %></div>
         <% elsif current_user.admin? %>
         <% else %>
-          <div class="text-center"><button class="btn btn-primary btn-large disabled">Start Quiz</button></div>
+          <div class="text-center"><button class="btn btn-primary btn-large disabled">Start Scenario</button></div>
         <% end %>
       </div>
     </div>
@@ -40,8 +40,8 @@
           <div class="card">
             <div class="card-body">
               <h2 class="text-danger text-center">Admin Only View</h2>
-              <h2 class="text-center"><%= link_to "Edit Assessment", edit_quiz_path, class: "btn btn-secondary btn-sm" %>
-                <%= link_to "Help", guide_path, class: "btn btn-secondary btn-sm", target: :_blank %></h2>
+              <h2 class="text-center"><%= link_to "Edit Scenario", edit_quiz_path, class: "btn btn-warning btn-sm" %>
+                <%= link_to "Guide", guide_path, class: "btn btn-primary btn-sm", target: :_blank %></h2>
 
                 <table class="mx-auto">
                   <tr>
@@ -55,19 +55,30 @@
                     <% end %>
                 </table>
 
-              <p>To begin, please select add a question below and set it with order 0. Next,
-                you can add answers to that question which can: Change your assessment variables & Lead to different
-                questions depending on the a order selected.</p>
-              <h2><button class="btn btn-sm btn-secondary" onclick="toggleQuizAttempts()">Show Quiz Attempts</button></h2>
+              <h2 class="text-center">
+                <button class="btn btn-sm btn-secondary" onclick="toggleQuizAttempts()">Show Attempts</button>
+                <button class="btn btn-sm btn-info" onclick="toggleHints()">Show Getting Started Hints</button>
+              </h2>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <div id="hints" class="container">
+      <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded text-center">
+        <h3>Hints</h3>
+        <p>
+          To begin, please select add a question below and set it with order 0. Next,
+          you can add answers to that question which can: Change your assessment variables & Lead to different
+          questions depending on the a order selected.
+        </p>
+      </div>
+    </div>
+
     <div id="quiz-attempts" class="container">
       <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded text-center">
-        <h3>Quiz Attempts</h3>
+        <h3>Attempts</h3>
         <p>Total Attempts: <%= @quiz.quiz_attempts.count %></p>
         <p>by <%= @quiz.quiz_attempts.map { |u| [u.user_id] }.uniq.count %> Users</p>
         <h2 class="text-danger">Do some other stuff here</h2>
@@ -98,7 +109,7 @@
                 <div class="card-body text-center">
                   <h5 class="card-title"><%= answer.text %></h5>
                   <% if answer.next_question_order.present? %>
-                    <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-primary btn-sm">
+                    <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-outline-primary btn-sm">
                       Next Question: <%= answer.next_question_order %>
                     </a>
                   <% else %>
@@ -130,15 +141,15 @@
 
                 </div>
                 <div class="card-footer text-center">
-                  <%= link_to "Edit Answer", edit_quiz_question_answer_path(@quiz, question, answer), class: "btn btn-info btn-sm"  %>
+                  <%= link_to "Edit Answer", edit_quiz_question_answer_path(@quiz, question, answer), class: "btn btn-warning btn-sm"  %>
                 </div>
               </div>
             </div>
           <% end %>
 
           <div>
-            <%= link_to "Edit Question", edit_quiz_question_path(@quiz, question), class: "btn btn-info" %>
-            <%= link_to "Add New Answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-warning" %>
+            <%= link_to "Edit Question", edit_quiz_question_path(@quiz, question), class: "btn btn-warning" %>
+            <%= link_to "Add New Answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-info" %>
           </div>
         </div>
       <% end %>
@@ -148,7 +159,7 @@
     <div class="container">
       <div class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
         <div class="text-center">
-          <%= link_to "Add new question", new_quiz_question_path(@quiz), class: "btn btn-warning" %>
+          <%= link_to "Add new question", new_quiz_question_path(@quiz), class: "btn btn-info" %>
         </div>
       </div>
     </div>
@@ -158,6 +169,10 @@
 <script>
     function toggleQuizAttempts() {
         const el = document.getElementById('quiz-attempts');
+        el.style.display = (el.style.display === 'block' ? 'none' : 'block');
+    }
+    function toggleHints() {
+        const el = document.getElementById('hints');
         el.style.display = (el.style.display === 'block' ? 'none' : 'block');
     }
 </script>
