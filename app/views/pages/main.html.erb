@@ -8,11 +8,11 @@
       <p>An Application written by the Legal Innovation Lab Wales for developing interactive applications</p>
       <div class="text-center">
         <% if user_signed_in? %>
-          <%= link_to "Check out the app", app_path, class: "btn btn-small btn-primary" %>
-          <%= link_to "Scenario Guide ", guide_path, class: "btn btn-small btn-secondary"  %>
+          <%= link_to "Check out the app", app_path, class: "btn btn-sm btn-primary" %>
+          <%= link_to "Scenario Guide ", guide_path, class: "btn btn-sm btn-secondary"  %>
         <% else %>
-          <%= link_to 'Login', new_user_session_path, class: "btn btn-small btn-primary" %>
-          <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-small btn-info" %>
+          <%= link_to 'Login', new_user_session_path, class: "btn btn-sm btn-primary" %>
+          <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-sm btn-info" %>
         <% end %>
       </div>
     </div>
