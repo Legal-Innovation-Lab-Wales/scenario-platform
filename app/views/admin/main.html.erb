@@ -25,30 +25,34 @@
     <div class="row" id="quizzes">
       <h2>Quizzes</h2>
       <div class="col">
-        <table class="table table-light table-hover">
-          <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">No. of Attempts</th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @quizzes.each do |quiz| %>
+        <% if @quizzes.length > 0 %>
+          <table class="table table-light table-hover">
+            <thead>
             <tr>
-              <td>
-                <a href="/admin/quizzes/<%= quiz.id %>">
-                  <%= quiz.name %>
-                </a>
-              </td>
-              <td>
-                <a href="/admin/quizzes/<%= quiz.id %>">
-                  <%= QuizAttempt.all.where(quiz_id: quiz.id).count %>
-                </a>
-              </td>
+              <th scope="col">Name</th>
+              <th scope="col">No. of Attempts</th>
             </tr>
-          <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+            <% @quizzes.each do |quiz| %>
+              <tr>
+                <td>
+                  <a href="/admin/quizzes/<%= quiz.id %>">
+                    <%= quiz.name %>
+                  </a>
+                </td>
+                <td>
+                  <a href="/admin/quizzes/<%= quiz.id %>">
+                    <%= QuizAttempt.all.where(quiz_id: quiz).count %>
+                  </a>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <h3>This organisation has no quizzes</h3>
+        <% end %>
       </div>
     </div>
     <% if @users.all.where(approved: false).length > 0 %>

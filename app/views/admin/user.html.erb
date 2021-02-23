@@ -7,31 +7,35 @@
     </div>
     <div class="row">
       <div class="col">
-        <h2>Quizzes</h2>
-        <table class="table table-light table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Quiz</th>
-              <th scope="col">No. of Attempts</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% @user.quizzes_attempted.each do |quiz| %>
-            <tr>
-              <td>
-                <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
-                  <%= quiz.name %>
-                </a>
-              </td>
-              <td>
-                <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
-                  <%= QuizAttempt.where('user_id = ? and quiz_id = ?', @user.id, quiz.id).count %>
-                </a>
-              </td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+        <% if @user.quizzes_attempted.length > 0 %>
+          <h2>Quizzes</h2>
+          <table class="table table-light table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Quiz</th>
+                <th scope="col">No. of Attempts</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @user.quizzes_attempted.each do |quiz| %>
+              <tr>
+                <td>
+                  <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
+                    <%= quiz.name %>
+                  </a>
+                </td>
+                <td>
+                  <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
+                    <%= QuizAttempt.where('quiz_id = ? and user_id = ?', quiz, @user).count %>
+                  </a>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <h2>This user has attempted no quizzes</h2>
+        <% end %>
       </div>
     </div>
   </div>
