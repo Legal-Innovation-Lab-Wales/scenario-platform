@@ -3,8 +3,6 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 @import "variables";
-form:before {
-}
 
 body#overboot {
   font-family: $font;
@@ -13,64 +11,11 @@ body#overboot {
   .text-danger {
     color: $brand-danger;
   }
-  .btn {
-    box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.3);
-    transition: 0.2s ;
-  }
-  .btn:hover{
-    box-shadow: none;
-  }
-  .btn-primary {
-    background-color: $brand-primary;
-    border-color: $brand-primary;
-    color: $ink-white;
-  }
-  .btn-primary:hover {
-    background-color: $brand-primary-hover;
-    border-color: $brand-primary-hover;
-  }
-  .btn-success {
-    background-color: $brand-success;
-    border-color: $brand-success;
-    color: $ink-white;
-  }
-  .btn-success:hover {
-    background-color: $brand-success-hover;
-    border-color: $brand-success-hover;
-  }
-  .btn-info {
-    background-color: $brand-info;
-    border-color: $brand-info;
-    color: $ink-white;
-  }
-  .btn-info:hover {
-    background-color: $brand-info-hover;
-    border-color: $brand-info-hover;
-  }
-  .btn-warning {
-    background-color: $brand-warning;
-    border-color:$brand-warning;
-    color: $ink-white;
-  }
-  .btn-warning:hover {
-    background-color: $brand-warning-hover;
-    border-color:$brand-warning-hover;
-  }
-  .btn-danger {
-    background-color: $brand-danger;
-    border-color:$brand-danger;
-  }
-  .btn-danger:hover {
-    background-color: $brand-danger-hover;
-    border-color:$brand-danger-hover;
-  }
-
-
 }
+
 h1, h2, h3, h4, h5 {
   font-family: $heading-font
 }
-
 
 #cover {
     background-image: image-url('LILW4.jpg');
@@ -91,19 +36,6 @@ h1, h2, h3, h4, h5 {
     z-index: 1;
 }
 
-/* only used for background overlay not needed for centering */
-form:before {
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    color: white;
-    z-index: -1;
-    border-radius: 10px;
-}
-
 .scenario-guide {
     max-width: 1060px;
     margin: auto;
@@ -112,50 +44,6 @@ form:before {
     background-color: rgba(0,0,0,0.9);
 }
 
-.vs-form {
-    label {
-      font-size:  12.5px;
-      font-weight:  400;
-      color: white;
-
-    }
-    text-align: center;
-    max-width: 460px;
-    margin: auto;
-    margin-top: 56px;
-    padding: 10px;
-    background-color: rgba(0,0,0,0.9);
-    }
-
-section.quiz-header, section.quiz-album {
-  .quiz-show-container {
-    background-color: $section-bg-navy;
-    color: $ink-orange;
-  }
-}
-section.quiz-header {
-  .quiz-show-container {
-    padding: 1rem;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
-  }
-}
-section.quiz-album {
-  background-color: $section-bg;
-}
-section.quiz-index {
-  background-image: image-url('LILW4.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-
-
-  .grey-transparent-bg {
-    background-color: $section-bg-transparent;
-    padding: 0.6rem;
-    border-radius: 0.4rem;
-
-  }
-}
 
 .admin-view {
   padding-top: 2rem;
@@ -166,25 +54,4 @@ section.quiz-index {
   }
 }
 
-.answer-row{
-  .question-answer {
-    background-color: $section-bg-navy;
-    border: 2px solid $ink-orange;
-    border-radius: 10px;
-    transition: 0.2s;
-    margin: 6px 50px;
-    p {
-      color: $ink-orange;
-      //text-decoration: none;
-      text-decoration-line: none;
-      margin: 5px 0;
-    }
-    &:hover {
-      background-color: #F7F7F822;
-    }
-  }
-}
 
-#quiz-attempts {
-  display: none;
-}
