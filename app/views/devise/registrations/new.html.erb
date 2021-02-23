@@ -1,56 +1,69 @@
 <section id="cover" class="min-vh-100">
-  <div class="vs-form">
-    <div class="row text-white">
+  <div class="sp-form">
+
+    <div class="row">
       <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
-        <h1>Sign up</h1>
+        <h1 class="text-white">Sign up</h1>
       </div>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-      <div class="field">
-        <%= f.label :first_name %><br />
-        <%= f.text_field :first_name, autofocus: true, autocomplete: "First Name" %>
+        <div class="form-group">
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <p class="text-danger">
+            <% if flash[:alert] %>
+              <%= flash[:alert] %>
+            <% end %>
+          </p>
+        </div>
+
+        <div class="row g-2 mb-2">
+          <div class="col-md">
+            <div class="form-floating">
+              <%= f.text_field :first_name, autofocus: true, class: 'form-control', autocomplete: "First Name", placeholder: "First Name" %>
+              <%= f.label :first_name %>
+            </div>
+          </div>
+
+          <div class="col-md">
+            <div class="form-floating">
+              <%= f.text_field :last_name, class: 'form-control', autocomplete: "Last Name", placeholder: "Last Name" %>
+              <%= f.label :last_name %>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-floating mb-2">
+          <%= f.email_field :email, class: 'form-control', autocomplete: "email", placeholder: "Email Address" %>
+          <%= f.label :email %>
+        </div>
+
+        <div class="form-floating mb-2">
+          <%= f.text_area :bio, class: 'form-control', autocomplete: "bio", placeholder: "A little about yourself" %>
+          <%= f.label :bio%>
+        </div>
+
+        <div class="form-floating mb-2">
+          <%= f.password_field :password, class: 'form-control', autocomplete: "password", placeholder: "Password - 6 characters minimum" %>
+          <%= f.label :password, "Password (6 characters minimum)" %>
+        </div>
+
+        <div class="form-floating mb-2">
+          <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "password", placeholder: "Password Again"  %>
+          <%= f.label :password_confirmation %>
+        </div>
+
+        <%= f.hidden_field :organisation_id, class: 'form-control', value: params[:organisation] %>
+
+        <div class="actions form-group">
+          <%= f.submit "Sign up", class: 'btn btn-info mb-2' %>
+        </div>
+      <% end %>
+
+      <div class="other-actions">
+        <%= render "devise/shared/links" %>
       </div>
-
-      <div class="field">
-        <%= f.label :last_name%><br />
-        <%= f.text_field :last_name, autocomplete: "Last Name" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :bio%><br />
-        <%= f.text_field :bio, autocomplete: "bio" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autocomplete: "email" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password %>
-        <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-      </div>
-
-        <%= f.hidden_field :organisation_id,  value: params[:organisation] %>
-
-        <div class="actions">
-        <%= f.submit "Sign up" %>
-      </div>
-    <% end %>
-
-    <%= render "devise/shared/links" %>
     </div>
+
   </div>
 </section>
-
-
