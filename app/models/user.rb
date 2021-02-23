@@ -21,8 +21,9 @@ class User < ApplicationRecord
   validates_presence_of :first_name,
                         :last_name,
                         :email,
-                        :organisation_id
+                        :organisation_id,
+                        :terms
   validates :email, uniqueness: { case_sensitive: false }
-  validates :terms, presence: true, on: :create
+  validates :terms, acceptance: true
 
 end
