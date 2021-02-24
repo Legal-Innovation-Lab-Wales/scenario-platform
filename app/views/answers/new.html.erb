@@ -6,7 +6,7 @@
     <%= render 'form', answer: @answer, action: "create" %>
 
     <div class="text-center">
-    <%= link_to 'Back', quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order.to_s}") %>
+    <%= link_to 'Back', scenario_path(@question.scenario_id, anchor: "question_order_#{@question.order.to_s}") %>
     </div>
   </div>
 </section>

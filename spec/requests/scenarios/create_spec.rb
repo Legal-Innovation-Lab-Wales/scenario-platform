@@ -1,27 +1,27 @@
-# spec/requests/quizzes/create_spec.rb
+# spec/requests/scenarios/create_spec.rb
 require 'rails_helper'
 
-RSpec.describe 'create quiz (POST quizzes)', type: :request do
+RSpec.describe 'create scenario (POST scenarios)', type: :request do
   let(:user) { create(:user) }
   let(:admin) { create(:user, :admin) }
   let(:alt_admin) { create(:user, :alt_admin) }
-  # let!(:quizzes) { create_list(:quiz, 10, user: admin) }
-  # let!(:alt_quizzes) { create_list(:quiz, 10, user: alt_admin) }
-  # let(:quiz_id) { quizzes.first.id }
-  # let!(:questions) { create_list(:question, 10, quiz: quizzes.first) }
+  # let!(:scenarios) { create_list(:scenario, 10, user: admin) }
+  # let!(:alt_scenarios) { create_list(:scenario, 10, user: alt_admin) }
+  # let(:scenario_id) { scenarios.first.id }
+  # let!(:questions) { create_list(:question, 10, scenario: scenarios.first) }
 
   let(:headers) { { 'ACCEPT' => 'application/json' } }
 
   let(:valid_attributes) do
-    { quiz: { name: 'valid quiz name',
-              description: 'quiz description',
-              variables: %w[health stamina experience coin],
-              variable_initial_values: [100, 100, 0, 10],
-              available: true } }
+    { scenario: { name: 'valid scenario name',
+                  description: 'scenario description',
+                  variables: %w[health stamina experience coin],
+                  variable_initial_values: [100, 100, 0, 10],
+                  available: true } }
   end
 
   context 'when user not signed in' do
-    before { post '/quizzes', params: valid_attributes, headers: headers }
+    before { post '/scenarios', params: valid_attributes, headers: headers }
 
     it 'returns status code 401 Unauthorized' do
       expect(response).to have_http_status(401)
@@ -34,14 +34,14 @@ RSpec.describe 'create quiz (POST quizzes)', type: :request do
 
   context 'when user signed in but not admin' do
     before { sign_in user }
-    before { post '/quizzes', params: valid_attributes, headers: headers }
+    before { post '/scenarios', params: valid_attributes, headers: headers }
 
     it 'returns status code 403 Forbidden' do
       expect(response).to have_http_status(403)
     end
 
-    it 'does not create a quiz' do
-      expect(Quiz.all.count).to eq(0)
+    it 'does not create a scenario' do
+      expect(Scenario.all.count).to eq(0)
     end
   end
 
@@ -49,10 +49,10 @@ RSpec.describe 'create quiz (POST quizzes)', type: :request do
     before { sign_in admin }
     context 'when the request is valid' do
 
-      before { post '/quizzes', params: valid_attributes, headers: headers }
+      before { post '/scenarios', params: valid_attributes, headers: headers }
 
       it 'creates a question' do
-        expect(json['name']).to eq('valid quiz name')
+        expect(json['name']).to eq('valid scenario name')
         expect(json['variables'][0]).to eq('health')
       end
 
@@ -62,7 +62,7 @@ RSpec.describe 'create quiz (POST quizzes)', type: :request do
     end
 
     context 'when no body in request' do
-      before { post '/quizzes', params: {}, headers: headers }
+      before { post '/scenarios', params: {}, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)

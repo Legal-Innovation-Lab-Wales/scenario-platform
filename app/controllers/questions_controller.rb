@@ -1,13 +1,13 @@
 # app/controllers/questions_controller.rb
 class QuestionsController < ApplicationController
-  before_action :set_quiz
+  before_action :set_scenario
   before_action :set_question, except: %i[new create index]
-  before_action :set_quiz_attempt, :verify_attempt, :verify_question, only: :show
+  before_action :set_attempt, :verify_attempt, :verify_question, only: :show
   before_action :require_admin, except: :show
 
-  # GET /quizzes/:quiz_id/questions
+  # GET /scenarios/:scenario_id/questions
   def index
-    @questions = Question.all.where(quiz_id: @quiz.id)
+    @questions = Question.all.where(scenario_id: @scenario.id)
     respond_to do |format|
       format.html
       # TODO: Improve this query
@@ -15,7 +15,7 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # GET /quizzes/:quiz_id/questions/:id
+  # GET /scenarios/:scenario_id/questions/:id
   def show
     respond_to do |format|
       format.html
@@ -24,16 +24,16 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # GET /quizzes/:quiz_id/questions/new
+  # GET /scenarios/:scenario_id/questions/new
   def new
     @question = Question.new
   end
 
-  # POST /quizzes/:quiz_id/questions
+  # POST /scenarios/:scenario_id/questions
   def create
-    if (@question = current_user.questions.create!(question_params.merge(quiz_id: @quiz.id)))
+    if (@question = current_user.questions.create!(question_params.merge(scenario_id: @scenario.id)))
       respond_to do |format|
-        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
+        format.html { redirect_to scenario_path(@question.scenario_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@question.as_json, :created) }
       end
     else
@@ -44,16 +44,16 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # GET /quizzes/:quiz_id/questions/:id/edit
+  # GET /scenarios/:scenario_id/questions/:id/edit
   def edit
     @question
   end
 
-  # PUT /quizzes/:quiz_id/questions/:id
+  # PUT /scenarios/:scenario_id/questions/:id
   def update
     if @question.update(question_params)
       respond_to do |format|
-        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
+        format.html { redirect_to scenario_path(@question.scenario_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@question, :no_content) }
       end
     else
@@ -64,11 +64,11 @@ class QuestionsController < ApplicationController
     end
   end
 
-  # DELETE /quizzes/:quiz_id/questions/:id
+  # DELETE /scenarios/:scenario_id/questions/:id
   def destroy
     if @question.destroy
       respond_to do |format|
-        format.html { redirect_to quiz_path(@question.quiz_id) }
+        format.html { redirect_to scenario_path(@question.scenario_id) }
         format.json { json_response(@question, :no_content) }
       end
     end
@@ -77,40 +77,40 @@ class QuestionsController < ApplicationController
   private
 
   def verify_attempt
-    return unless @quiz_attempt.nil? || @quiz_attempt.completed
+    return unless @attempt.nil? || @attempt.completed
 
-    redirect_to quiz_path(@quiz),
-                notice: 'You need to start or resume a quiz to view its questions'
+    redirect_to scenario_path(@scenario),
+                notice: 'You need to start or resume a scenario to view its questions'
   end
 
   def verify_question
-    return unless @question.id != @quiz_attempt.next_question_id && !@quiz_attempt.been_answered?(@question.id)
+    return unless @question.id != @attempt.next_question_id && !@attempt.been_answered?(@question.id)
 
-    redirect_to quiz_question_path(@quiz, @quiz_attempt.next_question_id),
+    redirect_to scenario_question_path(@scenario, @attempt.next_question_id),
                 notice: 'This is the question you should be answering'
   end
 
-  def set_quiz
-    @quiz = if current_user.admin?
-              current_user.organisation.quizzes.find(params[:quiz_id])
+  def set_scenario
+    @scenario = if current_user.admin?
+              current_user.organisation.scenarios.find(params[:scenario_id])
             else
-              current_user.organisation.quizzes.available.find(params[:quiz_id])
+              current_user.organisation.scenarios.available.find(params[:scenario_id])
             end
   end
 
   def set_question
-    @question = @quiz.questions.find(params[:id])
+    @question = @scenario.questions.find(params[:id])
   end
 
-  def set_quiz_attempt
-    @quiz_attempt = QuizAttempt.where('user_id = ?', current_user.id).find(session["quiz_id_#{@quiz.id}_attempt_id"])
+  def set_attempt
+    @attempt = Attempt.where('user_id = ?', current_user.id).find(session["scenario_id_#{@scenario.id}_attempt_id"])
   rescue ActiveRecord::RecordNotFound
-    redirect_to quiz_path(@quiz),
-                notice: 'You need to start or resume a quiz to view its questions'
+    redirect_to scenario_path(@scenario),
+                notice: 'You need to start or resume a scenario to view its questions'
   end
 
   def question_params
     # whitelist params
-    params.require(:question).permit(:order, :text, :description, :quiz_id)
+    params.require(:question).permit(:order, :text, :description, :scenario_id)
   end
 end

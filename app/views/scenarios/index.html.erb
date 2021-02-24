@@ -1,17 +1,17 @@
-<section class="quiz-header quiz-index">
+<section class="scenario-header scenario-index">
   <div class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="grey-transparent-bg col-lg-6 col-md-8 mx-auto">
 
         <h1>Scenarios</h1>
-        <h4>Your organisation currently has <%= @quizzes.count %> scenarios</h4>
+        <h4>Your organisation currently has <%= @scenarios.count %> scenarios</h4>
         <p>This is the interactive scenario homepage. Here you can view all the scenarios that are
           available to you. To view your past scores or to see more information about an scenario click the view
           button</p>
 
         <% if current_user.admin? %>
           <p>You can also create a new scenario here or edit an existing scenario below </p>
-          <td><%= link_to 'Create New Scenario', new_quiz_path, class: "btn btn-lg btn-success" %></td>
+          <td><%= link_to 'Create New Scenario', new_scenario_path, class: "btn btn-lg btn-success" %></td>
         <% end %>
       </div>
 
@@ -19,32 +19,32 @@
   </div>
 </section>
 
-<section class="quiz-album album py-5">
+<section class="scenario-album album py-5">
 
   <div class="container">
     <h1 class="text-center">All Scenarios</h1>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-      <% @quizzes.each do |quiz| %>
+      <% @scenarios.each do |scenario| %>
         <div class="col">
-          <div class="card quiz-show-container shadow-sm h-100">
+          <div class="card scenario-show-container shadow-sm h-100">
             <div class="card-body">
-              <h3 class="text-center"><%= quiz.name %></h3>
-              <p><%= quiz.description %></p>
+              <h3 class="text-center"><%= scenario.name %></h3>
+              <p><%= scenario.description %></p>
 
             </div>
 
             <div class="card-footer  text-center">
               <% if current_user.admin? %>
-                <p>Number of Attempts: <%= quiz.quiz_attempts.count %></p>
-                <p>Available: <%= quiz.available %> </p>
+                <p>Number of Attempts: <%= scenario.attempts.count %></p>
+                <p>Available: <%= scenario.available %> </p>
               <% end %>
 
               <div class="btn-group">
 
-                <%= link_to 'View', quiz_path(quiz), class: "btn btn-sm btn-info" %>
+                <%= link_to 'View', scenario_path(scenario), class: "btn btn-sm btn-info" %>
                 <% if current_user.admin? %>
-                  <%= link_to 'Edit', edit_quiz_path(quiz), class: "btn btn-sm btn-warning" %>
+                  <%= link_to 'Edit', edit_scenario_path(scenario), class: "btn btn-sm btn-warning" %>
 
                 <% else %>
 

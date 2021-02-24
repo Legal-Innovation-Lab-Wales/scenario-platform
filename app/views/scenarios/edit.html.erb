@@ -1,0 +1,17 @@
+<section class="admin-view">
+  <div class="container">
+
+    <h1 class="text-center">Editing Scenario</h1>
+
+    <%= render 'form', scenario: @scenario %>
+
+    <div class="text-center my-2">
+      <%= link_to 'Destroy', scenario_path(@scenario.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+    </div>
+    <div class="text-center">
+      <%= link_to 'Show', @scenario %> |
+      <%= link_to 'Back', scenarios_path %>
+    </div>
+
+  </div>
+</section>

@@ -25,7 +25,7 @@ client interviews, conversation monitoring and life scenarios.
 
 * Non-linear Questions
 
-<img src="quiz.png"><br>
+<img src="scenario.png"><br>
 
 The Scenario Platform supports a non-linear question structure which can be used to create and simulate scenarios that
 are more directly in line with real world conversation. Individual answers can be linked to arbitrary questions to allow

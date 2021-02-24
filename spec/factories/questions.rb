@@ -1,8 +1,8 @@
 # spec/factories/questions.rb
 FactoryBot.define do
   factory :question do
-    quiz { Quiz.first || association(:quiz) }
-    user { quiz.user || association(:user) }
+    scenario { Scenario.first || association(:scenario) }
+    user { scenario.user || association(:user) }
     sequence(:order)
     text { 'MyString' }
     description { 'MyString' }

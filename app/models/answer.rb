@@ -11,7 +11,7 @@ class Answer < ApplicationRecord
   def update_next_question_id
     return unless next_question_order? && next_question_order != -1
 
-    self.next_question_id = question.quiz.questions.find_by!(order: next_question_order).id
+    self.next_question_id = question.scenario.questions.find_by!(order: next_question_order).id
   end
 
   # validations
@@ -21,7 +21,7 @@ class Answer < ApplicationRecord
   def valid_variable_mods
     return true if variable_mods.blank?
 
-    valid_variables = Quiz.find(Question.find(question_id).quiz_id).variables
+    valid_variables = Scenario.find(Question.find(question_id).scenario_id).variables
     invalid_keys = variable_mods.keys - valid_variables
 
     return if variable_mods.keys.all? { |s| valid_variables.include? s }

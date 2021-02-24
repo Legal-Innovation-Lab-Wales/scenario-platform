@@ -1,31 +1,31 @@
-<section class="quiz-header text-center">
-    <div class="container quiz-show-container shadow rounded-3">
+<section class="scenario-header text-center">
+    <div class="container scenario-show-container shadow rounded-3">
       <div class="row">
-        <h1 class="quiz-heading"> <%= @quiz.name %> </h1>
-        <p> <%= @quiz.description %> </p>
+        <h1 class="scenario-heading"> <%= @scenario.name %> </h1>
+        <p> <%= @scenario.description %> </p>
 
-        <% if @quiz.questions.find_by(order: 0).present? %>
+        <% if @scenario.questions.find_by(order: 0).present? %>
 
-          <div class="text-center"><%= link_to "Start Scenario", start_quiz_url(quiz_id: @quiz), method: "post", class: "btn btn-success btn-lg" %></div>
+          <div class="text-center"><%= link_to "Start Scenario", start_scenario_url(scenario_id: @scenario), method: "post", class: "btn btn-success btn-lg" %></div>
         <% elsif current_user.admin? %>
-          <h3> Please add a question with order 0 as a starting point for your quiz</h3>
+          <h3> Please add a question with order 0 as a starting point for your scenario</h3>
         <% else %>
           <div class="text-center"><button class="btn btn-primary btn-large disabled">Start Scenario</button></div>
         <% end %>
       </div>
     </div>
-  <% if @quiz_attempts.present? %>
-    <div class="container quiz-show-container shadow rounded-3">
+  <% if @attempts.present? %>
+    <div class="container scenario-show-container shadow rounded-3">
       <div class="row">
-        <h1 class="quiz-heading"> Previous Attempts </h1>
-        <% @quiz_attempts.each do |quiz_attempt| %>
-          <p class="mb-0"><strong><%= quiz_attempt.attempt_number.ordinalize %> Attempt.</strong></p>
-          <% if quiz_attempt.scores.present? %>
+        <h1 class="scenario-heading"> Previous Attempts </h1>
+        <% @attempts.each do |attempt| %>
+          <p class="mb-0"><strong><%= attempt.attempt_number.ordinalize %> Attempt.</strong></p>
+          <% if attempt.scores.present? %>
             <p class="mb-0"><em>Scores: </em>
-            <p><% quiz_attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %>, <% end %></p>
+            <p><% attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %>, <% end %></p>
           <% else %>
             <p>This attempt has not been completed.</p>
-            <div class="text-center"><%= link_to "Resume Attempt", resume_quiz_url(quiz_attempt_id: quiz_attempt), method: "put", class: "btn btn-success btn-md" %></div>
+            <div class="text-center"><%= link_to "Resume Attempt", resume_scenario_url(attempt_id: attempt), method: "put", class: "btn btn-success btn-md" %></div>
           <% end %>
         <% end %>
       </div>
@@ -41,7 +41,7 @@
           <div class="card">
             <div class="card-body">
               <h2 class="text-danger text-center">Admin Only View</h2>
-              <h2 class="text-center"><%= link_to "Edit Scenario", edit_quiz_path, class: "btn btn-warning btn-sm" %>
+              <h2 class="text-center"><%= link_to "Edit Scenario", edit_scenario_path, class: "btn btn-warning btn-sm" %>
                 <%= link_to "Guide", guide_path, class: "btn btn-primary btn-sm", target: :_blank %></h2>
 
                 <table class="mx-auto">
@@ -49,7 +49,7 @@
                     <th colspan="2"><h5>Variables & Starting Values </h5> </th>
                   </tr>
 
-                    <% @quiz.variables.zip(@quiz.variable_initial_values) do |variable, variable_initial_value| %>
+                    <% @scenario.variables.zip(@scenario.variable_initial_values) do |variable, variable_initial_value| %>
                     <tr class="text-start">
                       <td><%= variable %>: </td><td><%= variable_initial_value %></td>
                     </tr>
@@ -60,7 +60,7 @@
                 <button class="btn btn-sm btn-info" onclick="toggleHints()">Show Getting Started Hints</button>
               </h2>
               <h2 class="text-center">
-                <button class="btn btn-sm btn-secondary" onclick="toggleQuizAttempts()">Show Quiz Attempts</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleAttempts()">Show Attempts</button>
               </h2>
             </div>
           </div>
@@ -79,19 +79,19 @@
       </div>
     </div>
 
-    <div id="quiz-attempts" class="container">
+    <div id="attempts" class="container">
       <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded text-center">
-        <h3>Quiz Attempts</h3>
-        <p>Total Attempts: <%= @quiz.quiz_attempts.count %></p>
-        <p>by <%= @quiz.quiz_attempts.map { |u| [u.user_id] }.uniq.count %> Users</p>
+        <h3>Scenario Attempts</h3>
+        <p>Total Attempts: <%= @scenario.attempts.count %></p>
+        <p>by <%= @scenario.attempts.map { |u| [u.user_id] }.uniq.count %> Users</p>
         <h2 class="text-danger">Do some other stuff here</h2>
         <p>Completed By</p>
-        <% @quiz.quiz_attempts.map { |qa| [qa.user] }.uniq.each do |user| %>
+        <% @scenario.attempts.map { |qa| [qa.user] }.uniq.each do |user| %>
           <p class="mb-0"><%= user[0].first_name %> <%= user[0].last_name %></p>
         <% end %>
         <hr>
         <ul>TODO List
-          <li>count of how many times each user has completed quiz</li>
+          <li>count of how many times each user has completed scenario</li>
           <li>summary of scores</li>
           <li>best score?</li>
         </ul>
@@ -100,7 +100,7 @@
     </div>
 
     <div class="container">
-      <% @quiz.questions.each do |question| %>
+      <% @scenario.questions.each do |question| %>
         <div id="question_order_<%= question.order %>" class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
           <h5>Question Order: <%= question.order %></h5>
           <h3><%= question.description %></h3>
@@ -131,7 +131,7 @@
                         </tr>
                       <% end %>
                     <% else %>
-                      <% @quiz.variables&.each do |variable| %>
+                      <% @scenario.variables&.each do |variable| %>
                         <tr>
                           <td><%= variable %>:</td>
                           <td><strong> nil </strong></td>
@@ -144,15 +144,15 @@
 
                 </div>
                 <div class="card-footer text-center">
-                  <%= link_to "Edit Answer", edit_quiz_question_answer_path(@quiz, question, answer), class: "btn btn-warning btn-sm"  %>
+                  <%= link_to "Edit Answer", edit_scenario_question_answer_path(@scenario, question, answer), class: "btn btn-warning btn-sm"  %>
                 </div>
               </div>
             </div>
           <% end %>
 
           <div>
-            <%= link_to "Edit Question", edit_quiz_question_path(@quiz, question), class: "btn btn-warning" %>
-            <%= link_to "Add New Answer", new_quiz_question_answer_path(@quiz, question), class: "btn btn-info" %>
+            <%= link_to "Edit Question", edit_scenario_question_path(@scenario, question), class: "btn btn-warning" %>
+            <%= link_to "Add New Answer", new_scenario_question_answer_path(@scenario, question), class: "btn btn-info" %>
           </div>
         </div>
       <% end %>
@@ -162,7 +162,7 @@
     <div class="container">
       <div class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
         <div class="text-center">
-          <%= link_to "Add new question", new_quiz_question_path(@quiz), class: "btn btn-info" %>
+          <%= link_to "Add new question", new_scenario_question_path(@scenario), class: "btn btn-info" %>
         </div>
       </div>
     </div>
@@ -170,8 +170,8 @@
 <% end %>
 
 <script>
-    function toggleQuizAttempts() {
-      const el = document.getElementById('quiz-attempts');
+    function toggleAttempts() {
+      const el = document.getElementById('attempts');
       el.style.display = (el.style.display === 'block' ? 'none' : 'block');
     }
     function toggleHints() {

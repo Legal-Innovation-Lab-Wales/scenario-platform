@@ -4,18 +4,18 @@ require 'rails_helper'
 RSpec.describe 'Questions', type: :request do
   let(:user) { create(:user) }
   let(:admin) { create(:user, :admin) }
-  let(:quizzes) { create_list(:quiz, 2) }
-  let(:quiz_id) { quizzes.first.id }
-  let!(:questions) { create_list(:question, 10, quiz: quizzes.first) }
-  let!(:quiz_2_questions) { create_list(:question, 10, quiz: quizzes.second) }
+  let(:scenarios) { create_list(:scenario, 2) }
+  let(:scenario_id) { scenarios.first.id }
+  let!(:questions) { create_list(:question, 10, scenario: scenarios.first) }
+  let!(:scenario_2_questions) { create_list(:question, 10, scenario: scenarios.second) }
   let(:question_id) { questions.first.id }
   let!(:answers) { create_list(:answer, 10, question: questions.first) }
 
   let(:headers) { { 'ACCEPT' => 'application/json' } }
 
-  describe 'index questions (GET quiz_questions)' do
+  describe 'index questions (GET scenario_questions)' do
     context 'when user not signed in' do
-      before { get "/quizzes/#{quiz_id}/questions", headers: headers }
+      before { get "/scenarios/#{scenario_id}/questions", headers: headers }
 
       it 'returns status code 401 Unauthorized' do
         expect(response).to have_http_status(401)
@@ -28,7 +28,7 @@ RSpec.describe 'Questions', type: :request do
 
     context 'when any user signed in' do
       before { sign_in admin }
-      before { get "/quizzes/#{quiz_id}/questions", headers: headers }
+      before { get "/scenarios/#{scenario_id}/questions", headers: headers }
 
       it 'returns http status success' do
         expect(response).to have_http_status(:success)
@@ -49,30 +49,30 @@ RSpec.describe 'Questions', type: :request do
         expect(json.first['answers'].size).to eq(10)
       end
 
-      it 'expects questions to be for the right quiz' do
+      it 'expects questions to be for the right scenario' do
         questions = JSON.parse(response.body)
-        question_quiz_ids = questions.map { |q| q['quiz_id'] }
-        expect(question_quiz_ids.uniq).to eq([quiz_id])
+        question_scenario_ids = questions.map { |q| q['scenario_id'] }
+        expect(question_scenario_ids.uniq).to eq([scenario_id])
       end
 
-      context 'when quiz does not exist' do
-        let(:quiz_id) { 0 }
+      context 'when scenario does not exist' do
+        let(:scenario_id) { 0 }
 
         it 'returns status code 404' do
           expect(response).to have_http_status(404)
         end
 
         it 'returns a not found message' do
-          expect(response.body).to include('Couldn\'t find Quiz')
+          expect(response.body).to include('Couldn\'t find Scenario')
         end
 
       end
     end
   end
 
-  describe 'show question (GET quiz_question)' do
+  describe 'show question (GET scenario_question)' do
     context 'when user not signed in' do
-      before { get "/quizzes/#{quiz_id}/questions/#{question_id}", headers: headers }
+      before { get "/scenarios/#{scenario_id}/questions/#{question_id}", headers: headers }
 
       it 'returns status code 401 Unauthorized' do
         expect(response).to have_http_status(401)
@@ -85,7 +85,7 @@ RSpec.describe 'Questions', type: :request do
 
   end
 
-  describe 'create question (POST quiz_questions)' do
+  describe 'create question (POST scenario_questions)' do
     let(:valid_attributes) do
       { question: { order: (Question.last.order + 1),
                     description: 'Setting the scene',
@@ -93,7 +93,7 @@ RSpec.describe 'Questions', type: :request do
     end
 
     context 'when user not signed in' do
-      before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
+      before { post "/scenarios/#{scenario_id}/questions", params: valid_attributes, headers: headers }
 
       it 'returns status code 401 Unauthorized' do
         expect(response).to have_http_status(401)
@@ -106,7 +106,7 @@ RSpec.describe 'Questions', type: :request do
 
     context 'when user signed in but not admin' do
       before { sign_in user }
-      before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
+      before { post "/scenarios/#{scenario_id}/questions", params: valid_attributes, headers: headers }
 
       it 'returns status code 403 Forbidden' do
         expect(response).to have_http_status(403)
@@ -121,14 +121,14 @@ RSpec.describe 'Questions', type: :request do
       before { sign_in admin }
 
       context 'when the request is valid' do
-        before { post "/quizzes/#{quiz_id}/questions", params: valid_attributes, headers: headers }
+        before { post "/scenarios/#{scenario_id}/questions", params: valid_attributes, headers: headers }
 
         it 'creates a question' do
           expect(json['text']).to eq('asking the question')
         end
 
-        it 'has the correct quiz id' do
-          expect(Question.last.quiz_id).to eq(quiz_id)
+        it 'has the correct scenario id' do
+          expect(Question.last.scenario_id).to eq(scenario_id)
         end
 
         it 'returns status code 201' do
@@ -137,7 +137,7 @@ RSpec.describe 'Questions', type: :request do
       end
 
       context 'when no body in request' do
-        before { post "/quizzes/#{quiz_id}/questions", params: {}, headers: headers }
+        before { post "/scenarios/#{scenario_id}/questions", params: {}, headers: headers }
 
         it 'returns status code 422' do
           expect(response).to have_http_status(422)
@@ -150,7 +150,7 @@ RSpec.describe 'Questions', type: :request do
 
       context 'when record is not unique' do
         let(:invalid_attributes) { { question: { order: Question.first.order } } }
-        before { post "/quizzes/#{quiz_id}/questions", params: invalid_attributes, headers: headers }
+        before { post "/scenarios/#{scenario_id}/questions", params: invalid_attributes, headers: headers }
 
         it 'returns status code 422' do
           expect(response).to have_http_status(422)
@@ -163,11 +163,11 @@ RSpec.describe 'Questions', type: :request do
     end
   end
 
-  describe 'update question (PUT quiz_questions)' do
+  describe 'update question (PUT scenario_questions)' do
     context 'when admin signed in' do
       before { sign_in admin }
       let(:valid_attributes) { { question: { text: 'updated text' } } }
-      before { put "/quizzes/#{quiz_id}/questions/#{question_id}", params: valid_attributes, headers: headers }
+      before { put "/scenarios/#{scenario_id}/questions/#{question_id}", params: valid_attributes, headers: headers }
 
       context 'when question exists' do
         it 'returns status code 204' do
@@ -194,10 +194,10 @@ RSpec.describe 'Questions', type: :request do
     end
   end
 
-  describe 'delete question (DELETE quiz_questions)' do
+  describe 'delete question (DELETE scenario_questions)' do
     context 'when admin signed in' do
       before { sign_in admin }
-      before { delete "/quizzes/#{quiz_id}/questions/#{question_id}", headers: headers }
+      before { delete "/scenarios/#{scenario_id}/questions/#{question_id}", headers: headers }
 
       it 'returns status code 204' do
         expect(response).to have_http_status(204)

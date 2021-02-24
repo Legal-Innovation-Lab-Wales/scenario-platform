@@ -3,5 +3,5 @@ require 'rails_helper'
 
 RSpec.describe Organisation, type: :model do
   it { should have_many(:users) }
-  it { should have_many(:quizzes).through(:users) }
+  it { should have_many(:scenarios).through(:users) }
 end

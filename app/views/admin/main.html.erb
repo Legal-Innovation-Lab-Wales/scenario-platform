@@ -12,7 +12,7 @@
       <div class="col">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">Scenario Count</span>
-          <input type="text" class="form-control" value="<%= @quizzes.length %>" disabled />
+          <input type="text" class="form-control" value="<%= @scenarios.length %>" disabled />
         </div>
       </div>
       <div class="col">
@@ -22,10 +22,10 @@
         </div>
       </div>
     </div>
-    <div class="row" id="quizzes">
+    <div class="row" id="scenarios">
       <h2>Scenarios</h2>
       <div class="col">
-        <% if @quizzes.length > 0 %>
+        <% if @scenarios.length > 0 %>
           <table class="table table-light table-hover">
             <thead>
             <tr>
@@ -35,21 +35,21 @@
             </tr>
             </thead>
             <tbody>
-            <% @quizzes.each do |quiz| %>
+            <% @scenarios.each do |scenario| %>
               <tr>
                 <td>
-                  <a href="/admin/quizzes/<%= quiz.id %>">
-                    <%= quiz.name %>
+                  <a href="/admin/scenarios/<%= scenario.id %>">
+                    <%= scenario.name %>
                   </a>
                 </td>
                 <td>
-                  <a href="/admin/quizzes/<%= quiz.id %>">
-                    <%= quiz.users.count %>
+                  <a href="/admin/scenarios/<%= scenario.id %>">
+                    <%= scenario.users.count %>
                   </a>
                 </td>
                 <td>
-                  <a href="/admin/quizzes/<%= quiz.id %>">
-                    <%= QuizAttempt.all.where(quiz_id: quiz).count %>
+                  <a href="/admin/scenarios/<%= scenario.id %>">
+                    <%= Attempt.all.where(scenario_id: scenario).count %>
                   </a>
                 </td>
               </tr>

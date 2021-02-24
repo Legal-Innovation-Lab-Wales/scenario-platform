@@ -1,8 +1,8 @@
 # app/controllers/admin/pages_controller.rb
 class Admin::PagesController < ApplicationController
   before_action :require_admin
-  before_action :set_users, :set_quizzes, only: :main
-  before_action :set_quiz, :require_quiz_organisation, only: [:get_quiz, :get_attempts, :get_result]
+  before_action :set_users, :set_scenarios, only: :main
+  before_action :set_scenario, :require_scenario_organisation, only: [:get_scenario, :get_attempts, :get_result]
   before_action :set_user, :require_user_organisation, only: [:get_attempts, :get_user, :set_admin, :approve_user, :get_result]
   before_action :set_attempts, only: :get_attempts
   before_action :set_attempt, only: :get_result
@@ -21,12 +21,12 @@ class Admin::PagesController < ApplicationController
     end
   end
 
-  # GET /admin/quizzes/:quiz_id
-  def get_quiz
-    render template: 'admin/quizzes'
+  # GET /admin/scenarios/:scenario_id
+  def get_scenario
+    render template: 'admin/scenarios'
   end
 
-  # GET /admin/quizzes/:quiz_id/users/:user_id
+  # GET /admin/scenarios/:scenario_id/users/:user_id
   def get_attempts
     render template: 'admin/attempts'
   end
@@ -50,15 +50,15 @@ class Admin::PagesController < ApplicationController
     end
   end
 
-  # GET /admin/quizzes/:quiz_id/users/:user_id/results/:result_id
+  # GET /admin/scenarios/:scenario_id/users/:user_id/results/:result_id
   def get_result
     render template: 'admin/results'
   end
 
   private
 
-  def require_quiz_organisation
-    redirect_to root, error: 'You do not belong to this quizzes organisation!' unless current_user.organisation == @quiz.organisation
+  def require_scenario_organisation
+    redirect_to root, error: 'You do not belong to this scenarios organisation!' unless current_user.organisation == @scenario.organisation
   end
 
   def require_user_organisation
@@ -66,11 +66,11 @@ class Admin::PagesController < ApplicationController
   end
 
   def set_attempt
-    @attempt = QuizAttempt.find(params[:result_id])
+    @attempt = Attempt.find(params[:result_id])
   end
 
   def set_attempts
-    @attempts = QuizAttempt.all.where('user_id = ? and quiz_id = ?', @user, @quiz).order(:id)
+    @attempts = Attempt.all.where('user_id = ? and scenario_id = ?', @user, @scenario).order(:id)
   end
 
   def set_user
@@ -81,11 +81,11 @@ class Admin::PagesController < ApplicationController
     @users = User.all.where(organisation: current_user.organisation).order(:id)
   end
 
-  def set_quiz
-    @quiz = Quiz.find(params[:quiz_id])
+  def set_scenario
+    @scenario = Scenario.find(params[:scenario_id])
   end
 
-  def set_quizzes
-    @quizzes = current_user.organisation.quizzes.order(:id)
+  def set_scenarios
+    @scenarios = current_user.organisation.scenarios.order(:id)
   end
 end

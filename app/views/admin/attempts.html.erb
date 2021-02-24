@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-6 offset-3">
         <h1><%= @user.first_name %> <%= @user.last_name %></h1>
-        <h1><%= @quiz.name %></h1>
+        <h1><%= @scenario.name %></h1>
       </div>
     </div>
     <div class="row">
       <div class="col-6 offset-3" id="attempts">
         <h2>Attempts</h2>
         <% @attempts.each do |attempt| %>
-          <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= @user.id %>/results/<%= attempt.id %>">
+          <a href="/admin/scenarios/<%= @scenario.id %>/users/<%= @user.id %>/results/<%= attempt.id %>">
             <p class="mb-0"><strong><%= attempt.attempt_number.ordinalize %> Attempt: </strong>
             <% if attempt.scores.present? %>
               <% attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %> <% end %>

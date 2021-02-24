@@ -1,8 +1,8 @@
-class CreateQuizAttempts < ActiveRecord::Migration[6.1]
+class CreateAttempts < ActiveRecord::Migration[6.1]
   def change
     enable_extension 'hstore' unless extension_enabled?('hstore')
-    create_table :quiz_attempts do |t|
-      t.belongs_to :quiz, null: false, foreign_key: true
+    create_table :attempts do |t|
+      t.belongs_to :scenario, null: false, foreign_key: true
       t.belongs_to :user, null: false, foreign_key: true
       t.integer :attempt_number
       t.json :question_answers
@@ -11,6 +11,6 @@ class CreateQuizAttempts < ActiveRecord::Migration[6.1]
       t.timestamps
     end
 
-    add_index :quiz_attempts, [:quiz_id, :user_id, :attempt_number], unique: true
+    add_index :attempts, [:scenario_id, :user_id, :attempt_number], unique: true
   end
 end
