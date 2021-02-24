@@ -1,11 +1,11 @@
 <div class="row">
-  <%= form_with(model: quiz) do |form| %>
-    <% if quiz.errors.any? %>
+  <%= form_with(model: scenario) do |form| %>
+    <% if scenario.errors.any? %>
       <div id="error_explanation">
-        <h2><%= pluralize(quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
+        <h2><%= pluralize(scenario.errors.count, "error") %> prohibited this scenario from being saved:</h2>
 
         <ul>
-          <% quiz.errors.each do |error| %>
+          <% scenario.errors.each do |error| %>
             <li><%= error.full_message %></li>
           <% end %>
         </ul>
@@ -25,19 +25,19 @@
 
     <div class="field mb-3 justify-content-center">
       <table id="variables" class="mx-auto">
-        <input type="hidden" value="<%= quiz.variables.count %>" id="total_vars">
+        <input type="hidden" value="<%= scenario.variables.count %>" id="total_vars">
         <tr>
           <th><%= form.label :variables, class: "form-label" %></th>
           <th><%= form.label :variable_initial_values, class: "form-label" %></th>
         </tr>
 
-        <% quiz.variables_with_initial_values&.each_with_index do |variable, index| %>
+        <% scenario.variables_with_initial_values&.each_with_index do |variable, index| %>
           <tr id='variable-<%= index %>'>
             <td>
-              <input multiple='multiple' type='text' value='<%= variable[0] %>' name='quiz[variables][]' class="form-control">
+              <input multiple='multiple' type='text' value='<%= variable[0] %>' name='scenario[variables][]' class="form-control">
             </td>
             <td>
-              <input multiple='multiple' type='number' value='<%= variable[1] %>' name='quiz[variable_initial_values][]' class="form-control">
+              <input multiple='multiple' type='number' value='<%= variable[1] %>' name='scenario[variable_initial_values][]' class="form-control">
             </td>
           </tr>
         <% end %>

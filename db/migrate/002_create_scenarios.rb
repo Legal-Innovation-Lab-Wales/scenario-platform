@@ -1,8 +1,8 @@
-# db/migrate/002_create_quizzes.rb
-class CreateQuizzes < ActiveRecord::Migration[6.1]
+# db/migrate/002_create_scenarios.rb
+class CreateScenarios < ActiveRecord::Migration[6.1]
   def change
     enable_extension 'hstore' unless extension_enabled?('hstore')
-    create_table :quizzes do |t|
+    create_table :scenarios do |t|
 
       t.belongs_to :user, null: false, foreign_key: true
 

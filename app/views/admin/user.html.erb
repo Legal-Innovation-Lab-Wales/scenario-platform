@@ -7,26 +7,26 @@
     </div>
     <div class="row">
       <div class="col">
-        <% if @user.quizzes_attempted.length > 0 %>
+        <% if @user.scenarios_attempted.length > 0 %>
           <h2>Scenarios</h2>
           <table class="table table-light table-hover">
             <thead>
               <tr>
-                <th scope="col">Quiz</th>
+                <th scope="col">Scenario</th>
                 <th scope="col">No. of Attempts</th>
               </tr>
             </thead>
             <tbody>
-            <% @user.quizzes_attempted.each do |quiz| %>
+            <% @user.scenarios_attempted.each do |scenario| %>
               <tr>
                 <td>
-                  <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
-                    <%= quiz.name %>
+                  <a href="/admin/scenarios/<%= scenario.id %>/users/<%= @user.id %>">
+                    <%= scenario.name %>
                   </a>
                 </td>
                 <td>
-                  <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
-                    <%= QuizAttempt.where('quiz_id = ? and user_id = ?', quiz, @user).count %>
+                  <a href="/admin/scenarios/<%= scenario.id %>/users/<%= @user.id %>">
+                    <%= Attempt.where('scenario_id = ? and user_id = ?', scenario, @user).count %>
                   </a>
                 </td>
               </tr>

@@ -4,16 +4,16 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: %i[edit update destroy]
   before_action :require_admin
 
-  # GET /quizzes/:quiz_id/questions/:question_id/answers/new
+  # GET /scenarios/:scenario_id/questions/:question_id/answers/new
   def new
     @answer = Answer.new
   end
 
-  # POST /quizzes/:quiz_id/questions/:question_id/answers
+  # POST /scenarios/:scenario_id/questions/:question_id/answers
   def create
     if (@answer = current_user.answers.create!(answer_params.merge(question_id: @question.id)))
       respond_to do |format|
-        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order.to_s}") }
+        format.html { redirect_to scenario_path(@question.scenario_id, anchor: "question_order_#{@question.order.to_s}") }
         format.json { json_response(@answer, :created) }
       end
     else
@@ -21,16 +21,16 @@ class AnswersController < ApplicationController
     end
   end
 
-  # GET /quizzes/:quiz_id/questions/:question_id/answers/:id
+  # GET /scenarios/:scenario_id/questions/:question_id/answers/:id
   def edit
     @answer
   end
 
-  # PUT /quizzes/:quiz_id/questions/:question_id/answers/:id
+  # PUT /scenarios/:scenario_id/questions/:question_id/answers/:id
   def update
     if @answer.update(answer_params)
       respond_to do |format|
-        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
+        format.html { redirect_to scenario_path(@question.scenario_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(@answer, :ok) }
       end
     else
@@ -38,11 +38,11 @@ class AnswersController < ApplicationController
     end
   end
 
-  # DELETE /quizzes/:quiz_id/questions/:question_id/answers/:id
+  # DELETE /scenarios/:scenario_id/questions/:question_id/answers/:id
   def destroy
     if @answer.destroy
       respond_to do |format|
-        format.html { redirect_to quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order}") }
+        format.html { redirect_to scenario_path(@question.scenario_id, anchor: "question_order_#{@question.order}") }
         format.json { json_response(nil, :no_content) }
       end
     end
@@ -55,7 +55,7 @@ class AnswersController < ApplicationController
   end
 
   def set_variables
-    @variables = Quiz.find(params[:quiz_id]).variables
+    @variables = Scenario.find(params[:scenario_id]).variables
   end
 
   def set_answer
@@ -64,7 +64,7 @@ class AnswersController < ApplicationController
 
   def answer_params
     # whitelist params
-    # variables = Quiz.find(params[:quiz_id]).variables.map { |v| [v.to_sym] }
+    # variables = Scenario.find(params[:scenario_id]).variables.map { |v| [v.to_sym] }
     params.require(:answer).permit(:text, :next_question_order, :question_id, variable_mods: {})
   end
 end

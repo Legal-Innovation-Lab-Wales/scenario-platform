@@ -4,9 +4,9 @@
     <div class="row">
 
 
-      <h1>Quiz: <%= @quiz.id %></h1>
-      <h3><%= @quiz.name %></h3>
-      <h5><%= @quiz.description %></h5>
+      <h1>Scenario: <%= @scenario.id %></h1>
+      <h3><%= @scenario.name %></h3>
+      <h5><%= @scenario.description %></h5>
       <h1>Questions</h1>
     </div>
   </div>
@@ -58,9 +58,9 @@
             <td><%= question.description %></td>
             <td><%= question.text %></td>
             <td><%= question.order %></td>
-            <td><%= link_to 'Show', quiz_question_path(question.quiz_id, question.id) %></td>
-            <td><%= link_to 'Edit', edit_quiz_question_path(question.quiz_id, question.id) %></td>
-            <td><%= link_to 'Destroy', quiz_question_path(question.quiz_id, question.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Show', scenario_question_path(question.scenario_id, question.id) %></td>
+            <td><%= link_to 'Edit', edit_scenario_question_path(question.scenario_id, question.id) %></td>
+            <td><%= link_to 'Destroy', scenario_question_path(question.scenario_id, question.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
         </tbody>
@@ -70,4 +70,4 @@
 </section>
 <br>
 
-<%= link_to 'New Question', new_quiz_question_path(@quiz) %>
+<%= link_to 'New Question', new_scenario_question_path(@scenario) %>

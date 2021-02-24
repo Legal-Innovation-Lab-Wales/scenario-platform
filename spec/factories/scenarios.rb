@@ -1,8 +1,8 @@
-# spec/factories/quizzes.rb
+# spec/factories/scenarios.rb
 FactoryBot.define do
-  factory :quiz do
+  factory :scenario do
     user { create(:user, :admin) }
-    name { 'Quiz Factory Name' }
+    name { 'Scenario Factory Name' }
     description { 'MyText' }
     variables { ['health', 'stamina', 'experience', 'coin'] }
     variable_initial_values { [100, 100, 0, 10] }

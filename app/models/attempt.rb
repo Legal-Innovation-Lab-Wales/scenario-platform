@@ -1,15 +1,15 @@
-# app/models/quiz_attempt.rb
-class QuizAttempt < ApplicationRecord
-  belongs_to :quiz
+# app/models/attempt.rb
+class Attempt < ApplicationRecord
+  belongs_to :scenario
   belongs_to :user
 
-  validates_presence_of :user_id, :quiz_id, :attempt_number
+  validates_presence_of :user_id, :scenario_id, :attempt_number
 
   def next_question_id
     if question_answers.length.positive?
       last_answer.next_question_id
     else
-      quiz.first_question.id
+      scenario.first_question.id
     end
   end
 

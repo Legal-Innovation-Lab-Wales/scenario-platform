@@ -1,29 +1,29 @@
-// Place all the styles related to the Quizzes controller here.
+// Place all the styles related to the Scenarios controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 @import "variables";
 
 section {
-  &.quiz-header, &.quiz-album {
-    .quiz-show-container {
+  &.scenario-header, &.scenario-album {
+    .scenario-show-container {
       background-color: $section-bg-navy;
       color: $ink-orange;
     }
   }
 
-  &.quiz-header {
-    .quiz-show-container {
+  &.scenario-header {
+    .scenario-show-container {
       padding: 1rem;
       margin-top: 5rem;
       margin-bottom: 5rem;
     }
   }
 
-  &.quiz-album {
+  &.scenario-album {
     background-color: $section-bg;
   }
 
-  &.quiz-index {
+  &.scenario-index {
     background-image: $brand-lab-background;
     background-position: center;
     background-repeat: no-repeat;
@@ -36,6 +36,7 @@ section {
     }
   }
 }
-#quiz-attempts, #hints {
+
+#attempts, #hints {
   display: none;
 }

@@ -115,23 +115,23 @@ user = User.new(
 user.skip_confirmation!
 user.save!
 
-## Create example quizzes
-# First Quiz
+## Create example scenarios
+# First Scenario
 
-Quiz.create!(
+Scenario.create!(
   user_id: 1,
   variables: ['health', 'stamina', 'experience', 'coin'],
   variable_initial_values: [100, 100, 0, 10],
   variables_with_initial_values: { health: 100, stamina: 100, experience: 0, coin: 10 },
-  name: 'First test adventure quiz',
-  description: 'This is the first adventure quiz, it probably won\'t make a huge amount of sense but should have clickable options',
+  name: 'First test adventure scenario',
+  description: 'This is the first adventure scenario, it probably won\'t make a huge amount of sense but should have clickable options',
   available: true
 )
 
 # ID 1
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 0,
   description: 'Welcome to your adventure, this is the first question',
   text: 'What direction would you like to go?'
@@ -140,7 +140,7 @@ Question.create!(
 # ID 2
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 1,
   description: 'You went to the North. Its cold up here, and you meet a polar bear.',
   text: 'What do you do?'
@@ -149,7 +149,7 @@ Question.create!(
 # ID 3
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 2,
   description: 'You went to the East. You don\'t speak the language here. You meet some locals.',
   text: 'What do you do?'
@@ -158,7 +158,7 @@ Question.create!(
 # ID 4
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 3,
   description: 'You went to the West. You\'re on a boat. The Horizon is endless.',
   text: 'Which Direction do you go?'
@@ -167,7 +167,7 @@ Question.create!(
 # ID 5
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 4,
   description: 'You lost all your health. You are dead.',
   text: 'View your scores.'
@@ -176,7 +176,7 @@ Question.create!(
 # ID 6
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 5,
   description: 'You lost all your Stamina. The Bear catches you.',
   text: 'What happens next?'
@@ -185,7 +185,7 @@ Question.create!(
 # ID 7
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 6,
   description: 'The bear takes pity of your and treats you like one of its cubs. This is your life now',
   text: 'View your Scores.'
@@ -194,7 +194,7 @@ Question.create!(
 # ID 8
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 7,
   description: 'This doesn\'t work, this never works. They lock you in a cage where you slowly starve.',
   text: 'View your Scores.'
@@ -203,7 +203,7 @@ Question.create!(
 # ID 9
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 8,
   description: 'The locals like your offering, they shower you with gold and make you their king.',
   text: 'View your Scores.'
@@ -212,7 +212,7 @@ Question.create!(
 # ID 10
 Question.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   order: 9,
   description: 'The locals accept your surrender and adopt you into your society as a cleaner. This is your life now.',
   text: 'View your Scores.'
@@ -356,20 +356,20 @@ Answer.create!(
   next_question_order: -1
 )
 
-# Second Quiz
-Quiz.create!(
+# Second Scenario
+Scenario.create!(
   user_id: 1,
   variables: ['knowledge', 'helpfulness', 'compassion', 'detail'],
   variable_initial_values: [0, 0, 0, 0],
   variables_with_initial_values: { knowledge: 0, helpfulness: 0, compassion: 0, detail: 0 },
-  name: 'Quiz on retail secret shoppers',
-  description: 'This is the quiz to test employees through online secret shoppers',
+  name: 'Scenario on retail secret shoppers',
+  description: 'This is the scenario to test employees through online secret shoppers',
   available: false
 )
 # ID 11
 Question.create!(
   user_id: 1,
-  quiz_id: 2,
+  scenario_id: 2,
   order: 0,
   description: 'The customer walks into the store and browses around the counters, what do you do?',
   text: 'What do you do?'
@@ -377,7 +377,7 @@ Question.create!(
 # ID 12
 Question.create!(
   user_id: 1,
-  quiz_id: 2,
+  scenario_id: 2,
   order: 1,
   description: 'The customer speaks up and says "Why thank you, I\'m looking for this specific series item, do you keep it in stock?',
   text: 'What do you do?'
@@ -385,7 +385,7 @@ Question.create!(
 # ID 13
 Question.create!(
   user_id: 1,
-  quiz_id: 2,
+  scenario_id: 2,
   order: 2,
   description: 'The customer speaks up and says "uh.. hello?, I\'m looking for this specific series item, do you keep it in stock?',
   text: 'What do you do?'
@@ -393,7 +393,7 @@ Question.create!(
 # ID 14
 Question.create!(
   user_id: 1,
-  quiz_id: 2,
+  scenario_id: 2,
   order: 3,
   description: 'The customer lets out an annoyed sigh and tries to wave for your attention "Hello, I\'m looking for a series item, do you have it?"',
   text: 'What do you do?'
@@ -401,7 +401,7 @@ Question.create!(
 # ID 15
 Question.create!(
   user_id: 1,
-  quiz_id: 2,
+  scenario_id: 2,
   order: 4,
   description: 'The customer shakes their head "Is this all you can do?"',
   text: 'what do you do?'
@@ -409,7 +409,7 @@ Question.create!(
 # ID 16
 Question.create!(
   user_id: 1,
-  quiz_id: 2,
+  scenario_id: 2,
   order: 5,
   description: 'The customer smiles back and seems pleased with your reply, taking down their email and walks out satisfied',
   text: 'view your score'
@@ -417,7 +417,7 @@ Question.create!(
 # ID 17
 Question.create!(
   user_id: 1,
-  quiz_id: 2,
+  scenario_id: 2,
   order: 6,
   description: 'The customer smiles back but lets out a little annoyed sign as they leave, that could have been a sale',
   text: 'view your score'
@@ -425,7 +425,7 @@ Question.create!(
 # ID 18
 Question.create!(
   user_id: 1,
-  quiz_id: 2,
+  scenario_id: 2,
   order: 7,
   description: 'The customer demands your name',
   text: 'what do you do?'
@@ -433,7 +433,7 @@ Question.create!(
 # ID 19
 Question.create!(
   user_id: 1,
-  quiz_id: 2,
+  scenario_id: 2,
   order: 8,
   description: 'The customer storms out',
   text: 'view your score'
@@ -524,9 +524,9 @@ Answer.create!(
   next_question_order: 8
 )
 
-QuizAttempt.create!(
+Attempt.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   attempt_number: 1,
   question_answers:
     [{
@@ -541,9 +541,9 @@ QuizAttempt.create!(
     }],
   scores: { health: 0, stamina: 0, experience: 0, coin: 10 }
 )
-QuizAttempt.create!(
+Attempt.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   attempt_number: 2,
   question_answers:
     [{
@@ -558,9 +558,9 @@ QuizAttempt.create!(
     }],
   scores: { health: 100, stamina: 100, experience: 50, coin: 10 }
 )
-QuizAttempt.create!(
+Attempt.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   attempt_number: 3,
   question_answers:
     [{
@@ -575,9 +575,9 @@ QuizAttempt.create!(
     }],
   scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
 )
-QuizAttempt.create!(
+Attempt.create!(
   user_id: 1,
-  quiz_id: 1,
+  scenario_id: 1,
   attempt_number: 4,
   question_answers:
     [{
@@ -592,9 +592,9 @@ QuizAttempt.create!(
     }],
   scores: { health: 100, stamina: 100, experience: 100, coin: 100000010 }
 )
-QuizAttempt.create!(
+Attempt.create!(
   user_id: 2,
-  quiz_id: 1,
+  scenario_id: 1,
   attempt_number: 1,
   question_answers:
     [{
@@ -609,9 +609,9 @@ QuizAttempt.create!(
     }],
   scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
 )
-QuizAttempt.create!(
+Attempt.create!(
   user_id: 3,
-  quiz_id: 1,
+  scenario_id: 1,
   attempt_number: 1,
   question_answers:
     [{
@@ -626,9 +626,9 @@ QuizAttempt.create!(
     }],
   scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
 )
-QuizAttempt.create!(
+Attempt.create!(
   user_id: 3,
-  quiz_id: 1,
+  scenario_id: 1,
   attempt_number: 2,
   question_answers:
     [{
@@ -643,9 +643,9 @@ QuizAttempt.create!(
     }],
   scores: { health: 0, stamina: 100, experience: 0, coin: 0 }
 )
-QuizAttempt.create!(
+Attempt.create!(
   user_id: 3,
-  quiz_id: 1,
+  scenario_id: 1,
   attempt_number: 3,
   question_answers:
     [{

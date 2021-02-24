@@ -29,6 +29,19 @@ ActiveRecord::Schema.define(version: 5) do
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
+  create_table "attempts", force: :cascade do |t|
+    t.bigint "scenario_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "attempt_number"
+    t.json "question_answers"
+    t.hstore "scores"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["scenario_id", "user_id", "attempt_number"], name: "index_attempts_on_scenario_id_and_user_id_and_attempt_number", unique: true
+    t.index ["scenario_id"], name: "index_attempts_on_scenario_id"
+    t.index ["user_id"], name: "index_attempts_on_user_id"
+  end
+
   create_table "organisations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -36,32 +49,19 @@ ActiveRecord::Schema.define(version: 5) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.bigint "quiz_id", null: false
+    t.bigint "scenario_id", null: false
     t.bigint "user_id", null: false
     t.integer "order"
     t.string "text"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["quiz_id", "order"], name: "index_questions_on_quiz_id_and_order", unique: true
-    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
+    t.index ["scenario_id", "order"], name: "index_questions_on_scenario_id_and_order", unique: true
+    t.index ["scenario_id"], name: "index_questions_on_scenario_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
-  create_table "quiz_attempts", force: :cascade do |t|
-    t.bigint "quiz_id", null: false
-    t.bigint "user_id", null: false
-    t.integer "attempt_number"
-    t.json "question_answers"
-    t.hstore "scores"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["quiz_id", "user_id", "attempt_number"], name: "index_quiz_attempts_on_quiz_id_and_user_id_and_attempt_number", unique: true
-    t.index ["quiz_id"], name: "index_quiz_attempts_on_quiz_id"
-    t.index ["user_id"], name: "index_quiz_attempts_on_user_id"
-  end
-
-  create_table "quizzes", force: :cascade do |t|
+  create_table "scenarios", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
     t.text "description"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 5) do
     t.boolean "available", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_quizzes_on_user_id"
+    t.index ["user_id"], name: "index_scenarios_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -106,10 +106,10 @@ ActiveRecord::Schema.define(version: 5) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
-  add_foreign_key "questions", "quizzes"
+  add_foreign_key "attempts", "scenarios"
+  add_foreign_key "attempts", "users"
+  add_foreign_key "questions", "scenarios"
   add_foreign_key "questions", "users"
-  add_foreign_key "quiz_attempts", "quizzes"
-  add_foreign_key "quiz_attempts", "users"
-  add_foreign_key "quizzes", "users"
+  add_foreign_key "scenarios", "users"
   add_foreign_key "users", "organisations"
 end

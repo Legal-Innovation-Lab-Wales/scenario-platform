@@ -5,11 +5,11 @@
     <%= render 'form', question: @question, action: "update" %>
 
     <div class="text-center my-2">
-      <%= link_to 'Destroy', quiz_question_path(@question.quiz_id, @question.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+      <%= link_to 'Destroy', scenario_question_path(@question.scenario_id, @question.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
     </div>
     <div class="text-center">
-      <%= link_to 'Show', quiz_question_path(@question.quiz_id, @question.id) %> |
-      <%= link_to 'Back', quiz_path(@question.quiz_id, anchor: "question_order_#{@question.order.to_s}") %>
+      <%= link_to 'Show', scenario_question_path(@question.scenario_id, @question.id) %> |
+      <%= link_to 'Back', scenario_path(@question.scenario_id, anchor: "question_order_#{@question.order.to_s}") %>
     </div>
   </div>
 </section>
