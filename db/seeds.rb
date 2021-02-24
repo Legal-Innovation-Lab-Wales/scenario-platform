@@ -35,7 +35,7 @@ user.save!
 user = User.new(
   first_name: 'Alex',
   last_name: 'Wing',
-  email: 'awing@purpleriver.dev',
+  email: 'a.j.wing@swansea.ac.uk',
   bio: 'Hello World',
   organisation_id: 1,
   admin: true,
@@ -61,9 +61,9 @@ user.skip_confirmation!
 user.save!
 
 user = User.new(
-  first_name: 'No',
-  last_name: 'Admin',
-  email: 'noadmin@gmail.com',
+  first_name: 'Demo',
+  last_name: 'Not-Admin',
+  email: 'sp-demo-noadmin@purpleriver.dev',
   bio: 'Hello World',
   organisation_id: 1,
   approved: true,
@@ -72,6 +72,21 @@ user = User.new(
 )
 user.skip_confirmation!
 user.save!
+
+user = User.new(
+  first_name: 'Demo',
+  last_name: 'Admin',
+  email: 'sp-demo-admin@purpleriver.dev',
+  bio: 'Hello World',
+  organisation_id: 1,
+  approved: true,
+  admin: true,
+  terms: true,
+  password: 'test1234'
+)
+user.skip_confirmation!
+user.save!
+
 
 user = User.new(
   first_name: 'Harry',
