@@ -85,6 +85,8 @@ GEM
     childprocess (3.0.0)
     concurrent-ruby (1.1.7)
     crass (1.0.6)
+    css_parser (1.9.0)
+      addressable
     database_cleaner (1.8.5)
     database_cleaner-active_record (1.8.0)
       activerecord
@@ -106,8 +108,11 @@ GEM
     faker (2.15.1)
       i18n (>= 1.6, < 2)
     ffi (1.14.2)
+    font-awesome-sass (5.15.1)
+      sassc (>= 1.11)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    htmlentities (4.3.4)
     i18n (1.8.7)
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.1)
@@ -139,6 +144,13 @@ GEM
     orm_adapter (0.5.0)
     pg (1.2.3)
     popper_js (1.16.0)
+    premailer (1.14.2)
+      addressable
+      css_parser (>= 1.6.0)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.11.1)
+      actionmailer (>= 3)
+      premailer (~> 1.7, >= 1.7.9)
     public_suffix (4.0.6)
     puma (5.1.1)
       nio4r (~> 2.0)
@@ -271,10 +283,13 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faker
+  font-awesome-sass (~> 5.15.1)
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.3)
+  nokogiri
   pg (~> 1.1)
+  premailer-rails
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.0)

@@ -1,0 +1,21 @@
+<section class="admin-page">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6 offset-3">
+        <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+        <h1><%= @quiz.name %></h1>
+        <h2><%= @attempt.attempt_number.ordinalize %> Result</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <% @attempt.question_answers.each do |question_answer| %>
+          <div class="question-answer">
+            <p class="mb-0"><strong>Question:</strong> <%= Question.find(question_answer['question_id']).text %></p>
+            <p class="mb-0"><strong>Answer:</strong> <%= Answer.find(question_answer['answer_id']).text %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

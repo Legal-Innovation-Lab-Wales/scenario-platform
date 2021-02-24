@@ -5,6 +5,7 @@ class Quiz < ApplicationRecord
 
   has_many :questions, dependent: :destroy, foreign_key: :quiz_id
   has_many :quiz_attempts, foreign_key: :quiz_id
+  has_many :users, -> { distinct }, through: :quiz_attempts
 
   scope :available, -> { where(available: true) }
 

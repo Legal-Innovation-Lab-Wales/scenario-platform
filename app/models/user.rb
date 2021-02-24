@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :answers, foreign_key: :user_id
 
   has_many :quiz_attempts, foreign_key: :user_id
+  has_many :quizzes_attempted, -> { distinct }, through: :quiz_attempts, source: :quiz
 
   private
 
@@ -20,7 +21,9 @@ class User < ApplicationRecord
   validates_presence_of :first_name,
                         :last_name,
                         :email,
-                        :organisation_id
+                        :organisation_id,
+                        :terms
   validates :email, uniqueness: { case_sensitive: false }
+  validates :terms, acceptance: true
 
 end

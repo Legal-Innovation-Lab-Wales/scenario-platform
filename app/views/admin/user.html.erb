@@ -1,0 +1,42 @@
+<section class="admin-page">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <% if @user.quizzes_attempted.length > 0 %>
+          <h2>Scenarios</h2>
+          <table class="table table-light table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Quiz</th>
+                <th scope="col">No. of Attempts</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @user.quizzes_attempted.each do |quiz| %>
+              <tr>
+                <td>
+                  <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
+                    <%= quiz.name %>
+                  </a>
+                </td>
+                <td>
+                  <a href="/admin/quizzes/<%= quiz.id %>/users/<%= @user.id %>">
+                    <%= QuizAttempt.where('quiz_id = ? and user_id = ?', quiz, @user).count %>
+                  </a>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <h2>This user has attempted no scenarios</h2>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -8,6 +8,7 @@
 
           <div class="text-center"><%= link_to "Start Scenario", start_quiz_url(quiz_id: @quiz), method: "post", class: "btn btn-success btn-lg" %></div>
         <% elsif current_user.admin? %>
+          <h3> Please add a question with order 0 as a starting point for your quiz</h3>
         <% else %>
           <div class="text-center"><button class="btn btn-primary btn-large disabled">Start Scenario</button></div>
         <% end %>
@@ -56,8 +57,10 @@
                 </table>
 
               <h2 class="text-center">
-                <button class="btn btn-sm btn-secondary" onclick="toggleQuizAttempts()">Show Attempts</button>
                 <button class="btn btn-sm btn-info" onclick="toggleHints()">Show Getting Started Hints</button>
+              </h2>
+              <h2 class="text-center">
+                <button class="btn btn-sm btn-secondary" onclick="toggleQuizAttempts()">Show Quiz Attempts</button>
               </h2>
             </div>
           </div>
@@ -78,7 +81,7 @@
 
     <div id="quiz-attempts" class="container">
       <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded text-center">
-        <h3>Attempts</h3>
+        <h3>Quiz Attempts</h3>
         <p>Total Attempts: <%= @quiz.quiz_attempts.count %></p>
         <p>by <%= @quiz.quiz_attempts.map { |u| [u.user_id] }.uniq.count %> Users</p>
         <h2 class="text-danger">Do some other stuff here</h2>
@@ -168,8 +171,8 @@
 
 <script>
     function toggleQuizAttempts() {
-        const el = document.getElementById('quiz-attempts');
-        el.style.display = (el.style.display === 'block' ? 'none' : 'block');
+      const el = document.getElementById('quiz-attempts');
+      el.style.display = (el.style.display === 'block' ? 'none' : 'block');
     }
     function toggleHints() {
         const el = document.getElementById('hints');

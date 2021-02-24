@@ -8,7 +8,7 @@ form:before {
   position: absolute;
   top: 0;
   width: 100%;
-  color: white;
+  color: $ink-white;
   z-index: -1;
   border-radius: 10px;
 }
@@ -18,5 +18,5 @@ form:before {
   max-width: 460px;
   margin: 56px auto auto;
   padding: 10px;
-  background-color: rgba(0,0,0,0.9);
+  background-color: $black-bg-transparent
 }

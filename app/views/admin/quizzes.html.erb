@@ -1,0 +1,54 @@
+<section class="admin-page">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <h1><%= @quiz.name %></h1>
+      </div>
+    </div>
+    <div class="row flex-grow-1">
+      <div class="col">
+        <% if @quiz.users.length > 0 %>
+          <h2>Users</h2>
+          <table class="table table-light table-hover">
+            <thead>
+            <tr>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">No. of Attempts</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @quiz.users.each do |user| %>
+              <tr>
+                <td>
+                  <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user.id %>">
+                    <%= user.first_name %>
+                  </a>
+                </td>
+                <td>
+                  <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user.id %>">
+                    <%= user.last_name %>
+                  </a>
+                </td>
+                <td>
+                  <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user.id %>">
+                    <%= user.email %>
+                  </a>
+                </td>
+                <td>
+                  <a href="/admin/quizzes/<%= @quiz.id %>/users/<%= user.id %>">
+                    <%= QuizAttempt.where('quiz_id = ? and user_id = ?', @quiz, user).count %>
+                  </a>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <h2>No users have attempted this scenario</h2>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

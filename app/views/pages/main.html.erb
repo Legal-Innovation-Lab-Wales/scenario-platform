@@ -1,4 +1,4 @@
-<section id="cover" class="homepage">
+<section id="cover" class="<% if user_signed_in? %>homepage<% else %>min-vh-100<% end %>">
   <div class="sp-form">
     <div class="row text-white">
       <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
@@ -9,7 +9,7 @@
       <div class="text-center">
         <% if user_signed_in? %>
           <%= link_to "Check out the app", app_path, class: "btn btn-sm btn-primary" %>
-          <%= link_to "Scenario Guide ", guide_path, class: "btn btn-sm btn-secondary"  %>
+          <%= link_to "Scenario Guide", guide_path, class: "btn btn-sm btn-secondary"  %>
         <% else %>
           <%= link_to 'Login', new_user_session_path, class: "btn btn-sm btn-primary" %>
           <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-sm btn-info" %>

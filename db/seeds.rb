@@ -9,7 +9,11 @@
 require 'faker'
 
 Organisation.create!(
-  name: 'One'
+  name: 'Legal Innovation Lab Wales'
+)
+
+Organisation.create!(
+  name: 'Hogwarts'
 )
 
 ## Create users
@@ -21,6 +25,8 @@ user = User.new(
   bio: 'Hello World',
   organisation_id: 1,
   admin: true,
+  approved: true,
+  terms: true,
   password: 'test1234'
 )
 user.skip_confirmation!
@@ -33,47 +39,81 @@ user = User.new(
   bio: 'Hello World',
   organisation_id: 1,
   admin: true,
+  approved: true,
+  terms: true,
   password: 'test1234'
 )
 user.skip_confirmation!
 user.save!
 
 user = User.new(
-  first_name: 'Test',
-  last_name: 'NoAdmin',
-  email: 'NoAdmin@purpleriver.dev',
+  first_name: 'Ieuan',
+  last_name: 'Skinner',
+  email: 'ieuan.skinner@swansea.ac.uk',
   bio: 'Hello World',
   organisation_id: 1,
+  admin: true,
+  approved: true,
+  terms: true,
   password: 'test1234'
 )
 user.skip_confirmation!
 user.save!
 
 user = User.new(
-  first_name: 'test',
-  last_name: 'surname',
-  email: 'test1@email.com',
-  bio: 'I am test',
+  first_name: 'No',
+  last_name: 'Admin',
+  email: 'noadmin@gmail.com',
+  bio: 'Hello World',
   organisation_id: 1,
-  password: 'testpass'
+  approved: true,
+  terms: true,
+  password: 'test1234'
 )
 user.skip_confirmation!
 user.save!
-# Create 8 more users
-u = 1
-8.times do
-  u += 1
-  user = User.new(
-    first_name: 'test'+u.to_s ,
-    last_name: 'surname'+u.to_s,
-    email: 'test'+u.to_s+'@purpleriver.dev',
-    bio: Faker::Movie.quote,
-    organisation_id: 1,
-    password: 'testpass'
-  )
-  user.skip_confirmation!
-  user.save!
-end
+
+user = User.new(
+  first_name: 'Harry',
+  last_name: 'Potter',
+  email: 'harrypotter@gmail.com',
+  bio: 'The Chosen One',
+  organisation_id: 2,
+  admin: true,
+  approved: true,
+  terms: true,
+  password: 'test1234'
+)
+user.skip_confirmation!
+user.save!
+
+user = User.new(
+  first_name: 'Hermione',
+  last_name: 'Granger',
+  email: 'hermionegranger@gmail.com',
+  bio: 'LeviOsa not levioSA',
+  organisation_id: 2,
+  admin: true,
+  approved: true,
+  terms: true,
+  password: 'test1234'
+)
+user.skip_confirmation!
+user.save!
+
+user = User.new(
+  first_name: 'Ron',
+  last_name: 'Weasley',
+  email: 'ronweasley@gmail.com',
+  bio: 'Gryffindor Til I Die',
+  organisation_id: 2,
+  admin: false,
+  approved: true,
+  terms: true,
+  password: 'test1234'
+)
+user.skip_confirmation!
+user.save!
 
 ## Create example quizzes
 # First Quiz
@@ -87,7 +127,6 @@ Quiz.create!(
   description: 'This is the first adventure quiz, it probably won\'t make a huge amount of sense but should have clickable options',
   available: true
 )
-
 
 # ID 1
 Question.create!(

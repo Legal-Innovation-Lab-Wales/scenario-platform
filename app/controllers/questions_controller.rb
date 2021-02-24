@@ -104,6 +104,9 @@ class QuestionsController < ApplicationController
 
   def set_quiz_attempt
     @quiz_attempt = QuizAttempt.where('user_id = ?', current_user.id).find(session["quiz_id_#{@quiz.id}_attempt_id"])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to quiz_path(@quiz),
+                notice: 'You need to start or resume a quiz to view its questions'
   end
 
   def question_params

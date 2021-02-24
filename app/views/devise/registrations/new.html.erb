@@ -1,5 +1,5 @@
 <section id="cover" class="min-vh-100">
-  <div class="sp-form">
+  <div id="sign-up" class="sp-form">
 
     <div class="row">
       <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
@@ -39,6 +39,11 @@
         </div>
 
         <div class="form-floating mb-2">
+          <%= f.select :organisation_id, options_for_select(@organisations), {}, { :class => 'form-select'} %>
+          <%= f.label :organisation, "Organisation"%>
+        </div>
+
+        <div class="form-floating mb-2">
           <%= f.text_area :bio, class: 'form-control', autocomplete: "bio", placeholder: "A little about yourself" %>
           <%= f.label :bio%>
         </div>
@@ -53,7 +58,10 @@
           <%= f.label :password_confirmation %>
         </div>
 
-        <%= f.hidden_field :organisation_id, class: 'form-control', value: params[:organisation] %>
+        <div class="form-check terms-input">
+          <%= f.check_box :terms, class: 'form-check-input' %>
+          <label for="terms">I have read and agree to the sites <a href="/terms">Terms and Conditions</a></label>
+        </div>
 
         <div class="actions form-group">
           <%= f.submit "Sign up", class: 'btn btn-info mb-2' %>

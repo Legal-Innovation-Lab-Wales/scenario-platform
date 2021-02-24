@@ -1,0 +1,86 @@
+@import "variables";
+
+.admin-page {
+  text-align: center;
+  color: $ink-orange;
+
+  .hidden {
+    display: none;
+  }
+
+  .row {
+    background-color: $section-bg-navy;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 0.25rem;
+  }
+
+  #organisation {
+    i {
+      line-height: 24px;
+
+      &.name-marker:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  #requested-users {
+    table tr {
+      td {
+        padding: 0.5rem 0.5rem;
+      }
+
+      .form-check-input:hover {
+        cursor: pointer;
+      }
+    }
+
+    button {
+      float: right;
+    }
+  }
+
+  table tr td {
+    padding: 0;
+
+    a {
+      display: block;
+      text-decoration: none;
+      color: black;
+      padding: 0.5rem 0.5rem;
+    }
+
+    .fa-check-circle {
+      color: green;
+    }
+
+    .fa-times-circle {
+      color: darkred;
+    }
+  }
+
+   #attempts {
+     a {
+       display: block;
+       border: 1px solid white;
+       color: white;
+       margin-bottom: 15px;
+       text-decoration: none;
+       padding: 0.5rem 0.5rem;
+       border-radius: 10px;
+
+       &:hover {
+         background-color: white;
+         color: black;
+       }
+     }
+   }
+
+  .question-answer {
+    border: 1px solid white;
+    margin-bottom: 15px;
+    padding: 0.5rem 0.5rem;
+    border-radius: 10px;
+  }
+}
