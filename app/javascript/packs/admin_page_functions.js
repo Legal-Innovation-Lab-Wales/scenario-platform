@@ -1,6 +1,9 @@
 const name = document.querySelector('#organisation input')
 let org_name = name.value
 const icon = document.querySelector('#organisation i')
+const headers = {
+  'X-CSRF-Token': document.getElementsByName('csrf-token').length > 0 ? document.getElementsByName('csrf-token')[0].content : ''
+}
 
 function toggleName(disabled) {
   name.disabled = disabled
@@ -19,7 +22,8 @@ function toggleName(disabled) {
 function updateOrgName() {
   if (name.value !== org_name) {
     fetch(`/admin/organisation?name=${encodeURIComponent(name.value)}`, {
-      method: 'put'
+      method: 'put',
+      headers: headers
     }).then(response => {
       if (response.ok) {
         org_name = name.value
@@ -71,7 +75,7 @@ if (requested_users) {
       const updates = []
 
       approved_users.forEach(user => {
-        updates.push(fetch(`/admin/users/${user}/approve`, {method: 'put'}))
+        updates.push(fetch(`/admin/users/${user}/approve`, { method: 'put', headers: headers }))
       })
 
       Promise.all(updates).then(values => {
@@ -86,6 +90,6 @@ if (requested_users) {
 document.querySelectorAll('a.admin-marker').forEach(marker => {
   marker.addEventListener('click', e => {
     e.preventDefault()
-    fetch(marker.href, { method: 'put' }).then(response => { if (response.ok) location.reload() })
+    fetch(marker.href, { method: 'put', headers: headers }).then(response => { if (response.ok) location.reload() })
   })
 })
