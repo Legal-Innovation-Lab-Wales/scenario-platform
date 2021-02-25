@@ -60,7 +60,7 @@
                 <button class="btn btn-sm btn-info" onclick="toggleHints()">Show Getting Started Hints</button>
               </h2>
               <h2 class="text-center">
-                <button class="btn btn-sm btn-secondary" onclick="toggleAttempts()">Show Attempts</button>
+                <button class="btn btn-sm btn-secondary" onclick="toggleAttempts()">Show Attempts Summary</button>
               </h2>
             </div>
           </div>
@@ -107,20 +107,20 @@
 
     <div id="attempts" class="container">
       <div class="row justify-content-md-center shadow-sm p-3 mb-5 bg-white rounded text-center">
-        <h3>Scenario Attempts</h3>
-        <p>Total Attempts: <%= @scenario.attempts.count %></p>
-        <p>by <%= @scenario.attempts.map { |u| [u.user_id] }.uniq.count %> Users</p>
-        <h2 class="text-danger">Do some other stuff here</h2>
-        <p>Completed By</p>
+        <h3>Scenario Attempts Summary</h3>
+        <p><%= @scenario.attempts.count %> attempts by <%= @scenario.attempts.map { |u| [u.user_id] }.uniq.count %> Users</p>
+        <p>Completed By:
+          <ul class="list-unstyled">
         <% @scenario.attempts.map { |qa| [qa.user] }.uniq.each do |user| %>
-          <p class="mb-0"><%= user[0].first_name %> <%= user[0].last_name %></p>
+          <li class="mb-0"><%= user[0].first_name %> <%= user[0].last_name %></li>
         <% end %>
+          </ul>
+        </p>
+
+        <div class="mb-3"><%= link_to "Full Summary", admin_path(@scenario), class: "btn btn-outline-secondary" %></div>
+
         <hr>
-        <ul>TODO List
-          <li>count of how many times each user has completed scenario</li>
-          <li>summary of scores</li>
-          <li>best score?</li>
-        </ul>
+        <p>This is still a prototype. If you have any thoughts about what else it could be useful to show here please let us know.</p>
 
       </div>
     </div>
