@@ -1,6 +1,6 @@
 <!--suppress ALL -->
 <div class="row">
-  <%= form_with(model: scenario, id: 'scenario-form') do |form| %>
+  <%= form_with(model: scenario, id: 'scenario_form') do |form| %>
     <% if scenario.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(scenario.errors.count, "error") %> prohibited this scenario from being saved:</h2>
@@ -26,28 +26,30 @@
 
     <div class="field mb-3 justify-content-center">
       <table id="variables" class="mx-auto">
-        <input type="hidden" value="<%= scenario.answers.count %>" id="answer_count">
-        <input type="hidden" value="<%= scenario.variables.count %>" id="total_vars">
+        <input type="hidden" value="<%= scenario.attempts.count %>" id="attempt_count">
         <tr>
           <th><%= form.label :variables, class: "form-label" %></th>
           <th><%= form.label :variable_initial_values, class: "form-label" %></th>
+          <th></th>
         </tr>
 
-        <% scenario.variables_with_initial_values&.each_with_index do |variable, index| %>
-          <tr id='variable-<%= index %>'>
+        <% scenario.variables_with_initial_values&.each do |variable| %>
+          <tr>
             <td>
               <input multiple='multiple' type='text' value='<%= variable[0] %>' name='scenario[variables][]' class="form-control">
             </td>
             <td>
               <input multiple='multiple' type='number' value='<%= variable[1] %>' name='scenario[variable_initial_values][]' class="form-control">
             </td>
+            <td>
+              <button type="button" class="btn btn-sm btn-danger remove_variable">Remove</button>
+            </td>
           </tr>
         <% end %>
-
       </table>
+
       <div class="text-center">
         <button type="button" id="add_variable" class="btn btn-sm btn-success">Add</button>
-        <button type="button" id="remove_variable" class="btn btn-sm btn-danger">Remove</button>
       </div>
     </div>
 
