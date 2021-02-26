@@ -23,6 +23,7 @@ class Scenario < ApplicationRecord
 
   def update_answers
     return unless answers.present?
+
     answers.each { |answer| answer.update_variable_mods }
   end
 end

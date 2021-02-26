@@ -7,8 +7,8 @@ class Answer < ApplicationRecord
   before_update :update_next_question_id
 
   def update_variable_mods
-    question.scenario.variables.each { |v| self.variable_mods.store(v, 0) unless self.variable_mods.include? v }
-    self.variable_mods.each { |k, v| self.variable_mods.delete(k) unless question.scenario.variables.include? k }
+    question.scenario.variables.each { |variable| self.variable_mods.store(variable, 0) unless self.variable_mods.include? variable }
+    self.variable_mods.each { |key, value| self.variable_mods.delete(key) unless question.scenario.variables.include? key }
     self.save
   end
 
