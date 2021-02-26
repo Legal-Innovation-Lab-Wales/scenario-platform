@@ -52,8 +52,8 @@ class ScenariosController < ApplicationController
 
   # PUT /scenarios/:id
   def update
-    scenario_params.merge(variables_with_initial_values: create_variables_hstore) unless create_variables_hstore.nil?
-    if @scenario.update(scenario_params)
+    params = scenario_params.merge(variables_with_initial_values: create_variables_hstore) unless create_variables_hstore.nil?
+    if @scenario.update(params)
       respond_to do |format|
         format.html { redirect_to(@scenario) }
         format.json { json_response(@scenario, :no_content) }

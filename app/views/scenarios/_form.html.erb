@@ -1,5 +1,6 @@
+<!--suppress ALL -->
 <div class="row">
-  <%= form_with(model: scenario) do |form| %>
+  <%= form_with(model: scenario, id: 'scenario-form') do |form| %>
     <% if scenario.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(scenario.errors.count, "error") %> prohibited this scenario from being saved:</h2>
@@ -25,6 +26,7 @@
 
     <div class="field mb-3 justify-content-center">
       <table id="variables" class="mx-auto">
+        <input type="hidden" value="<%= scenario.answers.count %>" id="answer_count">
         <input type="hidden" value="<%= scenario.variables.count %>" id="total_vars">
         <tr>
           <th><%= form.label :variables, class: "form-label" %></th>
