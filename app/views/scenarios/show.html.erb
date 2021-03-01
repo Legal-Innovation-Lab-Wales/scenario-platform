@@ -6,7 +6,7 @@
 
         <% if @scenario.questions.find_by(order: 0).present? %>
 
-          <div class="text-center"><%= link_to "Start Scenario", start_scenario_url(scenario_id: @scenario), method: "post", class: "btn btn-success btn-lg" %></div>
+          <div class="text-center"><%= button_to "Start Scenario", start_scenario_url(scenario_id: @scenario), method: "post", class: "btn btn-success btn-lg" %></div>
         <% elsif current_user.admin? %>
           <h3> Please add a question with order 0 as a starting point for your scenario</h3>
         <% else %>
@@ -25,7 +25,7 @@
             <p><% attempt.scores.each do |score| %><%= score[0].capitalize %>: <%= score[1] %>, <% end %></p>
           <% else %>
             <p>This attempt has not been completed.</p>
-            <div class="text-center"><%= link_to "Resume Attempt", resume_scenario_url(attempt_id: attempt), method: "put", class: "btn btn-success btn-md" %></div>
+            <div class="text-center"><%= button_to "Resume Attempt", resume_scenario_url(attempt_id: attempt), method: "put", class: "btn btn-success btn-md" %></div>
           <% end %>
         <% end %>
       </div>
