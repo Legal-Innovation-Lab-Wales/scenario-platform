@@ -24,34 +24,37 @@
         <h3>Question</h3>
         <p>
           A scenario will be comprised of a set of questions. For each question you can add a long description and a
-          short question text. The description will be displayed before or above the text
-          so could be used to provide more exposition or scene setting before using the question text filed to ask the
-          specific question which the
-          participant will need to answer.
+          short question text. The description will be displayed above the question text so could be used to provide
+          more exposition or scene setting before using the question text field to ask the
+          specific question which the participant will need to select an answer.
         <p>
           At present, the participant can only select one answer to a question, we will look to bring the option to
           select multiple answers in a future update. If you need to do this now, there is a workaround at the bottom of
           this guide.
         </p>
         <p>
-          Each question will also hold a reference number. This is used to uniquely identify questions within the flow
-          of the scenario. Based on the participants previous answer, there will be a corresponding follow up question
-          reference number to link to. This enables branching off and a more interactive experience where participants
+          Each question will also hold a reference number, referred to in the app as "Question Order". This is used to
+          uniquely identify questions within the flow
+          of the scenario. Each answer will store the "Next Question Order" which it links to, providing the next
+          question which the participant will see should they choose that answer. This enables branching off and a more
+          interactive experience where participants
           are lead them down different paths so the order of which they encounter the questions will likely be different
           for each user.
         </p>
         <p>
           Depending on the scenario you are building, there could be one or many final questions which act as the
-          outcome of the scenario. These will be displayed with the final variable scores. Please give the order number
-          for this as “End”
+          outcome of the scenario. These will be displayed with the final variable scores. Please set the "Next Question
+          Order"
+          for this as “-1”. When a user selects an answer which ends the scenario, the system will calculate the totals
+          for the attempt and display the summary to the participant.
         </p>
 
         <h3>Answer</h3>
         <p>
           Each question can have as many answer choices as required. Each answer needs three things: some text to
           describe the choice, the changes to any variables as a consequence of selecting the answer, what the next
-          question in the order will be. Reference number of next question The variable changes and the next question in
-          the order will not be visible to the participant
+          question in the order will be. The next question and the variables which the answer influences will not be
+          visible to the participant
         </p>
 
 
