@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/app', to: 'scenarios#index', as: 'app'
   get '/guide', to: 'pages#guide', as: 'guide'
   get '/terms', to: 'pages#terms'
+  get '/about', to: 'pages#about'
 
   devise_for :users, :controllers => {:registrations => 'users/registrations'}
 

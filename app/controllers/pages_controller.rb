@@ -1,6 +1,6 @@
 # app/controllers/pages_controller.rb
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:main, :terms]
+  skip_before_action :authenticate_user!, only: %i[main terms about]
 
   def main
     if session[:awaiting_approval_notice].present?
@@ -10,7 +10,4 @@ class PagesController < ApplicationController
     render template: 'pages/main'
   end
 
-  def terms
-    render template: 'pages/terms'
-  end
 end
