@@ -23,7 +23,7 @@
         <% end %>
           <%= link_to 'Scenarios', app_path, class: "btn btn-primary" %>
           <%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-success" %>
-          <%= link_to 'Logout', destroy_user_session_path, class: "btn btn-warning" %>
+          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-warning" %>
       </form>
     </nav>
   </header>
