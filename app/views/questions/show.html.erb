@@ -6,7 +6,7 @@
     </div>
 
     <% @question.answers.each do |answer| %>
-      <%= link_to select_answer_url(answer_id: answer.id), method: :put, class:"text-decoration-none" do %>
+      <%= link_to select_answer_url(answer_id: answer.id), data: { method: "put" }, class:"text-decoration-none" do %>
         <div class="row justify-content-md-center answer-row">
           <div class="col question-answer">
             <p> <%= answer.text %> </p>
