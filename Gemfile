@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1.0'
+gem 'rails', '~> 6.1.3'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
@@ -27,7 +27,6 @@ gem 'devise'
 gem 'sendgrid-ruby'
 
 gem 'bootstrap', '~> 5.0.0.beta1'
-gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.15.1'
 
 # Use Active Storage variant
@@ -72,7 +71,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-#Two gems used for styling the emails
-gem 'nokogiri'
-gem 'premailer-rails'
