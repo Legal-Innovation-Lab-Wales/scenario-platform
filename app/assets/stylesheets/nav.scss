@@ -1,3 +1,7 @@
+@import "variables";
 .navbar{
   padding: 0.5rem;
+  .navbar-brand {
+    font-family: $heading-font;
+  }
 }

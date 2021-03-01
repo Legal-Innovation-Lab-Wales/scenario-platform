@@ -6,13 +6,13 @@
     </div>
 
     <% @question.answers.each do |answer| %>
-      <a class="text-decoration-none" data-method="put" href="<%= select_answer_url(answer_id: answer.id) %>">
+      <%= link_to select_answer_url(answer_id: answer.id), data: { method: "put" }, class:"text-decoration-none" do %>
         <div class="row justify-content-md-center answer-row">
           <div class="col question-answer">
             <p> <%= answer.text %> </p>
           </div>
         </div>
-      </a>
+      <% end %>
     <% end %>
 
   </div>

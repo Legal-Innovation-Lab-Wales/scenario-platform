@@ -64,14 +64,19 @@ h1, h2, h3, h4, h5 {
     z-index: 1;
 }
 
-.scenario-guide {
+.info-page {
+  .text-container {
     max-width: 1060px;
-    margin: auto;
-    margin-top: 56px;
-    padding: 10px;
-    background-color: $black-bg-transparent;
-}
+    margin: 56px auto auto;
+    padding: 30px;
+  }
 
+  .q{
+    /*font-size: 2.1em;*/
+    font-weight: 600;
+    margin: .67em 0;
+  }
+}
 
 .admin-view {
   padding-top: 2rem;

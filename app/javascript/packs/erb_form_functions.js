@@ -21,26 +21,30 @@ function add_remove_listener() {
       remove_btn => remove_btn.addEventListener('click', e => e.target.closest('tr').remove()))
 }
 
-add_btn.addEventListener('click', () => {
-  const new_row = table.insertRow(-1), variable = new_row.insertCell(0),
+if (add_btn !== null) {
+  add_btn.addEventListener('click', () => {
+    const new_row = table.insertRow(-1), variable = new_row.insertCell(0),
         variable_initial_value = new_row.insertCell(1), remove_btn = new_row.insertCell(2)
 
-  variable.innerHTML = `<input multiple='multiple' type='text' name='scenario[variables][]' class='form-control'>`
-  variable_initial_value.innerHTML = `<input multiple='multiple' type='number' name='scenario[variable_initial_values][]' class='form-control'>`
-  remove_btn.innerHTML = `<button type="button" class="btn btn-sm btn-danger remove_variable">Remove</button>`
+    variable.innerHTML = `<input multiple='multiple' type='text' name='scenario[variables][]' class='form-control'>`
+    variable_initial_value.innerHTML = `<input multiple='multiple' type='number' name='scenario[variable_initial_values][]' class='form-control'>`
+    remove_btn.innerHTML = `<button type="button" class="btn btn-sm btn-danger remove_variable">Remove</button>`
 
-  add_remove_listener()
-})
+    add_remove_listener()
+  })
+}
 
-form.addEventListener('submit', e => {
-  if (parseInt(attempt_count.value) > 0 && (initial_variables !== get_variables() || initial_values !== get_values())) {
-    if (!confirm(warning_message)) {
-      e.preventDefault()
-      return false
+if (form !== null) {
+  form.addEventListener('submit', e => {
+    if (parseInt(attempt_count.value) > 0 && (initial_variables !== get_variables() || initial_values !== get_values())) {
+      if (!confirm(warning_message)) {
+        e.preventDefault()
+        return false
+      }
     }
-  }
 
-  return true
-})
+    return true
+  })
+}
 
 add_remove_listener()
