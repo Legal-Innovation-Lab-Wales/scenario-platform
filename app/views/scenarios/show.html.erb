@@ -126,7 +126,7 @@
     </div>
 
     <div class="container">
-      <% @scenario.questions.each do |question| %>
+      <% @scenario.questions.order(:order).each do |question| %>
         <div id="question_order_<%= question.order %>" class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
           <h5>Question Order: <%= question.order %></h5>
           <h3><%= simple_format(question.description) %></h3>
