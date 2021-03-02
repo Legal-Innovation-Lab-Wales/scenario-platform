@@ -28,7 +28,6 @@ section {
     background-position: center;
     background-repeat: no-repeat;
 
-
     .grey-transparent-bg {
       background-color: $section-bg-transparent;
       padding: 0.6rem;
@@ -37,6 +36,42 @@ section {
   }
 }
 
-#attempts, #hints {
-  display: none;
+.accordion-header {
+  a.accordion-button {
+    padding: 0.6rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .d-flex {
+    width: 100%;
+    margin-right: 0.8rem;
+  }
+
+  .accordion-question-description {
+    flex: 0.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: $font;
+  }
+
+  .accordion-answers-badge {
+    font-family: $font;
+  }
+}
+
+.accordion-body {
+  h3 a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .list-group-item {
+    padding: 0.1rem 1rem;
+
+    .accordion-answer-text {
+      flex: 0.9;
+    }
+  }
 }

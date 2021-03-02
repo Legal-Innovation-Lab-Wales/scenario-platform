@@ -26,7 +26,7 @@ gem 'devise'
 # User SendGrid for emails
 gem 'sendgrid-ruby'
 
-gem 'bootstrap', '~> 5.0.0.beta1'
+gem 'bootstrap', '~> 5.0.0.beta2'
 gem 'font-awesome-sass', '~> 5.15.1'
 
 # Use Active Storage variant
