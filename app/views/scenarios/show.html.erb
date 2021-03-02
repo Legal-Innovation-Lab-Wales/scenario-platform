@@ -2,7 +2,7 @@
     <div class="container scenario-show-container shadow rounded-3">
       <div class="row">
         <h1 class="scenario-heading"> <%= @scenario.name %> </h1>
-        <p> <%= @scenario.description %> </p>
+        <p> <%= simple_format(@scenario.description) %> </p>
 
         <% if @scenario.questions.find_by(order: 0).present? %>
 
@@ -129,7 +129,7 @@
       <% @scenario.questions.each do |question| %>
         <div id="question_order_<%= question.order %>" class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
           <h5>Question Order: <%= question.order %></h5>
-          <h3><%= question.description %></h3>
+          <h3><%= simple_format(question.description) %></h3>
           <h4><%= question.text %></h4>
 
           <% question.answers.each do |answer| %>

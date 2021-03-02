@@ -1,7 +1,7 @@
 <section class="scenario-header text-center">
   <div class="container scenario-show-container shadow rounded-3">
     <div class="row">
-      <h2 class="scenario-heading"> <%= @question.description %> </h2>
+      <h2 class="scenario-heading"> <%= simple_format(@question.description) %> </h2>
       <p> <%= @question.text %> </p>
     </div>
 
