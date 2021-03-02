@@ -262,7 +262,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
-  bootstrap (~> 5.0.0.beta1)
+  bootstrap (~> 5.0.0.beta2)
   byebug
   capybara (>= 3.26)
   database_cleaner-active_record
