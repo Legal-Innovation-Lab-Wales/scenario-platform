@@ -8,6 +8,7 @@ body#overboot {
 
   .btn:hover {
     box-shadow: none;
+    text-decoration: none;
   }
 
   .btn-primary {
@@ -63,7 +64,7 @@ body#overboot {
     }
   }
 
-  .btn-outline-info{
+  .btn-outline-info {
     color: $brand-info;
     border-color: $brand-info;
 
@@ -83,8 +84,8 @@ body#overboot {
       border-color: $brand-warning-hover;
     }
   }
-  
-  .btn-outline-warning{
+
+  .btn-outline-warning {
     color: $brand-warning;
     border-color: $brand-warning;
 
@@ -104,13 +105,21 @@ body#overboot {
     }
   }
 
-  .btn-outline-danger{
+  .btn-outline-danger {
     color: $brand-danger;
     border-color: $brand-danger;
 
     &:hover {
       color: $ink-white;
       background-color: $brand-danger;
+    }
+  }
+
+  .btn-secondary {
+    color: $ink-white;
+
+    &:hover {
+
     }
   }
 }

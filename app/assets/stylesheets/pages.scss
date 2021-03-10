@@ -75,6 +75,15 @@ h1, h2, h3, h4, h5 {
       font-size: 1.4rem;
     }
 
+    a {
+      color: $ink-navy;
+      text-decoration: none;
+      font-weight: 600;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
     .the-lab {
       border-radius: 0.6rem;
       padding: 2rem 4rem;
