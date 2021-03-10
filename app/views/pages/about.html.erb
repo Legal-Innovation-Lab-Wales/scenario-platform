@@ -1,23 +1,19 @@
 <section id="" class="min-vh-100 info-page">
-  <div class="text-container container">
+  <div class="text-container">
     <div class="row">
       <div class="col">
         <h1 class="text-center">About</h1>
         <p class="lead">The Scenario Platform allows the creation of non-linear branching scenarios where each answer that a
           participant selects can influence a range of background variables and link to an arbitrary next question.</p>
 
-        <p>This platform was initially scoped for training solicitors with practise interview scenarios. As the project
-          developed there was a wider demand beyond the scope for a platform in other areas such as rehabilitation,
-          medical scenarios and customer service training.</p>
-
-        <p>It was created by the Legal Innovation Lab Wales which is an ERDF funded project and part of the Hilary
-          Rodham Clinton School of Law at Swansea University. You can find out more about the lab at
-          <a href="https://legaltech.wales">LegalTech.Wales</a>.</p>
+        <p>The idea was initially scoped for trainee solicitors to practise interview scenarios. As the project
+          developed there was a wider demand beyond the original scope. The current platform should be diverse enough to
+          be used in other areas such as rehabilitation, medical scenarios and customer service training.</p>
 
         <p>If you're interested in a <strong>demo</strong> of the software, finding out more or setting up your organisation on
           the platform then please <a href="mailto:sceanario-platform@legaltech.wales">send us an email</a>.</p>
 
-        <p>If you're looking for more information on how to build scenarios then we have a <a href="/guide">guide</a>
+        <p>If you're looking for more information on how to build scenarios then we have a <%= link_to 'Guide', guide_path %>
           which will hopefully help. </p>
 
         <p>This is an early prototype, we know its a little rough around the edges and there is lots of room for improvement. If you have any suggestions as to how we can improve it, the please get in touch and let us know.</p>
@@ -43,11 +39,26 @@
         <% unless user_signed_in? %>
           <div class="text-center">
             <hr />
-            <%= link_to 'Login', new_user_session_path, class: "btn btn-sm btn-primary" %>
-            <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-sm btn-info" %>
-            <%= link_to "Home", root_path, class: "btn btn-sm btn-secondary"  %>
+            <%= link_to 'Login', new_user_session_path, class: "btn btn-primary" %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-info" %>
+            <%= link_to "Home", root_path, class: "btn btn-secondary"  %>
+            <hr />
           </div>
         <% end %>
+
+        <div class="the-lab">
+          <p class="lead">The Scenario Platform was created by the Legal Innovation Lab Wales which is an ERDF funded project and part of the Hilary
+            Rodham Clinton School of Law at Swansea University.</p>
+          <div class="text-center">
+            <a href="https://legaltech.wales" class="btn btn-outline-info">Visit Our Site</a>
+          </div>
+          <div class="images mt-4 text-center">
+            <%= image_tag 'LILW-SOL.png', class: 'lilw-logo' %>
+            <%= image_tag 'erdf.png', class: 'erdf-logo' %>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>

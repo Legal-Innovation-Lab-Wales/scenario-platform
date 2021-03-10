@@ -69,10 +69,27 @@ h1, h2, h3, h4, h5 {
     font-size: 1.1rem;
     max-width: 1060px;
     margin: 56px auto auto;
-    padding: 30px;
+    //padding: 30px;
 
     .lead {
       font-size: 1.4rem;
+    }
+
+    .the-lab {
+      border-radius: 0.6rem;
+      padding: 2rem 4rem;
+      margin-bottom: max(2rem);
+      background-color: $section-bg-navy;
+      color: $ink-white;
+      .images img {
+        max-height: 200px;
+        &.lilw-logo {
+          max-width: 60%;
+        }
+        &.erdf-logo {
+          max-width: 30%;
+        }
+      }
     }
   }
 
