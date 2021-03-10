@@ -3,26 +3,27 @@
     <div class="row">
       <div class="col">
         <h1 class="text-center">About</h1>
-        <p>The Scenario Platform facilitates the creation of non-linear branching scenarios where each answer that a
+        <p class="lead">The Scenario Platform allows the creation of non-linear branching scenarios where each answer that a
           participant selects can influence a range of background variables and link to an arbitrary next question.</p>
 
         <p>This platform was initially scoped for training solicitors with practise interview scenarios. As the project
           developed there was a wider demand beyond the scope for a platform in other areas such as rehabilitation,
-          medical scenario and customer service training</p>
+          medical scenarios and customer service training.</p>
 
         <p>It was created by the Legal Innovation Lab Wales which is an ERDF funded project and part of the Hilary
           Rodham Clinton School of Law at Swansea University. You can find out more about the lab at
-          <a href="https://legaltech.wales">LegalTech.Wales.</a></p>
+          <a href="https://legaltech.wales">LegalTech.Wales</a>.</p>
 
-        <p>If you're interested in a demo of the software, finding out more or setting up an organisation of your own on
-          the platform then please <a href="mailto:sceanario-platform@legaltech.wales">send us an email.</a></p>
+        <p>If you're interested in a <strong>demo</strong> of the software, finding out more or setting up your organisation on
+          the platform then please <a href="mailto:sceanario-platform@legaltech.wales">send us an email</a>.</p>
 
         <p>If you're looking for more information on how to build scenarios then we have a <a href="/guide">guide</a>
           which will hopefully help. </p>
 
         <p>This is an early prototype, we know its a little rough around the edges and there is lots of room for improvement. If you have any suggestions as to how we can improve it, the please get in touch and let us know.</p>
 
-        <p>
+        <div>
+          <h3>Coming Soon</h3>
           Some of the improvements we have planned include:
           <ul>
             <li>Add warning on making scenario available if its incomplete.</li>
@@ -37,7 +38,16 @@
             <li>Provide more information to make it easier to set question order</li>
             <li>Make it easier to add final question in scenario (no more "-1")</li>
           </ul>
-        </p>
+        </div>
+
+        <% unless user_signed_in? %>
+          <div class="text-center">
+            <hr />
+            <%= link_to 'Login', new_user_session_path, class: "btn btn-sm btn-primary" %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-sm btn-info" %>
+            <%= link_to "Home", root_path, class: "btn btn-sm btn-secondary"  %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
