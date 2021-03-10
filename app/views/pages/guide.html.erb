@@ -5,125 +5,120 @@
         <h1 class="text-center">Guide</h1>
         <p>This guide is designed to give you some extra information on how scenarios work and to help you create them.
           It is a work in progress so please bear with us while we get it right</p>
-        <h3>Scenario</h3>
-        <p>
-          The Scenario is the overall parent structure. it will need a name and a description. This
-          description should be used to describe the scenario and provide an introduction to set the scene for
-          participants.
-        <p>
-        <p>
-          The scenario will also need a set of variables which will be influenced by the participants chosen answers.
-          There is no limit to how many there can be, but generally it's better to try and keep things as
-          simple as possible. For example, these could contain values to represent how a character is feeling such as
-          anger, fear, happiness, trust, and patience. All of these could be influenced in different ways by a
-          participant’s chosen
-          answers. Another example could be to represent stats relating to the participant such as health, strength,
-          stamina, hunger, thirst and so on.
-        </p>
+        <div id="scenario">
+          <h3>Scenario</h3>
+          <p>
+            The Scenario is the overall parent structure. it will need a name and a description. This
+            description should be used to describe the scenario and provide an introduction to set the scene for
+            participants.
+          <p>
+          <p>
+            The scenario will also need a set of variables which will be influenced by the participants chosen answers.
+            There is no limit to how many there can be, but generally it's better to try and keep things as
+            simple as possible. For example, these could contain values to represent how a character is feeling such as
+            anger, fear, happiness, trust, and patience. All of these could be influenced in different ways by a
+            participant’s chosen
+            answers. Another example could be to represent stats relating to the participant such as health, strength,
+            stamina, hunger, thirst and so on.
+          </p>
+        </div>
 
-        <h3>Question</h3>
-        <p>
-          A scenario will be comprised of a set of questions. For each question you can add a long description and a
-          short question text. The description will be displayed above the question text so could be used to provide
-          more exposition or scene setting before using the question text field to ask the
-          specific question which the participant will need to select an answer.
-        <p>
-          At present, the participant can only select one answer to a question, we will look to bring the option to
-          select multiple answers in a future update. If you need to do this now, there is a workaround at the bottom of
-          this guide.
-        </p>
-        <p>
-          Each question will also hold a reference number, referred to in the app as "Question Order". This is used to
-          uniquely identify questions within the flow
-          of the scenario. Each answer will store the "Next Question Order" which it links to, providing the next
-          question which the participant will see should they choose that answer. This enables branching off and a more
-          interactive experience where participants
-          are lead them down different paths so the order of which they encounter the questions will likely be different
-          for each user.
-        </p>
-        <p>
-          Depending on the scenario you are building, there could be one or many final questions which act as the
-          outcome of the scenario. These will be displayed with the final variable scores. Please set the "Next Question
-          Order"
-          for this as “-1”. When a user selects an answer which ends the scenario, the system will calculate the totals
-          for the attempt and display the summary to the participant.
-        </p>
+        <div id="question">
+          <h3>Question</h3>
+          <p>
+            A scenario will be comprised of a set of questions. For each question you can add a long description and a
+            short question text. The description will be displayed above the question text so could be used to provide
+            more exposition or scene setting before using the question text field to ask the
+            specific question which the participant will need to select an answer.
+          <p>
+            At present, the participant can only select one answer to a question, we will look to bring the option to
+            select multiple answers in a future update. If you need to do this now, there is a
+            <a href="#multi-select">workaround at the bottom</a> of
+            this guide.
+          </p>
+          <p>
+            Each question will also hold a reference number, referred to in the app as "Question Order". This is used to
+            uniquely identify questions within the flow
+            of the scenario. Each answer will store the "Next Question Order" which it links to, providing the next
+            question which the participant will see should they choose that answer. This enables branching off and a
+            more
+            interactive experience where participants
+            are lead them down different paths so the order of which they encounter the questions will likely be
+            different
+            for each user.
+          </p>
+          <p>
+            Depending on the scenario you are building, there could be one or many final questions which act as the
+            outcome of the scenario. These will be displayed with the final variable scores. Please set the "Next
+            Question
+            Order"
+            for this as “-1”. When a user selects an answer which ends the scenario, the system will calculate the
+            totals
+            for the attempt and display the summary to the participant.
+          </p>
+        </div>
 
-        <h3>Answer</h3>
-        <p>
-          Each question can have as many answer choices as required. Each answer needs three things: some text to
-          describe the choice, the changes to any variables as a consequence of selecting the answer, what the next
-          question in the order will be. The next question and the variables which the answer influences will not be
-          visible to the participant
-        </p>
+        <div id="answer">
+          <h3>Answer</h3>
+          <p>
+            Each question can have as many answer choices as required. Each answer needs three things: some text to
+            describe the choice, the changes to any variables as a consequence of selecting the answer, what the next
+            question in the order will be. The next question and the variables which the answer influences will not be
+            visible to the participant
+          </p>
 
+          <h5>Example</h5>
+          <p><strong>Question Background:</strong> You have a 10.00 am appointment. At 10.00 am, there is a knock at the door while you are working on a different case file.</p>
+          <p><strong>Question Text:</strong> You respond by:</p>
 
-        <h5>Example</h5>
-        <p><strong>Question Background:</strong> You have a 10.00 am appointment. At 10.00 am, there is a knock at the
-          door while you are working on a
-          different case file.</p>
-        <p><strong>Question Text:</strong> You respond by:</p>
-
-        <div>
-          <div class="row justify-content-md-center answer-row">
-            <div class="col question-answer">
-              <p class="mb-0">
-                <strong>Answer:</strong> Ignoring the person at the door until you have finished the work you
-                are doing
-              </p>
-              <p>
-                <strong>Variable Changes</strong> (No change to any of the
-                barometers) <strong>Next Question</strong> [Question 1a]
-              </p>
+          <div>
+            <div class="row justify-content-md-center answer-row">
+              <div class="col question-answer">
+                <p class="mb-0"><strong>Answer:</strong> <span class="lead">Ignoring the person at the door until you have finished the work you are doing</span></p>
+                <p><strong>Variable Changes</strong> (No change to any of the barometers)</p>
+                <p><strong>Next Question</strong> [Question 1a]</p>
+              </div>
             </div>
-          </div>
 
 
-          <div class="row justify-content-md-center answer-row">
-            <div class="col question-answer">
-              <p class="mb-0">
-                <strong>Answer:</strong> Answering the door, explaining that you are finishing up another case,
-                and telling them that you will be with
-                them at 10.15 am
-              </p>
-              <p>
-                <strong>Variable Changes</strong> (No change to any of the barometers) <strong>Next Question</strong>
-                [Question 2]
-              </p>
+            <div class="row justify-content-md-center answer-row">
+              <div class="col question-answer">
+                <p class="mb-0"><strong>Answer:</strong> <span class="lead">Answering the door, explaining that you are finishing up another case, and telling them that you will be with them at 10.15 am </span></p>
+                <p><strong>Variable Changes</strong> (No change to any of the barometers)</p>
+                <p><strong>Next Question</strong> [Question 2]</p>
+              </div>
             </div>
-          </div>
 
-          <div class="row justify-content-md-center answer-row">
-            <div class="col question-answer">
-              <p class="mb-0">
-                <strong>Answer:</strong> Calling out to come in
-              </p>
-              <p>
-                <strong>Variable Changes</strong> (Fear rises by 1 point) <strong>Next Question</strong> [Question 2]
-              </p>
+            <div class="row justify-content-md-center answer-row">
+              <div class="col question-answer">
+                <p class="mb-0"><strong>Answer:</strong> <span class="lead">Calling out to come in</span></p>
+                <p><strong>Variable Changes</strong> (Fear rises by 1 point)</p>
+                <p><strong>Next Question</strong> [Question 2]</p>
+              </div>
             </div>
-          </div>
 
-          <div class="row justify-content-md-center answer-row">
-            <div class="col question-answer">
-              <p class="mb-0">
-                <strong>Answer:</strong> Answering the door and asking them to come in
-              </p>
-              <p>
-                <strong>Variable Changes</strong> (No change to any of the barometers)<strong>Next Question</strong>
-                [Question 3]
-              </p>
+            <div class="row justify-content-md-center answer-row">
+              <div class="col question-answer">
+                <p class="mb-0"><strong>Answer:</strong> <span class="lead">Answering the door and asking them to come in</span></p>
+                <p><strong>Variable Changes</strong> (No change to any of the barometers)</p>
+                <p><strong>Next Question</strong>[Question 3]</p>
+              </div>
             </div>
           </div>
         </div>
 
+        <div id="quiz-builder">
+          <h3>Quiz Builder</h3>
+          <p>More info coming soon</p>
+        </div>
 
-        <h3>Multi-Select Question Work Around</h3>
-        <p>If you really need to allow the participants to select multiple answers to a question you can write the
-          options in the question description (EG. A, B, C, D). Then provide the combinations in the answer text. (EG.
-          Answer 1: "A", Answer 2: "A + B", Answer 3: "A + B + C", Answer 4: "A + B + C + D", Answer 5: "B + C + D").
-          Then each answer can influence the variables you wanted that selection to impact.</p>
-
+        <div id="multi-select">
+          <h3>Multi-Select Question Work Around</h3>
+          <p>If you really need to allow the participants to select multiple answers to a question you can write the
+            options in the question description (EG. A, B, C, D). Then provide the combinations in the answer text. (EG.
+            Answer 1: "A", Answer 2: "A + B", Answer 3: "A + B + C", Answer 4: "A + B + C + D", Answer 5: "B + C + D").
+            Then each answer can influence the variables you wanted that selection to impact.</p>
+        </div>
 
       </div>
     </div>
