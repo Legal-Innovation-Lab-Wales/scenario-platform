@@ -1,20 +1,19 @@
 <section id="cover" class="<% if user_signed_in? %>homepage<% else %>min-vh-100<% end %>">
   <div class="sp-form">
     <div class="row text-white">
-      <div class="col-xl-8 col-lg-6 col-md-8 col-sm-11 mx-auto text-center form p-4">
-        <h1>Scenario Platform</h1>
-      </div>
-
-      <p>An Application written by the Legal Innovation Lab Wales for developing interactive applications</p>
-      <div class="text-center">
-        <% if user_signed_in? %>
-          <%= link_to "Scenario App", app_path, class: "btn btn-sm btn-primary" %>
-          <%= link_to "About This Project", about_path, class: "btn btn-sm btn-secondary"  %>
-        <% else %>
-          <%= link_to 'Login', new_user_session_path, class: "btn btn-sm btn-primary" %>
-          <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-sm btn-info" %>
-          <%= link_to "About This Project", about_path, class: "btn btn-sm btn-secondary"  %>
-        <% end %>
+      <div class="mx-auto text-center form p-4">
+        <h1 class="mb-5">Scenario Platform</h1>
+        <p>An application created by the Legal Innovation Lab Wales for developing interactive scenarios</p>
+        <div class="text-center">
+          <% if user_signed_in? %>
+            <%= link_to "Scenario App", app_path, class: "btn btn-sm btn-primary" %>
+            <%= link_to "About This Project", about_path, class: "btn btn-sm btn-secondary"  %>
+          <% else %>
+            <%= link_to 'Login', new_user_session_path, class: "btn btn-sm btn-primary" %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-sm btn-info" %>
+            <%= link_to "About This Project", about_path, class: "btn btn-sm btn-secondary"  %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
