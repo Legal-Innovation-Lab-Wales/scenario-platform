@@ -1,6 +1,6 @@
 # app/controllers/pages_controller.rb
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[main terms about]
+  skip_before_action :authenticate_user!
 
   def main
     if session[:awaiting_approval_notice].present?
