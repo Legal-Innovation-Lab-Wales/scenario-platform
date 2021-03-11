@@ -162,7 +162,11 @@
                         <div class="">
                           <% if answer.next_question_order.present? %>
                             <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_<%= answer.next_question_order %>" aria-expanded="true" aria-controls="collapse_<%= question.order %>">
-                              Links to Question <%= answer.next_question_order %>
+                              <% if answer.next_question_order == -1 %>
+                                End of Scenario
+                              <% else %>
+                                Links to Question <%= answer.next_question_order %>
+                              <% end %>
                             </button>
                           <% else %>
                             No Next Question Set
@@ -192,7 +196,11 @@
                   <h5 class="card-title"><%= answer.text %></h5>
                   <% if answer.next_question_order.present? %>
                     <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-outline-primary btn-sm">
-                      Next Question: <%= answer.next_question_order %>
+                      <% if answer.next_question_order == -1 %>
+                        End of Scenario
+                      <% else %>
+                        Next Question: <%= answer.next_question_order %>
+                      <% end %>
                     </a>
                   <% else %>
                     <a href="#" class="btn btn-primary btn-sm disabled">No Next Question</a>
