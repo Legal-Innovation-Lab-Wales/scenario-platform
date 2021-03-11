@@ -15,6 +15,8 @@ class User < ApplicationRecord
   has_many :attempts, foreign_key: :user_id
   has_many :scenarios_attempted, -> { distinct }, through: :attempts, source: :scenario
 
+  scope :admins, -> { where(admin: true) }
+
   private
 
   # validations

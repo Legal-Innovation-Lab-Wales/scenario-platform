@@ -5,4 +5,8 @@ class Organisation < ApplicationRecord
 
   # validations
   validates_presence_of :name
+
+  def admins
+    User.admins
+  end
 end
