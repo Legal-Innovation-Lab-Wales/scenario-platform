@@ -3,23 +3,47 @@
     <div class="row">
       <div class="col">
         <h1 class="text-center">Guide</h1>
-        <p>This guide is designed to give you some extra information on how scenarios work and to help you create them.
-          It is a work in progress so please bear with us while we get it right</p>
+        <% unless user_signed_in? %>
+          <div class="text-center">
+            <hr/>
+            <%= link_to 'Login', new_user_session_path, class: "btn btn-sm btn-primary" %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-sm btn-info" %>
+            <%= link_to 'Home', root_path, class: "btn btn-sm btn-secondary" %>
+            <hr/>
+          </div>
+        <% end %>
+        <p class="lead">
+          This guide is designed to give you some extra information on how scenarios work and to help you create them.
+          It is a work in progress so please bear with us while we get it right. If you have any thoughts or
+          suggestions, please let us know.
+        </p>
         <div id="scenario">
           <h3>Scenario</h3>
           <p>
-            The Scenario is the overall parent structure. it will need a name and a description. This
-            description should be used to describe the scenario and provide an introduction to set the scene for
-            participants.
-          <p>
+            The Scenario is the overall parent structure. When creating a new scenario it will need a name and a
+            description. This description should be used to explain the scenario and provide background information to
+            set the scene for participants.
+          </p>
+          <div class="lead">Variables</div>
           <p>
             The scenario will also need a set of variables which will be influenced by the participants chosen answers.
-            There is no limit to how many there can be, but generally it's better to try and keep things as
-            simple as possible. For example, these could contain values to represent how a character is feeling such as
-            anger, fear, happiness, trust, and patience. All of these could be influenced in different ways by a
-            participant’s chosen
+            These variables will not be visible to the participants until they complete the scenario and review their
+            scores. There is no limit to how many there can be, but generally it's better to try and keep things as
+            simple as possible.
+          </p>
+          <p>
+            For example, these could contain values to represent how a character is feeling such as anger, fear,
+            happiness, trust, and patience. All of these could be influenced in different ways by a participant’s chosen
             answers. Another example could be to represent stats relating to the participant such as health, strength,
             stamina, hunger, thirst and so on.
+          </p>
+          <div class="lead">Availability</div>
+          <p>
+            By default, new scenarios are not available for participants to complete. When you're happy that your
+            scenario is complete you can edit it and hit the checkbox to make it available. At present there are no
+            constraints on this action, so its down to you to check that everything is complete and working. When a
+            scenario is under construction and not available it can still be completed by admin users in order to test
+            it.
           </p>
         </div>
 
@@ -28,37 +52,47 @@
           <p>
             A scenario will be comprised of a set of questions. For each question you can add a long description and a
             short question text. The description will be displayed above the question text so could be used to provide
-            more exposition or scene setting before using the question text field to ask the
-            specific question which the participant will need to select an answer.
+            more exposition or scene setting before using the question text field to ask the specific question which the
+            participant will need to select an answer.
           <p>
             At present, the participant can only select one answer to a question, we will look to bring the option to
             select multiple answers in a future update. If you need to do this now, there is a
-            <a href="#multi-select">workaround at the bottom</a> of
-            this guide.
+            <a href="#multi-select">workaround</a> at the bottom of this guide.
+          </p>
+          <div class="lead">Question Order</div>
+          <p>
+            Each question will also have a reference number, referred to in the app as "Question Order". This is used to
+            uniquely identify questions within the flow of the scenario. Each answer will store the a "Next Question
+            Order" value, providing the link to the next question which the participant will see should they choose that
+            answer. This enables branching and a more interactive experience where participants are lead down different
+            paths. Each question in a scenario must have a unique "order" value.
           </p>
           <p>
-            Each question will also hold a reference number, referred to in the app as "Question Order". This is used to
-            uniquely identify questions within the flow
-            of the scenario. Each answer will store the "Next Question Order" which it links to, providing the next
-            question which the participant will see should they choose that answer. This enables branching off and a
-            more
-            interactive experience where participants
-            are lead them down different paths so the order of which they encounter the questions will likely be
-            different
-            for each user.
+            You can change the order of questions after they've been created. This is so you can expand branches or add
+            new branches at any point. The scenario builder view will automatically order questions by their order
+            value, so its worth bearing in mind that this might make some questions appear out of order.
           </p>
           <p>
-            Depending on the scenario you are building, there could be one or many final questions which act as the
-            outcome of the scenario. These will be displayed with the final variable scores. Please set the "Next
-            Question
-            Order"
-            for this as “-1”. When a user selects an answer which ends the scenario, the system will calculate the
-            totals
+            The first question of the scenario should have an order of "0". You will need to set one question to have
+            this order value before the scenario can be taken.
+          </p>
+          <div class="lead">Final Question</div>
+          <p>
+            Depending on the scenario you are building, there could be one or many final questions which act as the end
+            of the scenario. These will be displayed before the final scores. Please set the "Next Question Order" for
+            this as “-1”. When a user selects an answer which ends the scenario, the system will calculate the totals
             for the attempt and display the summary to the participant.
+          </p>
+          <p>
+            There are two common ways of ending a scenario. You can either have the final question let the person know
+            that the scenario is over and provide some context for what has happened. In this case we recommend that
+            your "final question" only has one answer which takes the participant to their final scores. The other
+            common pattern is to not let the person know that the scenario is going to end and just take them to their
+            scores. The downside of this is that it doesn't provide any context.
           </p>
         </div>
 
-        <div id="answer">
+        <div id="answer" class="mb-3">
           <h3>Answer</h3>
           <p>
             Each question can have as many answer choices as required. Each answer needs three things: some text to
@@ -68,40 +102,52 @@
           </p>
 
           <h5>Example</h5>
-          <p><strong>Question Background:</strong> You have a 10.00 am appointment. At 10.00 am, there is a knock at the door while you are working on a different case file.</p>
+          <p><strong>Question Background:</strong> You have a 10.00 am appointment. At 10.00 am, there is a knock at the
+            door while you are working on a different case file.</p>
           <p><strong>Question Text:</strong> You respond by:</p>
 
           <div>
             <div class="row justify-content-md-center answer-row">
               <div class="col question-answer">
-                <p class="mb-0"><strong>Answer:</strong> <span class="lead">Ignoring the person at the door until you have finished the work you are doing</span></p>
-                <p><strong>Variable Changes</strong> (No change to any of the barometers)</p>
-                <p><strong>Next Question</strong> [Question 1a]</p>
+                <p class="mb-0">
+                  <strong>Answer:</strong>
+                  <span class="lead">Ignoring the person at the door until you have finished the work you are doing</span>
+                </p>
+                <p><strong>Variable Changes</strong> (No changes)</p>
+                <p><strong>Next Question</strong> [Question 4]</p>
               </div>
             </div>
 
 
             <div class="row justify-content-md-center answer-row">
               <div class="col question-answer">
-                <p class="mb-0"><strong>Answer:</strong> <span class="lead">Answering the door, explaining that you are finishing up another case, and telling them that you will be with them at 10.15 am </span></p>
-                <p><strong>Variable Changes</strong> (No change to any of the barometers)</p>
+                <p class="mb-0">
+                  <strong>Answer:</strong>
+                  <span class="lead">Answering the door, explaining that you are finishing up another case, and telling them that you will be with them at 10.15 am </span>
+                </p>
+                <p><strong>Variable Changes</strong> (No changes)</p>
                 <p><strong>Next Question</strong> [Question 2]</p>
               </div>
             </div>
 
             <div class="row justify-content-md-center answer-row">
               <div class="col question-answer">
-                <p class="mb-0"><strong>Answer:</strong> <span class="lead">Calling out to come in</span></p>
-                <p><strong>Variable Changes</strong> (Fear rises by 1 point)</p>
+                <p class="mb-0">
+                  <strong>Answer:</strong> <span class="lead">Calling out to come in</span>
+                </p>
+                <p><strong>Variable Changes</strong> (Fear increases by 1 point)</p>
                 <p><strong>Next Question</strong> [Question 2]</p>
               </div>
             </div>
 
             <div class="row justify-content-md-center answer-row">
               <div class="col question-answer">
-                <p class="mb-0"><strong>Answer:</strong> <span class="lead">Answering the door and asking them to come in</span></p>
-                <p><strong>Variable Changes</strong> (No change to any of the barometers)</p>
-                <p><strong>Next Question</strong>[Question 3]</p>
+                <p class="mb-0">
+                  <strong>Answer:</strong>
+                  <span class="lead">Answering the door and asking them to come in</span>
+                </p>
+                <p><strong>Variable Changes</strong> (Trust increases by 1, Understanding increases by 1)</p>
+                <p><strong>Next Question</strong> [Question 3]</p>
               </div>
             </div>
           </div>
@@ -109,7 +155,7 @@
 
         <div id="quiz-builder">
           <h3>Quiz Builder</h3>
-          <p>More info coming soon</p>
+          <p>More info coming soon. What would you like to see here?</p>
         </div>
 
         <div id="multi-select">
