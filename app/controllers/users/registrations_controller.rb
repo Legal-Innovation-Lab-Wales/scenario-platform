@@ -10,7 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def send_new_member_email
-    return unless @user.created_at?
+    return unless @user.created_at? || Time.now - User.second_to_last.created_at < 6.hours
 
     AdminMailer.with(user: @user).new_user_email.deliver_later
   end
