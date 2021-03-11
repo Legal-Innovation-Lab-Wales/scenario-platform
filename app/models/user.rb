@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :scenarios_attempted, -> { distinct }, through: :attempts, source: :scenario
 
   scope :admins, -> { where(admin: true) }
+  scope :unapproved, -> { where(approved: false) }
 
   private
 

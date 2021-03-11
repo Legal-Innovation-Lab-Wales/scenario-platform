@@ -5,10 +5,16 @@
 </head>
 <body>
 <p>
-  A new user has signed up to your organisation and is awaiting confirmation on the Scenario Platform.
+  Hi <%= @admin.first_name %>,
 </p>
 <p>
-  Login in now to confirm new users.
+  A new user has signed up to the <%= @user.organisation.name %> organisation.
+</p>
+<p>
+  You have <strong><%= pluralize(@unapproved_users_count, 'user') %></strong> awaiting approval.
+</p>
+<p>
+  Login in now to <%= link_to 'approve new users', admin_root_url %>.
 </p>
 </body>
 </html>
