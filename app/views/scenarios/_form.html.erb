@@ -17,7 +17,8 @@
       <%= form.label :name, class: "form-label" %>
       <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#scenarioNameHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
       <div class="collapse hint-box" id="scenarioNameHint">
-        This is the name of your scenario. It should be allow participants to easily find the scenario they are looking for.
+        This is the name of your scenario. It should be allow participants to easily find the scenario they are looking
+        for.
       </div>
       <%= form.text_field :name, class: "form-control" %>
     </div>
@@ -32,7 +33,6 @@
       <%= form.text_area :description, class: "form-control" %>
     </div>
 
-
     <div class="field mb-3 justify-content-center text-center">
       <div class="collapse hint-box mx-auto pb-2" id="scenarioVariablesHint">
         These are the variables which we will keep track of as each participant attempts this scenario. They can be used
@@ -40,6 +40,7 @@
         their attempt, so the participant will not know which of their answers influenced the variables. Each answer
         that a participant selects can influence zero or many variables. The variable values can only be integers.
       </div>
+
       <table id="variables" class="mx-auto">
         <input type="hidden" value="<%= scenario.attempts.count %>" id="attempt_count">
         <tr>
@@ -78,7 +79,8 @@
       </div>
 
       <div class="collapse hint-box" id="scenarioAvailableHint">
-        This button makes your scenario available for any participant to complete. You should only tick it when you're happy that your scenario is complete.
+        This button makes your scenario available for any participant to complete. You should only switch it when you're
+        happy that your scenario is complete.
       </div>
     </div>
 
@@ -87,6 +89,5 @@
     </div>
   <% end %>
 </div>
-
 
 <%= javascript_pack_tag 'erb_form_functions' %>
