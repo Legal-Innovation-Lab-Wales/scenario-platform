@@ -58,9 +58,9 @@ class Admin::PagesController < ApplicationController
   # DELETE /admin/users/:id
   def delete_user
     if @user.destroy
-      redirect_to admin_root_path, notice: "User deleted."
+      redirect_to admin_root_path, success: 'User deleted.'
     else
-      redirect_to admin_root_path, flash: { error: "User could not be deleted." }
+      redirect_to admin_root_path, flash: { error: 'User could not be deleted.' }
     end
   end
 
