@@ -16,7 +16,8 @@
       <%= form.label :description, class: "form-label" %>
       <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionDescriptionHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
       <div class="collapse hint-box" id="questionDescriptionHint">
-        This is the question description. Use this to describe the current situation that the participant is facing. Provide exposition and context to help the participant understand the choice which they are about to make.
+        This is the question description. Use this to describe the current situation that the participant is facing.
+        Provide exposition and context to help the participant understand the choice which they are about to make.
       </div>
       <%= form.text_area :description, class: "form-control" %>
     </div>
@@ -25,7 +26,8 @@
       <%= form.label :text, class: "form-label" %>
       <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionTextHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
       <div class="collapse hint-box" id="questionTextHint">
-        This is the question text. This is the exact question which the participant needs to answer. Often this will be something like "What do you do?".
+        This is the question text. This is the exact question which the participant needs to answer. Often this will be
+        something like "What do you do?".
       </div>
       <%= form.text_field :text, class: "form-control" %>
     </div>
@@ -34,7 +36,17 @@
       <%= form.label :order, class: "form-label" %>
       <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionOrderHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
       <div class="collapse hint-box" id="questionOrderHint">
-        <p>This is used to uniquely identify questions within the flow of the scenario. It doesn't indicate the order which a participant will see questions, it just provides the reference for an answer to link to. Each answer will store the "Next Question Order" value, providing the link to the next question that follows the selected answer. Each question in a scenario must have a unique "order" value. </p><p>The first question of the scenario should have an order of "0". You will need to set one question to have this order value before the scenario can be attempted.</p>
+        <p>This is used to uniquely identify questions within the flow of the scenario. It doesn't indicate the order
+          which a participant will see questions, it just provides the reference for an answer to link to. Each answer
+          will store the "Next Question Order" value, providing the link to the next question that follows the selected
+          answer. Each question in a scenario must have a unique "order" value. </p>
+        <p>The first question of the scenario should have an order of "0". You will need to set one question to have
+          this order value before the scenario can be attempted.</p>
+      </div>
+      <div>
+        <p class="mb-0">Current used question orders: <b><%= @question_orders.to_sentence %></b></p>
+        <p class="mb-0">Next available order: <b><%= @question_orders.max + 1 %></b></p>
+        <p>Unused values in current range: <b><%= ((@question_orders.min..@question_orders.max).to_a - @question_orders).to_sentence %></b></p>
       </div>
       <%= form.number_field :order, class: "form-control" %>
     </div>
