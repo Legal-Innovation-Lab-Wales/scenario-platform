@@ -15,6 +15,7 @@ import * as bootstrap from 'bootstrap'
 
 import "./erb_form_functions";
 import "./alert_handling";
+import "./scenario_builder_help";
 
 Rails.start()
 Turbolinks.start()

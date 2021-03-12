@@ -75,3 +75,53 @@ section {
     }
   }
 }
+
+.question-container {
+  .info-alert-box {
+    display: none;
+    padding: 1rem;
+    position: relative;
+    border-radius: 0.25rem;
+    color: #055160;
+    background-color: #cff4fc;
+    border: 1px solid #b6effb;
+  }
+
+  .extra-info {
+    display: none
+  }
+
+  &.help {
+    .question-info-container {
+      border: 0.25rem solid $brand-danger;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+      transition: 0.2s;
+      transition-timing-function: ease-in;
+
+      &:hover {
+        background-color: #f8d7da;
+      }
+    }
+
+    .info-alert-box {
+      display: inherit;
+    }
+
+    .extra-info {
+      display: inline;
+    }
+
+    .answers-info-container {
+      border: 0.25rem solid $brand-danger;
+      border-radius: 0.5rem;
+      margin-bottom: 0.5rem;
+      transition: 0.2s;
+      transition-timing-function: ease-in;
+
+      &:hover {
+        background-color: #f8d7da;
+      }
+    }
+  }
+}
