@@ -58,6 +58,14 @@
     .fa-times-circle {
       color: darkred;
     }
+
+    .fa-trash {
+      color: $brand-danger-hover;
+
+      &:hover {
+        color: $brand-danger;
+      }
+    }
   }
 
    #attempts {

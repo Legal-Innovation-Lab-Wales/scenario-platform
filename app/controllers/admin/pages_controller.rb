@@ -2,8 +2,8 @@
 class Admin::PagesController < ApplicationController
   before_action :require_admin
   before_action :set_users, :set_scenarios, only: :main
-  before_action :set_scenario, :require_scenario_organisation, only: [:get_scenario, :get_attempts, :get_result]
-  before_action :set_user, :require_user_organisation, only: [:get_attempts, :get_user, :set_admin, :approve_user, :get_result]
+  before_action :set_scenario, :require_scenario_organisation, only: %i[get_scenario get_attempts get_result]
+  before_action :set_user, :require_user_organisation, only: %i[get_attempts get_user set_admin approve_user get_result delete_user]
   before_action :set_attempts, only: :get_attempts
   before_action :set_attempt, only: :get_result
 
@@ -53,6 +53,15 @@ class Admin::PagesController < ApplicationController
   # GET /admin/scenarios/:scenario_id/users/:user_id/results/:result_id
   def get_result
     render template: 'admin/results'
+  end
+
+  # DELETE /admin/users/:id
+  def delete_user
+    if @user.destroy
+      redirect_to admin_root_path, notice: "User deleted."
+    else
+      redirect_to admin_root_path, flash: { error: "User could not be deleted." }
+    end
   end
 
   private

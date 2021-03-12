@@ -76,7 +76,8 @@
               <th scope="col">Last Name</th>
               <th scope="col">Bio</th>
               <th scope="col">Email</th>
-              <th scope="col">Confirmation Status</th>
+              <th scope="col">Email Confirmed?</th>
+              <th scope="col">Delete User?</th>
             </tr>
             </thead>
             <tbody>
@@ -97,6 +98,7 @@
                     <i class="fas fa-times-circle"></i>
                   <% end %>
                 </td>
+                <td><%= link_to admin_delete_user_path(user), method: :delete, data: {confirm: "Are you sure?"} do %><i class="fas fa-trash"></i><% end %></td>
               </tr>
             <% end %>
             </tbody>
@@ -115,7 +117,8 @@
               <th scope="col">Last Name</th>
               <th scope="col">Email</th>
               <th scope="col">Admin</th>
-              <th scope="col">Confirmation Status</th>
+              <th scope="col">Email Confirmed?</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -137,7 +140,7 @@
                   </a>
                 </td>
                 <td>
-                  <a class="admin-marker" href="/admin/users/<%= user.id %>/admin">
+                  <a class="admin-marker" <%= "href= \"/admin/users/#{user.id}/admin\"" if current_user != user %>>
                     <% if user.admin %>
                       <i class="fas fa-check-circle"></i>
                     <% else %>
@@ -153,6 +156,13 @@
                       <i class="fas fa-times-circle"></i>
                     <% end %>
                   </a>
+                </td>
+                <td>
+                  <% if current_user == user do %>
+                    <%= link_to admin_delete_user_path(user), method: :delete, data: { confirm: "Are you sure?" } do %>
+                      <i class="fas fa-trash"></i>
+                    <% end %>
+                  <% end %>
                 </td>
               </tr>
             <% end %>
