@@ -1,35 +1,46 @@
-<div class="row">
+<div class="row builder-form">
+  <%= form_for question, url: { action: action } do |form| %>
+    <% if question.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
 
-<%= form_for question, url: { action: action } do |form| %>
-  <% if question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+        <ul>
+          <% question.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-        <% question.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="field mb-3">
+      <%= form.label :description, class: "form-label" %>
+      <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionDescriptionHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
+      <div class="collapse hint-box" id="questionDescriptionHint">
+        This is the question description. Use this to describe the current situation that the participant is facing. Provide exposition and context to help the participant understand the choice which they are about to make.
+      </div>
+      <%= form.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="field mb-3">
+      <%= form.label :text, class: "form-label" %>
+      <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionTextHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
+      <div class="collapse hint-box" id="questionTextHint">
+        This is the question text. This is the exact question which the participant needs to answer. Often this will be something like "What do you do?".
+      </div>
+      <%= form.text_field :text, class: "form-control" %>
+    </div>
+
+    <div class="field mb-3">
+      <%= form.label :order, class: "form-label" %>
+      <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#questionOrderHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
+      <div class="collapse hint-box" id="questionOrderHint">
+        <p>This is used to uniquely identify questions within the flow of the scenario. It doesn't indicate the order which a participant will see questions, it just provides the reference for an answer to link to. Each answer will store the "Next Question Order" value, providing the link to the next question that follows the selected answer. Each question in a scenario must have a unique "order" value. </p><p>The first question of the scenario should have an order of "0". You will need to set one question to have this order value before the scenario can be attempted.</p>
+      </div>
+      <%= form.number_field :order, class: "form-control" %>
+    </div>
+
+    <div class="actions text-center">
+      <%= form.submit nil, class: "btn btn-primary" %>
     </div>
   <% end %>
-
-  <div class="field mb-3">
-    <%= form.label :description, class: "form-label" %>
-    <%= form.text_area :description, class: "form-control" %>
-  </div>
-
-  <div class="field mb-3">
-    <%= form.label :text, class: "form-label" %>
-    <%= form.text_field :text, class: "form-control" %>
-  </div>
-
-  <div class="field mb-3">
-    <%= form.label :order, class: "form-label" %>
-    <%= form.number_field :order, class: "form-control" %>
-  </div>
-
-  <div class="actions text-center">
-    <%= form.submit nil, class: "btn btn-primary" %>
-  </div>
-<% end %>
 </div>
