@@ -140,7 +140,7 @@
                   </a>
                 </td>
                 <td>
-                  <a class="admin-marker" <%= "href= \"/admin/users/#{user.id}/admin\"" if current_user != user %>>
+                  <a class="admin-marker" <%= "href= \"/admin/users/#{user.id}/admin\"" unless current_user == user %>>
                     <% if user.admin %>
                       <i class="fas fa-check-circle"></i>
                     <% else %>
@@ -158,7 +158,7 @@
                   </a>
                 </td>
                 <td>
-                  <% if current_user == user %>
+                  <% unless current_user == user %>
                     <%= link_to admin_delete_user_path(user), method: :delete, data: { confirm: "Are you sure?" } do %>
                       <i class="fas fa-trash"></i>
                     <% end %>
