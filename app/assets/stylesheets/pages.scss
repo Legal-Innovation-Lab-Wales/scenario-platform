@@ -8,6 +8,7 @@ body#overboot {
   font-family: $font;
   color: $ink-navy;
   background-color: $body-bg;
+
   .text-danger {
     color: $brand-danger;
   }
@@ -25,18 +26,18 @@ h1, h2, h3, h4, h5 {
 }
 
 #cover {
-    background-image: $brand-lab-background;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    position: relative;
-    opacity: 0.85;
+  background-image: $brand-lab-background;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+  opacity: 0.85;
 
-  &.homepage{
+  &.homepage {
     height: calc(100vh - 56px)
   }
 
@@ -59,9 +60,9 @@ h1, h2, h3, h4, h5 {
 }
 
 #cover-caption {
-    width: 100%;
-    position: relative;
-    z-index: 1;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .info-page {
@@ -69,21 +70,44 @@ h1, h2, h3, h4, h5 {
     font-size: 1.1rem;
     max-width: 1060px;
     margin: 56px auto auto;
-    padding: 30px;
+
+    .lead {
+      font-size: 1.4rem;
+    }
+
+    a {
+      color: $ink-navy;
+      text-decoration: none;
+      font-weight: 600;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .the-lab {
+      border-radius: 0.6rem;
+      padding: 2rem 4rem;
+      margin-bottom: max(2rem);
+      background-color: $section-bg-navy;
+      color: $ink-white;
+
+      .images img {
+        max-height: 200px;
+
+        &.lilw-logo {
+          max-width: 60%;
+        }
+
+        &.erdf-logo {
+          max-width: 30%;
+        }
+      }
+    }
   }
 
-  .q{
-    /*font-size: 2.1em;*/
+  .q {
     font-weight: 600;
     margin: .67em 0;
-  }
-}
-
-.admin-view {
-  padding-top: 2rem;
-  background: $admin-background;
-  .admin-header {
-    background-color: $section-bg;
-    padding-bottom: 2rem;
   }
 }

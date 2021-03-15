@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<p>
+  Hi <%= @admin.first_name %>,
+</p>
+<p>
+  A new user has signed up to the <%= @user.organisation.name %> organisation.
+</p>
+<p>
+  You have <strong><%= pluralize(@unapproved_users_count, 'user') %></strong> awaiting approval.
+</p>
+<p>
+  Login now to <%= link_to 'approve new users', admin_root_url %>.
+</p>
+</body>
+</html>

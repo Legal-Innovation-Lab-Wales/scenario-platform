@@ -20,3 +20,41 @@ form:before {
   padding: 10px;
   background-color: $black-bg-transparent
 }
+
+.field .row {
+  margin-left: 0;
+}
+
+.builder-form {
+  i {
+    box-shadow: 0 0 15px 0 $yellow-highlight;
+    background-color: $yellow-transparent;
+
+    &.collapsed {
+      box-shadow: none;
+      background-color: inherit;
+    }
+  }
+
+  #scenarioVariablesHint {
+    max-width: 545px;
+  }
+
+  .form-check-input {
+    float: none !important;
+    margin-left: 0 !important;
+
+    &:focus {
+      border-color: $green-white;
+      box-shadow: 0 0 0 0.25rem $green-transparent;
+      background-image: $focus-switch-icon !important;
+    }
+
+    &:checked {
+      background-color: $brand-success;
+      border-color: $brand-success;
+      background-image: $checked-switch-icon !important;
+    }
+
+  }
+}

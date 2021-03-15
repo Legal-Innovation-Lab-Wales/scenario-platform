@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get '/users/:user_id', to: 'pages#get_user'
     put '/users/:user_id/approve', to: 'pages#approve_user'
     put '/users/:user_id/admin', to: 'pages#set_admin'
+    delete '/users/:user_id', to: 'pages#delete_user', as: :delete_user
   end
 
   resources :scenarios do

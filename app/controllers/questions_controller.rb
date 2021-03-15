@@ -27,6 +27,7 @@ class QuestionsController < ApplicationController
   # GET /scenarios/:scenario_id/questions/new
   def new
     @question = Question.new
+    @question_orders = question_orders
   end
 
   # POST /scenarios/:scenario_id/questions
@@ -47,6 +48,7 @@ class QuestionsController < ApplicationController
   # GET /scenarios/:scenario_id/questions/:id/edit
   def edit
     @question
+    @question_orders = question_orders
   end
 
   # PUT /scenarios/:scenario_id/questions/:id
@@ -112,5 +114,9 @@ class QuestionsController < ApplicationController
   def question_params
     # whitelist params
     params.require(:question).permit(:order, :text, :description, :scenario_id)
+  end
+
+  def question_orders
+    @scenario.questions.map(&:order)
   end
 end

@@ -1,5 +1,5 @@
 <!--suppress ALL -->
-<div class="row">
+<div class="row builder-form">
   <%= form_with(model: scenario, id: 'scenario_form') do |form| %>
     <% if scenario.errors.any? %>
       <div id="error_explanation">
@@ -15,22 +15,40 @@
 
     <div class="field mb-3">
       <%= form.label :name, class: "form-label" %>
+      <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#scenarioNameHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
+      <div class="collapse hint-box" id="scenarioNameHint">
+        This is the name of your scenario. It should be allow participants to easily find the scenario they are looking
+        for.
+      </div>
       <%= form.text_field :name, class: "form-control" %>
     </div>
 
     <div class="field mb-3">
       <%= form.label :description, class: "form-label" %>
+      <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#scenarioDescriptionHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
+      <div class="collapse hint-box" id="scenarioDescriptionHint">
+        This is the description of your scenario. You should use this to provide general information about what the
+        scenario is, you could also add some exposition to set the scene before participants attempt the scenario.
+      </div>
       <%= form.text_area :description, class: "form-control" %>
     </div>
 
+    <div class="field mb-3 justify-content-center text-center">
+      <div class="collapse hint-box mx-auto pb-2" id="scenarioVariablesHint">
+        These are the variables which we will keep track of as each participant attempts this scenario. They can be used
+        to keep track of any parameters or metrics you like. They are invisible to the participant until they complete
+        their attempt, so the participant will not know which of their answers influenced the variables. Each answer
+        that a participant selects can influence zero or many variables. The variable values can only be integers.
+      </div>
 
-    <div class="field mb-3 justify-content-center">
       <table id="variables" class="mx-auto">
         <input type="hidden" value="<%= scenario.attempts.count %>" id="attempt_count">
         <tr>
           <th><%= form.label :variables, class: "form-label" %></th>
           <th><%= form.label :variable_initial_values, class: "form-label" %></th>
-          <th></th>
+          <th>
+            <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#scenarioVariablesHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
+          </th>
         </tr>
 
         <% scenario.variables_with_initial_values&.each do |variable| %>
@@ -54,8 +72,16 @@
     </div>
 
     <div class="field mb-3 text-center">
-      <%= form.label :available %>
-      <%= form.check_box :available %>
+      <div class="form-check form-switch text-center switch-success">
+        <%= form.label :available, class: "form-check-label" %>
+        <%= form.check_box :available, class: "form-check-input switch-success" %>
+        <i class="fas fa-question-circle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#scenarioAvailableHint" aria-expanded="false" aria-controls="scenarioNameHint"></i>
+      </div>
+
+      <div class="collapse hint-box" id="scenarioAvailableHint">
+        This button makes your scenario available for any participant to complete. You should only switch it when you're
+        happy that your scenario is complete.
+      </div>
     </div>
 
     <div class="actions text-center">
@@ -63,6 +89,5 @@
     </div>
   <% end %>
 </div>
-
 
 <%= javascript_pack_tag 'erb_form_functions' %>

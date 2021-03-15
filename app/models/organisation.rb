@@ -5,4 +5,12 @@ class Organisation < ApplicationRecord
 
   # validations
   validates_presence_of :name
+
+  def admins
+    users.admins
+  end
+
+  def unapproved_users
+    users.unapproved
+  end
 end

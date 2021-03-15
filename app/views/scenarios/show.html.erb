@@ -61,8 +61,16 @@
                 <% end %>
               </table>
 
-              <h2 class="text-center"><button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#attempts" aria-expanded="false" aria-controls="collapseHints">Show Attempts Summary</button></h2>
-              <h2 class="text-center"><button class="btn btn-sm btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#hints" aria-expanded="false" aria-controls="collapseHints">Show Getting Started Hints</button></h2>
+              <h2 class="text-center">
+                <button class="btn btn-sm btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#attempts" aria-expanded="false" aria-controls="collapseHints">Show
+                  Attempts Summary
+                </button>
+              </h2>
+              <h2 class="text-center">
+                <button class="btn btn-sm btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#hints" aria-expanded="false" aria-controls="collapseHints">Show
+                  Getting Started Hints
+                </button>
+              </h2>
             </div>
           </div>
         </div>
@@ -116,8 +124,7 @@
             won't have created that next question. You can save the answer without the next question order filled in and
             come back to it later.</p>
           <h5>Last Answer - End of the scenario</h5>
-          <p>If an answer is the end of the scenario, set its next question order to <strong>-1</strong> this will
-            indicate to the platform to calculate the totals for the attempt and display the summary.</p>
+          <p>If an answer is the end of the scenario click the "End of Scenario" button on the answer form.</p>
           <h5>Exploring the Quiz</h5>
           <p>Once you have a few questions and answers set up, you can explore the quiz by clicking on the "Next
             Question" button in the answer card. This will take you to the question which the answer links to. </p>
@@ -162,7 +169,11 @@
                         <div class="">
                           <% if answer.next_question_order.present? %>
                             <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_<%= answer.next_question_order %>" aria-expanded="true" aria-controls="collapse_<%= question.order %>">
-                              Links to Question <%= answer.next_question_order %>
+                              <% if answer.next_question_order == -1 %>
+                                End of Scenario
+                              <% else %>
+                                Links to Question <%= answer.next_question_order %>
+                              <% end %>
                             </button>
                           <% else %>
                             No Next Question Set
@@ -180,54 +191,73 @@
       </div>
 
       <% @scenario.questions.order(:order).each do |question| %>
-        <div id="question_order_<%= question.order %>" class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded">
-          <h5>Question Order: <%= question.order %></h5>
-          <h3><%= simple_format(question.description) %></h3>
-          <h4><%= question.text %></h4>
+        <div id="question_order_<%= question.order %>"
+             class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded question-container">
+          <div class="info-container">
 
-          <% question.answers.each do |answer| %>
-            <div class="col-sm-6 col-md-4 col-lg-3">
-              <div class="card shadow-sm mb-5 bg-white rounded">
-                <div class="card-body text-center">
-                  <h5 class="card-title"><%= answer.text %></h5>
-                  <% if answer.next_question_order.present? %>
-                    <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-outline-primary btn-sm">
-                      Next Question: <%= answer.next_question_order %>
-                    </a>
-                  <% else %>
-                    <a href="#" class="btn btn-primary btn-sm disabled">No Next Question</a>
-                  <% end %>
-                </div>
-                <div class="card-footer small ">
-                  <table class="mx-auto">
-                    <tr>
-                      <th colspan="2"><em>Variable Modifiers:</em></th>
-                      <% if answer.variable_mods.present? %>
-                        <% answer.variable_mods&.each do |variable_mod| %>
-                        <tr>
-                          <td><%= variable_mod[0] %>:</td>
-                          <td><strong><%= variable_mod[1] %></strong></td>
-                        </tr>
-                      <% end %>
+            <h5 class="d-flex">Question Order: <%= question.order %>
+              <span id="question_order_<%= question.order %>_help_button" class="ms-auto question_help_button"><i class="fas fa-info-circle"></i></span>
+            </h5>
+            <h3><span class="extra-info">Description: </span><%= simple_format(question.description) %></h3>
+            <h4><span class="extra-info">Text: </span><%= question.text %></h4>
+            <div class="info-alert-box">
+              Above is the question info. You can see the order, the description and the text.
+            </div>
+          </div>
+
+          <div class="info-container row">
+            <div class="info-alert-box">
+              These are the Answers that a user will be able to select from the question. You can click on the "Next
+              Question" button and we'll move the page to that question.
+            </div>
+            <% question.answers.each do |answer| %>
+              <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 ">
+                <div class="card shadow-sm mb-5 bg-white rounded">
+                  <div class="card-body text-center">
+                    <h5 class="card-title"><%= answer.text %></h5>
+                    <% if answer.next_question_order.present? %>
+                      <a href="#question_order_<%= answer.next_question_order %>" class="btn btn-outline-primary btn-sm">
+                        <% if answer.next_question_order == -1 %>
+                          End of Scenario
+                        <% else %>
+                          Next Question: <%= answer.next_question_order %>
+                        <% end %>
+                      </a>
                     <% else %>
-                      <% @scenario.variables&.each do |variable| %>
-                        <tr>
-                          <td><%= variable %>:</td>
-                          <td><strong> nil </strong></td>
-                        </tr>
-                      <% end %>
-
+                      <a href="#" class="btn btn-primary btn-sm disabled">No Next Question</a>
                     <% end %>
-                    </tr>
-                  </table>
+                  </div>
+                  <div class="card-footer small ">
+                    <table class="mx-auto">
+                      <tr>
+                        <th colspan="2"><em>Variable Modifiers:</em></th>
+                        <% if answer.variable_mods.present? %>
+                          <% answer.variable_mods&.each do |variable_mod| %>
+                          <tr>
+                            <td><%= variable_mod[0] %>:</td>
+                            <td><strong><%= variable_mod[1] %></strong></td>
+                          </tr>
+                        <% end %>
+                      <% else %>
+                        <% @scenario.variables&.each do |variable| %>
+                          <tr>
+                            <td><%= variable %>:</td>
+                            <td><strong> nil </strong></td>
+                          </tr>
+                        <% end %>
 
-                </div>
-                <div class="card-footer text-center">
-                  <%= link_to "Edit Answer", edit_scenario_question_answer_path(@scenario, question, answer), class: "btn btn-warning btn-sm" %>
+                      <% end %>
+                      </tr>
+                    </table>
+
+                  </div>
+                  <div class="card-footer text-center">
+                    <%= link_to "Edit Answer", edit_scenario_question_answer_path(@scenario, question, answer), class: "btn btn-warning btn-sm" %>
+                  </div>
                 </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
 
           <div>
             <%= link_to "Edit Question", edit_scenario_question_path(@scenario, question), class: "btn btn-warning" %>
@@ -247,4 +277,4 @@
   </section>
 <% end %>
 
-
+<%= javascript_pack_tag 'scenario_builder_help' %>

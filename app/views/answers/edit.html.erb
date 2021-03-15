@@ -9,7 +9,7 @@
       <%= link_to 'Destroy', scenario_question_answer_path(@question.scenario_id, @question.id, @answer), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
     </div>
     <div class="text-center">
-    <%= link_to 'Back', scenario_path(@question.scenario_id, "question_order_#{@question.order.to_s}") %>
+    <%= link_to 'Back', scenario_path(@question.scenario_id, anchor: "question_order_#{@question.order.to_s}") %>
     </div>
   </div>
 </section>

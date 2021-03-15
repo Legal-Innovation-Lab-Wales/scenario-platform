@@ -2,20 +2,20 @@
   <div class="container-fluid">
     <div class="row" id="organisation">
       <h2>Organisation</h2>
-      <div class="col">
+      <div class="col-sm-12 col-lg-4">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">Name</span>
           <input type="text" class="form-control" value="<%= current_user.organisation.name %>" disabled />
           <i class="input-group-text name-marker fas fa-edit"></i>
         </div>
       </div>
-      <div class="col">
+      <div class="col-sm-12 col-md-6 col-lg-4">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">Scenario Count</span>
           <input type="text" class="form-control" value="<%= @scenarios.length %>" disabled />
         </div>
       </div>
-      <div class="col">
+      <div class="col-sm-12 col-md-6 col-lg-4">
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">User Count</span>
           <input type="text" class="form-control" value="<%= @users.all.where(approved: true).length %>" disabled />
@@ -64,6 +64,7 @@
     <% if @users.all.where(approved: false).length > 0 %>
       <div class="row" id="requested-users">
         <h2>Requested Users</h2>
+        <small class="pb-2 mobile-hint">Table too big? Try turing your phone sideways or checking out this page on your computer</small>
         <div class="col">
           <table class="table table-light table-hover">
             <thead>
@@ -76,7 +77,8 @@
               <th scope="col">Last Name</th>
               <th scope="col">Bio</th>
               <th scope="col">Email</th>
-              <th scope="col">Confirmation Status</th>
+              <th scope="col">Email Confirmed?</th>
+              <th scope="col">Delete User?</th>
             </tr>
             </thead>
             <tbody>
@@ -97,6 +99,7 @@
                     <i class="fas fa-times-circle"></i>
                   <% end %>
                 </td>
+                <td><%= link_to admin_delete_user_path(user), method: :delete, data: {confirm: "Are you sure?"} do %><i class="fas fa-trash"></i><% end %></td>
               </tr>
             <% end %>
             </tbody>
@@ -107,6 +110,7 @@
     <% end %>
     <div class="row" id="users">
       <h2>Users</h2>
+      <small class="pb-2 mobile-hint">Table too big? Try turing your phone sideways or checking out this page on your computer</small>
       <div class="col">
         <table class="table table-light table-hover">
           <thead>
@@ -115,7 +119,8 @@
               <th scope="col">Last Name</th>
               <th scope="col">Email</th>
               <th scope="col">Admin</th>
-              <th scope="col">Confirmation Status</th>
+              <th scope="col">Email Confirmed?</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -137,7 +142,7 @@
                   </a>
                 </td>
                 <td>
-                  <a class="admin-marker" href="/admin/users/<%= user.id %>/admin">
+                  <a class="admin-marker" <%= "href= \"/admin/users/#{user.id}/admin\"" unless current_user == user %>>
                     <% if user.admin %>
                       <i class="fas fa-check-circle"></i>
                     <% else %>
@@ -153,6 +158,13 @@
                       <i class="fas fa-times-circle"></i>
                     <% end %>
                   </a>
+                </td>
+                <td>
+                  <% unless current_user == user %>
+                    <%= link_to admin_delete_user_path(user), method: :delete, data: { confirm: "Are you sure?" } do %>
+                      <i class="fas fa-trash"></i>
+                    <% end %>
+                  <% end %>
                 </td>
               </tr>
             <% end %>
