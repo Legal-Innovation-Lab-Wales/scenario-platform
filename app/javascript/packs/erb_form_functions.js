@@ -54,32 +54,23 @@ if (scenario_form !== null) {
 
 if (end_scenario_button !== null) {
     if (document.getElementById('answer_next_question_order').value === "-1") {
-        // remove #next_question_order
         document.getElementById('next_question_order').remove()
-        // add #end_scenario_answer
         document.getElementById('next_question_order_container').insertAdjacentHTML('beforebegin', end_scenario_answer)
-        // button styling
         end_scenario_button.classList.remove('btn-sm', 'btn-outline-warning')
         end_scenario_button.classList.add('btn-warning')
         document.getElementById('end_of_quiz_icon').innerHTML = `<i class="fas fa-check"></i>`
     }
     end_scenario_button.addEventListener('click', () => {
         if (document.getElementById('next_question_order') !== null) {
-            // remove #next_question_order
             document.getElementById('next_question_order').remove()
-            // add #end_scenario_answer
             document.getElementById('next_question_order_container').insertAdjacentHTML('beforebegin', end_scenario_answer)
-            // button styling
             end_scenario_button.classList.remove('btn-sm', 'btn-outline-warning')
             end_scenario_button.classList.add('btn-warning')
             document.getElementById('end_of_quiz_icon').innerHTML = `<i class="fas fa-check"></i>`
         }
         else if (document.getElementById('end_scenario_answer') !== null) {
-            // add #next_question_order
             document.getElementById('end_scenario_answer').remove()
-            // remove #end_scenario_answer
             document.getElementById('next_question_order_container').insertAdjacentHTML('beforebegin', next_question_order )
-            // button styling
             end_scenario_button.classList.remove('btn-warning')
             end_scenario_button.classList.add('btn-sm', 'btn-outline-warning')
             document.getElementById('end_of_quiz_icon').innerHTML = `<i class="fas fa-times"></i>`
