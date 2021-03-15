@@ -193,7 +193,7 @@
       <% @scenario.questions.order(:order).each do |question| %>
         <div id="question_order_<%= question.order %>"
              class="row justify-content-md-center shadow p-3 mb-5 bg-white rounded question-container">
-          <div class="question-info-container">
+          <div class="info-container">
 
             <h5 class="d-flex">Question Order: <%= question.order %>
               <span id="question_order_<%= question.order %>_help_button" class="ms-auto question_help_button"><i class="fas fa-info-circle"></i></span>
@@ -205,7 +205,7 @@
             </div>
           </div>
 
-          <div class="answers-info-container row">
+          <div class="info-container row">
             <div class="info-alert-box">
               These are the Answers that a user will be able to select from the question. You can click on the "Next
               Question" button and we'll move the page to that question.

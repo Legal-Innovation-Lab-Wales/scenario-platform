@@ -4,6 +4,13 @@
   text-align: center;
   color: $ink-orange;
 
+  @media (max-width: 576px) {
+    .container-fluid {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
   .hidden {
     display: none;
   }
@@ -11,8 +18,26 @@
   .row {
     background-color: $section-bg-navy;
     margin: 10px 0;
-    padding: 15px;
     border-radius: 0.25rem;
+    padding: 10px 0;
+    @media (min-width: 576px) {
+      padding: 15px;
+    }
+
+    & > * {
+      padding-right: 0;
+      padding-left: 0;
+      @media (min-width: 576px) {
+        padding-right: calc(var(--bs-gutter-x) / 2);
+        padding-left: calc(var(--bs-gutter-x) / 2);
+      }
+    }
+
+    .mobile-hint {
+      @media (min-width: 576px) {
+        display: none;
+      }
+    }
   }
 
   #organisation {
@@ -41,56 +66,75 @@
     }
   }
 
-  table tr td {
-    padding: 0;
-
-    a {
-      display: block;
-      text-decoration: none;
-      color: black;
-      padding: 0.5rem 0.5rem;
+  table {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: block;
+    @media (min-width: 576px) {
+      display: table;
     }
 
-    .fa-check-circle {
-      color: green;
-    }
+    tr td {
+      padding: 0;
 
-    .fa-times-circle {
-      color: darkred;
-    }
+      a {
+        display: block;
+        text-decoration: none;
+        color: $ink-navy;
+        padding: 0.5rem 0.5rem;
+      }
 
-    .fa-trash {
-      color: $brand-danger-hover;
+      .fa-check-circle {
+        color: $brand-success;
+      }
 
-      &:hover {
-        color: $brand-danger;
+      .fa-times-circle {
+        color: darkred;
+      }
+
+      .fa-trash {
+        color: $brand-danger-hover;
+
+        &:hover {
+          color: $brand-danger;
+        }
       }
     }
   }
 
-   #attempts {
-     display: block;
+  #attempts {
+    display: block;
 
-     a {
-       display: block;
-       border: 1px solid white;
-       color: white;
-       margin-bottom: 15px;
-       text-decoration: none;
-       padding: 0.5rem 0.5rem;
-       border-radius: 10px;
+    a {
+      display: block;
+      border: 1px solid $brand-white;
+      color: $brand-white;
+      margin-bottom: 15px;
+      text-decoration: none;
+      padding: 0.5rem 0.5rem;
+      border-radius: 10px;
 
-       &:hover {
-         background-color: white;
-         color: black;
-       }
-     }
-   }
+      &:hover {
+        background-color: $brand-white;
+        color: $ink-navy;
+      }
+    }
+  }
 
   .question-answer {
-    border: 1px solid white;
+    border: 1px solid $brand-white;
     margin-bottom: 15px;
     padding: 0.5rem 0.5rem;
     border-radius: 10px;
+  }
+}
+
+.admin-view {
+  padding-top: 2rem;
+  background: $admin-background;
+
+  .admin-header {
+    background-color: $section-bg;
+    padding-bottom: 2rem;
   }
 }

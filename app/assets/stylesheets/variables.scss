@@ -5,19 +5,6 @@ $ink-navy: #161D3B;
 $ink-orange: #F38B00;
 $ink-white: #FFF;
 
-//$body-bg: #E9ECEF;
-$body-bg: #FCFCFC;
-$section-bg: #F7F7F8;
-$section-bg-transparent: #F7F7F8CC;
-$black-bg-transparent: #000000F2;
-
-$section-bg-navy: #181E34;
-
-$admin-background: repeating-linear-gradient(-40deg, #F8F8F8, #F8F8F8 60px, #F8F6F6 60px, #F8F6F6 200px
-);
-
-$breakpoint-mobile: 480px;
-
 // Brand Colors
 $brand-primary: #5130BA;
 $brand-primary-hover: #462AA2;
@@ -29,10 +16,39 @@ $brand-warning: #F38B00;
 $brand-warning-hover: #CC7400;
 $brand-danger: #D9270F;
 $brand-danger-hover: #BF220D;
+$brand-white: #FCFCFC;
 $brand-lab-background: image-url('LILW4.jpg');
 
 $answer-hover-background: #F7F7F822;
 
+//$body-bg: #E9ECEF;
+$body-bg: $brand-white;
+$section-bg: #F7F7F8;
+$section-bg-transparent: #F7F7F8CC;
+$black-bg-transparent: #000000F2;
+
+$section-bg-navy: #181E34;
+
+$admin-background: repeating-linear-gradient(-40deg, #F8F8F8, #F8F8F8 60px, #F8F6F6 60px, #F8F6F6 200px
+);
+
+$breakpoint-mobile: 480px;
+
 // Email Styling
 $email-background: #EDEDED;
 $email-header-bg: #D77373;
+
+// Extra Colors
+$full-transparent: #0000;
+$yellow-highlight: rgba(255, 255, 0, 0.75);
+$yellow-transparent: rgba(255, 255, 0, 0.25);
+$green-white: #a3cfbb;
+$green-transparent: #3F913640;
+$purple-white: #d7daf8;
+$teal: #055160;
+$teal-white: #cff4fc;
+$teal-white-border: #b6effb;
+
+// Form Switch Input
+$focus-switch-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%2863,145,54, 0.25%29'/%3e%3c/svg%3e");
+$checked-switch-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
