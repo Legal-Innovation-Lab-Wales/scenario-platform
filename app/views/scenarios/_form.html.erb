@@ -51,18 +51,26 @@
           </th>
         </tr>
 
-        <% scenario.variables_with_initial_values&.each do |variable| %>
+        <% unless scenario.variables_with_initial_values.present? %>
           <tr>
-            <td>
-              <input multiple='multiple' type='text' value='<%= variable[0] %>' name='scenario[variables][]' class="form-control">
-            </td>
-            <td>
-              <input multiple='multiple' type='number' value='<%= variable[1] %>' name='scenario[variable_initial_values][]' class="form-control">
-            </td>
-            <td>
-              <button type="button" class="btn btn-sm btn-danger remove_variable">Remove</button>
-            </td>
+            <td><input multiple='multiple' type='text' name='scenario[variables][]' class="form-control" required></td>
+            <td><input multiple='multiple' type='number' name='scenario[variable_initial_values][]' class="form-control" required></td>
+            <td><button type="button" class="btn btn-sm btn-danger remove_variable">Remove</button></td>
           </tr>
+        <% else %>
+          <% scenario.variables_with_initial_values&.each do |variable| %>
+            <tr>
+              <td>
+                <input multiple='multiple' type='text' value='<%= variable[0] %>' name='scenario[variables][]' class="form-control" required>
+              </td>
+              <td>
+                <input multiple='multiple' type='number' value='<%= variable[1] %>' name='scenario[variable_initial_values][]' class="form-control" required>
+              </td>
+              <td>
+                <button type="button" class="btn btn-sm btn-danger remove_variable">Remove</button>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
       </table>
 
