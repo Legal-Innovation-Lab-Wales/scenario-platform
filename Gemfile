@@ -40,6 +40,8 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Testing
   gem 'rspec-rails'
+  # Test Code Coverage
+  gem 'simplecov'
   # Faker for seeds
   gem 'faker'
   # Factory Bot for testing
