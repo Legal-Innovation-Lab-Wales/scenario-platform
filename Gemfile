@@ -42,6 +42,8 @@ group :development, :test do
   gem 'rspec-rails'
   # Test Code Coverage
   gem 'simplecov'
+  # Controller Testing
+  gem 'rails-controller-testing'
   # Faker for seeds
   gem 'faker'
   # Factory Bot for testing

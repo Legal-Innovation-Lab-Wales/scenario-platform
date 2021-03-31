@@ -48,7 +48,6 @@ RSpec.describe 'create scenario (POST scenarios)', type: :request do
   context 'when admin signed in' do
     before { sign_in admin }
     context 'when the request is valid' do
-
       before { post '/scenarios', params: valid_attributes, headers: headers }
 
       it 'creates a question' do
@@ -70,6 +69,19 @@ RSpec.describe 'create scenario (POST scenarios)', type: :request do
 
       it 'returns a failure message' do
         expect(response.body).to include('param is missing')
+      end
+    end
+
+    context 'they create a new scenario' do
+      before { get '/scenarios/new' }
+
+      it 'assigns new scenario instance variable' do
+        expect(assigns(:scenario).present?).to be true
+        expect(assigns(:scenario)).not_to be_persisted
+      end
+
+      it 'returns a status code 200' do
+        expect(response).to have_http_status(200)
       end
     end
   end
