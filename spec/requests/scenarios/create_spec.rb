@@ -60,6 +60,18 @@ RSpec.describe 'create scenario (POST scenarios)', type: :request do
       end
     end
 
+    context 'when the request in invalid' do
+      before { post '/scenarios', params: { scenario: { name: 'Foo' } }, headers: headers }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a failure message' do
+        expect(response.body).to include("Description can't be blank")
+      end
+    end
+
     context 'when no body in request' do
       before { post '/scenarios', params: {}, headers: headers }
 
@@ -69,19 +81,6 @@ RSpec.describe 'create scenario (POST scenarios)', type: :request do
 
       it 'returns a failure message' do
         expect(response.body).to include('param is missing')
-      end
-    end
-
-    context 'they begin a new scenario' do
-      before { get '/scenarios/new' }
-
-      it 'assigns new scenario instance variable' do
-        expect(assigns(:scenario).present?).to be true
-        expect(assigns(:scenario)).not_to be_persisted
-      end
-
-      it 'returns a status code 200' do
-        expect(response).to have_http_status(200)
       end
     end
   end
