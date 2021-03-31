@@ -72,7 +72,7 @@ RSpec.describe 'create scenario (POST scenarios)', type: :request do
       end
     end
 
-    context 'they create a new scenario' do
+    context 'they begin a new scenario' do
       before { get '/scenarios/new' }
 
       it 'assigns new scenario instance variable' do
