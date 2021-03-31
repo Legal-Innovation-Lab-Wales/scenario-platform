@@ -31,8 +31,8 @@ if (add_btn !== null) {
         const new_row = table.insertRow(-1), variable = new_row.insertCell(0),
             variable_initial_value = new_row.insertCell(1), remove_btn = new_row.insertCell(2)
 
-        variable.innerHTML = `<input multiple='multiple' type='text' name='scenario[variables][]' class='form-control'>`
-        variable_initial_value.innerHTML = `<input multiple='multiple' type='number' name='scenario[variable_initial_values][]' class='form-control'>`
+        variable.innerHTML = `<input multiple='multiple' type='text' name='scenario[variables][]' class='form-control' required>`
+        variable_initial_value.innerHTML = `<input multiple='multiple' type='number' name='scenario[variable_initial_values][]' class='form-control' required>`
         remove_btn.innerHTML = `<button type="button" class="btn btn-sm btn-danger remove_variable">Remove</button>`
 
         add_remove_listener()
