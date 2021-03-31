@@ -5,10 +5,6 @@ RSpec.describe 'create scenario (POST scenarios)', type: :request do
   let(:user) { create(:user) }
   let(:admin) { create(:user, :admin) }
   let(:alt_admin) { create(:user, :alt_admin) }
-  # let!(:scenarios) { create_list(:scenario, 10, user: admin) }
-  # let!(:alt_scenarios) { create_list(:scenario, 10, user: alt_admin) }
-  # let(:scenario_id) { scenarios.first.id }
-  # let!(:questions) { create_list(:question, 10, scenario: scenarios.first) }
 
   let(:headers) { { 'ACCEPT' => 'application/json' } }
 
