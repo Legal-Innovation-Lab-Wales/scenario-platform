@@ -20,7 +20,7 @@
         This is the name of your scenario. It should be allow participants to easily find the scenario they are looking
         for.
       </div>
-      <%= form.text_field :name, class: "form-control" %>
+      <%= form.text_field :name, class: "form-control", required: true %>
     </div>
 
     <div class="field mb-3">
@@ -30,7 +30,7 @@
         This is the description of your scenario. You should use this to provide general information about what the
         scenario is, you could also add some exposition to set the scene before participants attempt the scenario.
       </div>
-      <%= form.text_area :description, class: "form-control" %>
+      <%= form.text_area :description, class: "form-control", required: true %>
     </div>
 
     <div class="field mb-3 justify-content-center text-center">
