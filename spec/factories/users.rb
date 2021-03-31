@@ -20,6 +20,11 @@ FactoryBot.define do
       admin { true }
       organisation { association(:organisation) }
     end
+
+    trait :unapproved do
+      approved { false }
+      organisation { association(:organisation) }
+    end
   end
 
 end
