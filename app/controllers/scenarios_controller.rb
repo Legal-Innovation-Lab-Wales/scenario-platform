@@ -40,8 +40,6 @@ class ScenariosController < ApplicationController
         format.html { redirect_to(@scenario) }
         format.json { json_response(@scenario, :created) }
       end
-    else
-      render @scenario.errors, status: :unprocessable_entity
     end
   end
 
@@ -58,8 +56,6 @@ class ScenariosController < ApplicationController
         format.html { redirect_to(@scenario) }
         format.json { json_response(@scenario, :no_content) }
       end
-    else
-      render @scenario.errors, status: :unprocessable_entity
     end
   end
 
