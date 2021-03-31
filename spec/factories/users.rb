@@ -9,6 +9,7 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     confirmed_at { Date.today }
     terms { true }
+    approved { true }
 
     trait :admin do
       admin { true }

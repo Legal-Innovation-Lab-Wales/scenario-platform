@@ -10,7 +10,9 @@ RSpec.describe 'update scenario (PUT scenario)', type: :request do
 
   context 'when admin signed in' do
     before { sign_in admin }
-    let(:valid_attributes) { { scenario: { name: 'updated name' } } }
+    let(:valid_attributes) { { scenario: { name: 'updated name',
+                                           variables: %w[a b c d],
+                                           variable_initial_values: %w[1 2 3 4] } } }
     before { put "/scenarios/#{scenario_id}", params: valid_attributes, headers: headers }
 
     context 'when scenario exists' do
