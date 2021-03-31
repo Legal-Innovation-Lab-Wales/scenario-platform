@@ -30,7 +30,7 @@ RSpec.describe Scenario, type: :model do
     end
 
     context 'update_answers' do
-      it 'triggers update to answers variable mods' do
+      it 'triggers update to all answers variable mods' do
         scenario.answers.each { |answer| expect(answer).to receive(:update_variable_mods) }
         scenario.send(:update_answers)
       end
