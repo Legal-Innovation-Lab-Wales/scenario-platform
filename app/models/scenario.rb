@@ -13,7 +13,7 @@ class Scenario < ApplicationRecord
   after_update :update_answers
 
   # validations
-  validates_presence_of :user_id, :name, :description, :variables, :variable_initial_values, :variables_with_initial_values
+  validates_presence_of :user_id, :name, :description
 
   def first_question
     questions.find_by(order: 0)
@@ -24,6 +24,6 @@ class Scenario < ApplicationRecord
   def update_answers
     return unless answers.present?
 
-    answers.each { |answer| answer.update_variable_mods }
+    answers.each(&:update_variable_mods)
   end
 end
