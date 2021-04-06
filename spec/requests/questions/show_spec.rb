@@ -42,8 +42,31 @@ RSpec.describe 'show question (GET scenario_question)', type: :request do
         expect(assigns(:question)).not_to be_persisted
       end
 
+      it 'assigns the scenario instance variable' do
+        expect(assigns(:scenario)).to eq(scenarios.first)
+      end
+
       it 'assigns mapped array of questions ordered by their "order" column' do
-        expect(assigns(:question_orders)).to be_present
+        expect(assigns(:question_orders)).to eq(questions.map(&:order))
+      end
+
+      it 'returns a status code 200' do
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'and they edit a question' do
+      before { get "/scenarios/#{scenario_id}/questions/#{question_id}/edit" }
+
+      it 'assigns the scenario instance variable' do
+        expect(assigns(:scenario)).to eq(scenarios.first)
+      end
+
+      it 'assigns the question instance variable' do
+        expect(assigns(:question)).to eq(questions.first)
+      end
+
+      it 'assigns mapped array of questions ordered by their "order" column' do
         expect(assigns(:question_orders)).to eq(questions.map(&:order))
       end
 
