@@ -126,6 +126,6 @@ Coming soon
 
 ## Credits and licence
 
-[MIT License](https://github.com/Legal-Innovation-Lab-Wales/quiz-builder/blob/add-license-1/LICENSE)
+[MIT License](https://github.com/Legal-Innovation-Lab-Wales/scenario-platform/blob/main/LICENSE)
 
 [Legal Innovation Lab Wales](https://legaltech.wales/) 
