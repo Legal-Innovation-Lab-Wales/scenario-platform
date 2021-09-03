@@ -142,7 +142,7 @@
                   </a>
                 </td>
                 <td>
-                  <a class="admin-marker" <%= "href= \"/admin/users/#{user.id}/admin\"" unless current_user == user %>>
+                  <a class="admin-marker" <%= "href=/admin/users/#{user.id}/admin" unless current_user == user %>>
                     <% if user.admin %>
                       <i class="fas fa-check-circle"></i>
                     <% else %>
