@@ -28,6 +28,7 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     @question_orders = question_orders
+    @next_question_order = @question_orders.max + 1
   end
 
   # POST /scenarios/:scenario_id/questions
@@ -49,6 +50,7 @@ class QuestionsController < ApplicationController
   def edit
     @question
     @question_orders = question_orders
+    @next_question_order = @question_orders.max + 1
   end
 
   # PUT /scenarios/:scenario_id/questions/:id

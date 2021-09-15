@@ -46,11 +46,11 @@
       <% if @question_orders.present? %>
         <div>
           <p class="mb-0">Current used question orders: <b><%= @question_orders.to_sentence %></b></p>
-          <p class="mb-0">Next available order: <b><%= @question_orders.max + 1 %></b></p>
+          <p class="mb-0">Next available order: <b><%= @next_question_order %></b></p>
           <p>Unused values in current range: <b><%= ((@question_orders.min..@question_orders.max).to_a - @question_orders).to_sentence %></b></p>
         </div>
       <% end %>
-      <%= form.number_field :order, class: "form-control" %>
+      <%= form.number_field :order, class: "form-control", required: true, value: question.order || @next_question_order %>
     </div>
 
     <div class="actions text-center">
