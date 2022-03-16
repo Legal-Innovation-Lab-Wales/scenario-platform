@@ -28,7 +28,7 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     @question_orders = question_orders
-    @next_question_order = @question_orders.max + 1
+    @next_question_order = @question_orders.present? ? @question_orders.max + 1 : 0
   end
 
   # POST /scenarios/:scenario_id/questions
@@ -48,7 +48,6 @@ class QuestionsController < ApplicationController
 
   # GET /scenarios/:scenario_id/questions/:id/edit
   def edit
-    @question
     @question_orders = question_orders
     @next_question_order = @question_orders.max + 1
   end
@@ -96,10 +95,10 @@ class QuestionsController < ApplicationController
 
   def set_scenario
     @scenario = if current_user.admin?
-              current_user.organisation.scenarios.find(params[:scenario_id])
-            else
-              current_user.organisation.scenarios.available.find(params[:scenario_id])
-            end
+                  current_user.organisation.scenarios.find(params[:scenario_id])
+                else
+                  current_user.organisation.scenarios.available.find(params[:scenario_id])
+                end
   end
 
   def set_question
